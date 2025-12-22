@@ -1,7 +1,7 @@
 # God Bless USA
 
-### Short Story. 
-#### Written on the eve of Christmas 2024 & Published on the Base blockchain. 
+## Short Story. 
+### Written on the eve of Christmas 2024 & Published on the Base blockchain. 
 
 - Original Link: [https://app.manifold.xyz/txt/god-bless-usa](https://app.manifold.xyz/txt/god-bless-usa)  
 - Arweave Link: [https://epcafsgft2m47zorwvkaspakci4qlv2xvueip3rkxdmxxven5jpa.arweave.net/I8QCyMWemc_l0bVUCTwKEjkF11etCIfuKrjZe9SN6l4/](https://epcafsgft2m47zorwvkaspakci4qlv2xvueip3rkxdmxxven5jpa.arweave.net/I8QCyMWemc_l0bVUCTwKEjkF11etCIfuKrjZe9SN6l4/) 
@@ -15,4 +15,4 @@
 - Blockchain Block: [24132854](https://basescan.org/block/24132854)
 - HTML version of the story: [daqhris.com/god-bless-usa/story](https://daqhris.com/god-bless-usa/story.html)
 
-**Copyleft © 2025 [daqhris](https://daqhris.com)**
+**Copyright © 2024-2025 [daqhris](https://daqhris.com)**
