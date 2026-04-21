@@ -15,4 +15,19 @@
 - Blockchain Block: [24132854](https://basescan.org/block/24132854)
 - HTML version of the story: [daqhris.com/god-bless-usa/story](https://daqhris.com/god-bless-usa/story.html)
 
+---
+
+## Digital Performance App (`/app`)
+
+An AI-voiced web performance of the story is under active development in [`/app`](./app/) — a 13–16 minute, four-voice ceremony triggered on a visitor's smartphone via QR code, intended for the **61st International Art Exhibition — La Biennale di Venezia, 2026**, Bosnia and Herzegovina Pavilion (*Domus Diasporica*).
+
+The app is being scaffolded for submission to the **"Build with Opus 4.7"** hackathon organised by Anthropic and Cerebral Valley (April 21–26, 2026). Claude Opus 4.7 is used in two roles, both declared transparently:
+
+1. **Performance director at runtime** — each scene is directed by an Opus 4.7 API call that reads the script and emits SSML-annotated direction for an open-source text-to-speech engine (Kokoro-82M, with CosyVoice 2 and Chatterbox as fallbacks). *"Claude becomes the performance director; TTS becomes the actor"* — a plan already written into [`god-bless-usa_performance-script.md`](./god-bless-usa_performance-script.md) before the hackathon.
+2. **Co-developer of the app scaffolding** — the TypeScript code inside `/app` was written collaboratively with Claude Opus 4.7 as implementation partner; daqhris is primary author and creative director. Contributions are declared in commit trailers (`Co-Authored-By: Claude Opus 4.7`) and documented in [`/app/SUBMISSION.md`](./app/SUBMISSION.md).
+
+The source material at this repository root (story, HTML, PDFs, performance script) predates the hackathon and is treated as libretto. The `/app` folder contains the new work.
+
+---
+
 **Copyright © 2024-2026 [daqhris](https://daqhris.com)**
