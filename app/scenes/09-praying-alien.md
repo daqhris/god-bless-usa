@@ -1,15 +1,49 @@
 # Scene IX — The Praying Alien: Chain of Thoughts
 
-*Extracted verbatim from `god-bless-usa_performance-script.md` (root).*
+*Extracted from the master performance script. The section headers
+("Chain of Thoughts," "Train of Thoughts Signals," "Drumbeating Heart
+Pulse," "Drumbeating Gut Feeling") describe alien-tech mind-reading and
+would not plausibly be the alien's own interior monologue. They are
+voiced by THE EYEWITNESS as scribed report metadata, then THE PRAYING
+ALIEN provides the actual interior content. This avoids the headers
+being mistaken for spoken thought.*
+
+*Weave the eyewitness scribings in lightly — they should read as brief
+filing stamps, not as competing narration.*
+
+---
+
+### EYEWITNESS — SCENE HEADER
+*[Voice: THE EYEWITNESS, brief, scribed.]*
+*[Tone: filing the next sub-section of the report. Typewriter bed remains active.]*
+
+"Subject: One Praying Alien."
+
+*[Half-beat — 600 ms.]*
+
+"File: Distracting Chain-of-Thoughts."
+
+*[Pause — 1 second. Camera-cut to interior.]*
 
 ---
 
 ### SCENE IX — THE PRAYING ALIEN: Chain of Thoughts
 *[Voice: THE PRAYING ALIEN]*
 *[Acoustic shifts: drier, closer, no reverb. This is inside a mind, not inside a church.]*
-*[The transition from AMEN to this voice should feel like a camera cut.]*
+*[The transition from EYEWITNESS scribing to this voice should feel like a camera cut.]*
 
-#### SIGNAL I — Train of Thoughts
+---
+
+### EYEWITNESS — SIGNAL HEADER
+*[Voice: THE EYEWITNESS, brief.]*
+
+"Signal one. Train of Thoughts."
+
+*[Half-beat — 500 ms.]*
+
+---
+
+### PRAYING ALIEN — Train of Thoughts
 
 *[Pace: moderate at first, then accelerating. This mind has been triggered.]*
 
@@ -37,7 +71,16 @@ back into a whitened office?"
 
 ---
 
-#### SIGNAL II — Drumbeating Heart Pulse
+### EYEWITNESS — SIGNAL HEADER
+*[Voice: THE EYEWITNESS, brief.]*
+
+"Signal two. Drumbeating Heart Pulse."
+
+*[Half-beat — 500 ms.]*
+
+---
+
+### PRAYING ALIEN — Drumbeating Heart Pulse
 
 *[Pace accelerates — this is a heartbeat. The alien is distressed but trying to process rationally.]*
 
@@ -72,7 +115,16 @@ with green-colored dollar-denominated bills."
 
 ---
 
-#### SIGNAL III — Drumbeating Gut Feeling
+### EYEWITNESS — SIGNAL HEADER
+*[Voice: THE EYEWITNESS, brief.]*
+
+"Signal three. Drumbeating Gut Feeling."
+
+*[Half-beat — 500 ms.]*
+
+---
+
+### PRAYING ALIEN — Drumbeating Gut Feeling
 
 *[Pace slows — gut feelings move through a different layer. This is slower, more uncertain.]*
 

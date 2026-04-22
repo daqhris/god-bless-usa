@@ -3,6 +3,7 @@ export const VOICE_NAMES = [
   "church_leader",
   "chorus",
   "praying_alien",
+  "full_ensemble",
 ] as const;
 
 export type VoiceName = (typeof VOICE_NAMES)[number];
@@ -53,17 +54,28 @@ export const VOICE_BRIEFS: Record<VoiceName, VoiceBrief> = {
     acoustic:
       "Dry, close-mic feel, slight digital artifact or grain, no reverb. Neutral to slightly higher pitch.",
   },
+  full_ensemble: {
+    id: "full_ensemble",
+    display_name: "FULL ENSEMBLE",
+    character:
+      "Every voice together — THE CHURCH LEADER, all four CHORUS voices, and THE PRAYING ALIEN. Reserved for the two ritual moments where the entire community speaks as one: AMEN at the end of the leader's exhortation, and HUGS at the moment of warmth in the prayer. The Praying Alien — whose interior monologue has been running parallel to the mass — joins audibly here; the priest is no longer leading from above; the chorus is no longer responding from below. They share a single utterance.",
+    pacing: "Held, deliberate. Single word or short phrase. Like AMEN.",
+    acoustic:
+      "Heavy reverb, slight pitch spread from the layered voices, perceived as a collective expression rather than any individual.",
+  },
 };
 
 export const SOUND_DESIGN_FRAMEWORK = `
-| Moment                    | Sound direction                                                                |
-|---------------------------|--------------------------------------------------------------------------------|
-| Opening (pre-voice)       | 5s of stone-room church ambience: distant organ drone, soft reverberant silence |
-| CHORUS sections           | Heavy reverb tail, slight harmonic widening, pitch 2–3 semitones lower          |
-| PRAYING ALIEN sections    | Dry close-mic feel, slight digital artifact or grain, no reverb                 |
-| [SILENCE] stage direction | True silence for at least 4 full seconds — do not fill                          |
-| AMEN                      | Full reverb, held 2–3 seconds before decay                                      |
-| Close                     | Ambient church sound returns briefly (3s), then fades. Final silence: 5s        |
+| Moment                    | Sound direction                                                                                  |
+|---------------------------|--------------------------------------------------------------------------------------------------|
+| Opening invocation (00)   | Cathedral bell single toll, long decay; organ drone enters as bell decays. Use ambient "bell_then_drone". |
+| Mid-piece ambient cues    | Organ drone alone (kind="drone")                                                                 |
+| CHORUS sections           | Heavy reverb tail, slight harmonic widening, pitch 2–3 semitones lower                            |
+| PRAYING ALIEN sections    | Dry close-mic feel, slight digital artifact or grain, no reverb                                  |
+| [SILENCE] stage direction | True silence for at least 4 full seconds — do not fill                                           |
+| AMEN                      | FULL ENSEMBLE voice (priest + chorus + alien together), heavy reverb, held 2–3 seconds before decay |
+| HUGS                      | FULL ENSEMBLE voice — collective embrace; same convention as AMEN                                |
+| Close                     | Organ drone returns briefly (3s), then fades. Final silence: 5s                                  |
 `.trim();
 
 export const PAUSE_MARKER_CONVENTION = `

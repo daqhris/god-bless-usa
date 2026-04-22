@@ -1,13 +1,11 @@
 # Scene I — The Eyewitness Report
 
 *Extracted from `god-bless-usa_performance-script.md` (root), April 2026.*
-*Used verbatim — do not rewrite.*
-
----
-
-### PRELUDE
-*[Church ambient opens — 5 seconds of organ drone, stone room.]*
-*[Fade to near-silence but not complete silence — a thin drone underneath remains throughout.]*
+*Used verbatim — do not rewrite. The PRELUDE block that opened this scene
+in the original script has moved to Scene 0 (Opening Invocation), where
+the cathedral bell, organ, premonitory chorus, and report header now
+prepare the listener. The EYEWITNESS continues here with the actual
+incident report.*
 
 ---
 
@@ -15,6 +13,7 @@
 *[Voice: THE EYEWITNESS]*
 *[Tone: Neutral. Clipped. Each clause is a filed observation.]*
 *[Pace: Slow. Pause after every | marker.]*
+*[Typewriter underlay continues from Scene 0 into this scene.]*
 
 "USA's overseas-based beings were seen praying | in a protesting church, |
 bending heads upwards, |

@@ -38,6 +38,15 @@ const AmbientSegmentSchema = z.object({
   type: z.literal("ambient"),
   cue: z.string(),
   duration_ms: z.number(),
+  // Which synthesizer to dispatch to:
+  //   "drone"            — additive sine partials, A2 fundamental, slow LFO.
+  //                        Use for in-piece ambient and the closing fade.
+  //   "bell"             — single church bell with inharmonic partials, sharp
+  //                        attack, exponential decay.
+  //   "bell_then_drone"  — bell tolls, drone enters as bell decays. Use for
+  //                        the opening invocation (Scene 0) and any moment a
+  //                        new section is being formally entered.
+  kind: z.enum(["drone", "bell", "bell_then_drone"]),
   director_note: z.string(),
 });
 

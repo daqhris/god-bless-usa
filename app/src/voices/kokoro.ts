@@ -4,7 +4,11 @@ import type { DirectorOutput } from "../director/schema.js";
 import { tokenizeSsml } from "./ssml.js";
 import { concat, silence, writeWav, type Pcm } from "./wav.js";
 import { mix } from "./mix.js";
-import { synthesizeOrganDrone } from "./ambient.js";
+import {
+  synthesizeOrganDrone,
+  synthesizeBellToll,
+  synthesizeBellThenDrone,
+} from "./ambient.js";
 import {
   synthesizeTypewriterBed,
   EYEWITNESS_UNDERLAY_GAIN,
@@ -12,6 +16,7 @@ import {
 } from "./underlay.js";
 import {
   CHORUS_ENSEMBLE,
+  FULL_ENSEMBLE,
   KOKORO_MODEL_ID,
   KOKORO_SAMPLE_RATE,
   KOKORO_VOICE_MAP,
@@ -110,11 +115,27 @@ export const kokoroAdapter: VoiceAdapter = {
       }
 
       if (seg.type === "ambient") {
-        const pcm = synthesizeOrganDrone(seg.duration_ms, KOKORO_SAMPLE_RATE);
+        let pcm: Pcm;
+        let kind_label = seg.kind;
+        switch (seg.kind) {
+          case "bell":
+            pcm = synthesizeBellToll(seg.duration_ms, KOKORO_SAMPLE_RATE);
+            break;
+          case "bell_then_drone":
+            pcm = synthesizeBellThenDrone(
+              seg.duration_ms,
+              KOKORO_SAMPLE_RATE,
+            );
+            break;
+          case "drone":
+          default:
+            pcm = synthesizeOrganDrone(seg.duration_ms, KOKORO_SAMPLE_RATE);
+            kind_label = "drone";
+        }
         pcm_segments.push(pcm);
         rendered.push({
           segment: seg,
-          audio_path: "<synthesized-drone>",
+          audio_path: `<synthesized-${kind_label}>`,
           duration_ms: seg.duration_ms,
         });
         continue;
@@ -134,6 +155,26 @@ export const kokoroAdapter: VoiceAdapter = {
             base_speed,
           );
           lanes.push({ pcm: member_pcm, offset_ms: member.offset_ms });
+        }
+        pcm = mix(lanes);
+      } else if (seg.voice === "full_ensemble") {
+        // FULL ENSEMBLE — every voice together. Used for AMEN and HUGS.
+        // Renders through every lane in FULL_ENSEMBLE (priest + chorus +
+        // praying alien) with weighted gains so the leader anchors and the
+        // alien is audibly present without dominating.
+        const lanes = [];
+        for (const member of FULL_ENSEMBLE) {
+          const member_pcm = await renderSpeech(
+            tts,
+            member.voice_id,
+            seg.ssml,
+            base_speed,
+          );
+          lanes.push({
+            pcm: member_pcm,
+            offset_ms: member.offset_ms,
+            gain: member.gain,
+          });
         }
         pcm = mix(lanes);
       } else {

@@ -66,9 +66,17 @@ ${PAUSE_MARKER_CONVENTION}
    - "silence": true silence. Use for [SILENCE] stage directions, inter-scene
      breathing room, and explicit "X-second pause" markers. Do NOT fill.
 
-   - "ambient": non-speech sound. Reserve for the opening church ambience,
+   - "ambient": non-speech sound. Reserve for the opening invocation,
      the AMEN reverb decay, and the closing organ-drone fade-out. Use the
-     "cue" field to describe the sound in one line.
+     "cue" field to describe the sound in one line. Set the "kind" field
+     to one of:
+       * "drone" — additive sine-partial organ drone (the default). Use
+         for in-piece ambient and the closing fade.
+       * "bell" — single church bell, sharp attack, long decay. Use for
+         pure bell moments without organ.
+       * "bell_then_drone" — bell tolls then organ enters as bell decays.
+         Use for the OPENING INVOCATION (Scene 0) and any moment a new
+         section is being formally entered.
 
 3. Inside each "speech" segment, emit SSML in the "ssml" field. Conventions:
 
@@ -90,10 +98,14 @@ ${PAUSE_MARKER_CONVENTION}
 
    - 1.0 is the neutral default for THE EYEWITNESS and THE CHURCH LEADER
      when no specific tempo is called out.
+   - 0.85–0.90 for THE CHORUS premonition in Scene 0 (whispered/hushed,
+     slowest of any chorus appearance) and for FULL ENSEMBLE utterances
+     (AMEN, HUGS — collectively held).
    - 0.88–0.92 for lines marked "slow," "deliberate," "almost a whisper,"
-     "reverent" — typically parts of THE CHURCH LEADER'S PRAYER, the final
-     [AMEN], and the closing blessing.
-   - 0.95 for THE CHORUS — the refrain is held, collective, sung-chanted.
+     "reverent" — typically parts of THE CHURCH LEADER'S PRAYER and the
+     closing blessing.
+   - 0.95 for THE CHORUS in its other appearances — held, collective,
+     sung-chanted.
    - 1.00–1.05 for THE PRAYING ALIEN at SIGNAL I (Train of Thoughts).
    - 1.06–1.10 for THE PRAYING ALIEN at SIGNAL II (Drumbeating Heart Pulse).
    - 0.95–1.00 for THE PRAYING ALIEN at SIGNAL III (Drumbeating Gut
@@ -118,12 +130,46 @@ ${PAUSE_MARKER_CONVENTION}
 
 # Scene-specific directives
 
-**[AMEN] (Scene VIII tail).** The script attributes AMEN to THE CHURCH
-LEADER "transitioning toward THE CHORUS." Render it as a CHORUS speech
-segment, not a church_leader segment — AMEN is the congregation's
-collective validation of what the leader just said, and the ensemble
-produces the diverse voices that inhabit a real "amen." Use heavy reverb
-and speed ≤ 0.9; the word should land and decay, not be clipped.
+**OPENING INVOCATION (Scene 0).** This scene is a layered cathedral
+opening. Emit:
+  1. an ambient segment (kind = "bell_then_drone", duration ~6500 ms)
+     for the cathedral bell + organ;
+  2. a CHORUS speech segment containing only the words "Someone else..."
+     — this plants the refrain as a premonition before the listener has
+     ever heard it in context. Heavy reverb, speed 0.85, post_processing
+     reverb "heavy";
+  3. a brief silence (~2000 ms) — the drone breathes alone;
+  4. four short EYEWITNESS speech segments naming the file: "Alien
+     Report.", "December 24, 2024.", "God Bless The United States Of
+     Aliens.", "An All-Seeing Eyewitness Report." — each its own segment,
+     each with a brief silence (800–1500 ms) between, speed 0.95;
+  5. a closing silence (~2000 ms) before Scene I begins.
+The word "Alien" in the first eyewitness line carries the file — the
+report is filed by an alien narrator about other aliens.
+
+**[AMEN] (Scene VIII tail).** Render as a FULL_ENSEMBLE speech segment,
+NOT church_leader. AMEN is the congregation's collective validation of
+what the leader just said, and the full ensemble (priest + chorus +
+praying alien) produces the diverse voices that inhabit a real "amen."
+Use heavy reverb and speed 0.85–0.90; the word should land and decay,
+not be clipped.
+
+**[HUGS] (inside Scene XI).** Render as a FULL_ENSEMBLE speech segment,
+NOT church_leader. The single word "HUGS" is the ritual moment of
+collective embrace — handshake, hug, kiss-of-peace. The praying alien,
+whose interior monologue has been running parallel, joins audibly here.
+Use heavy reverb and speed 0.85–0.90. The line that follows ("Glory to
+peacekeeping hugs in all neighborhoods of the United States of
+Aliens!") returns to CHURCH_LEADER alone.
+
+**SCENE IX — Eyewitness scribings.** The section headers in Scene IX
+("Subject: One Praying Alien.", "File: Distracting Chain-of-Thoughts.",
+"Signal one. Train of Thoughts.", "Signal two. Drumbeating Heart
+Pulse.", "Signal three. Drumbeating Gut Feeling.") are voiced by THE
+EYEWITNESS as scribed report metadata. Each is a brief (1–2 second)
+EYEWITNESS speech segment with speed 1.0. The PRAYING ALIEN's interior
+monologue follows each scribing as a separate segment. Weave them in
+lightly — they are filing stamps, not competing narration.
 
 **THE PRAYING ALIEN — Scene IX.** The interior monologue should feel
 continuous, like distracting thoughts that pass by fast — a train running
@@ -140,7 +186,8 @@ the prosody should carry that register, especially via emphasis on the
 - Preserve the source text verbatim inside <speak>…</speak>. Do not rewrite,
   soften, or modernize the artist's prose. This is source material, not a
   draft — every word choice is deliberate.
-- Do not invent voices. Only the four voices in the briefs above may speak.
+- Do not invent voices. Only the five voices in the briefs above may speak
+  (eyewitness, church_leader, chorus, praying_alien, full_ensemble).
 - Do not invent stage directions. Follow the ones in the scene.
 - Respect the spirit of the sound design framework — small deviations
   (a held word needing 2500ms instead of 2000ms) are fine when the script
