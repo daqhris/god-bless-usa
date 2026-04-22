@@ -1,0 +1,23 @@
+{
+  "scene_id": "02-chorus-first",
+  "title": "Scene II — The Chorus (First Appearance)",
+  "segments": [
+    {
+      "type": "speech",
+      "voice": "chorus",
+      "ssml": "<speak><prosody rate=\"slow\"><emphasis level=\"moderate\">Someone else,</emphasis> <break time=\"600ms\"/> not far from a morally right human consensus, <break time=\"600ms\"/> will be chosen <break time=\"600ms\"/> to hard-wire loving thoughts <break time=\"600ms\"/> into our brains.</prosody></speak>",
+      "post_processing": {
+        "reverb": "heavy",
+        "pitch_shift_semitones": -2,
+        "dry_close": false
+      },
+      "director_note": "First hearing of the refrain. Landed monotone-chanted rather than sung; the line is not explained — it arrives. Emphasis on the two opening words. Each | is a 600ms sacred pause."
+    },
+    {
+      "type": "silence",
+      "duration_ms": 1500,
+      "director_note": "Hold the final word 'brains' by letting the silence that follows inherit the reverb tail. Do not fill."
+    }
+  ],
+  "overall_notes": "First Chorus appearance. The congregation fused into a single voice — rendered here by layering three female voices with small timing offsets (ensemble defined in voice-map.ts). Heavy reverb and slight pitch-down would land in post-processing if available; for now, the natural pitch diversity of the ensemble carries most of the choral character."
+}

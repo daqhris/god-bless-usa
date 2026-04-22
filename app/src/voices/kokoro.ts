@@ -3,7 +3,10 @@ import type { VoiceAdapter, RenderedScene } from "./adapter.js";
 import type { DirectorOutput } from "../director/schema.js";
 import { tokenizeSsml } from "./ssml.js";
 import { concat, silence, writeWav, type Pcm } from "./wav.js";
+import { mix } from "./mix.js";
+import { synthesizeOrganDrone } from "./ambient.js";
 import {
+  CHORUS_ENSEMBLE,
   KOKORO_MODEL_ID,
   KOKORO_SAMPLE_RATE,
   KOKORO_VOICE_MAP,
@@ -97,26 +100,37 @@ export const kokoroAdapter: VoiceAdapter = {
       }
 
       if (seg.type === "ambient") {
-        process.stderr.write(
-          `kokoro: ambient cue "${seg.cue}" skipped (PR #3 will wire ambient assets). Inserting silence ${seg.duration_ms}ms.\n`,
-        );
-        const pcm = silence(seg.duration_ms, KOKORO_SAMPLE_RATE);
+        const pcm = synthesizeOrganDrone(seg.duration_ms, KOKORO_SAMPLE_RATE);
         pcm_segments.push(pcm);
         rendered.push({
           segment: seg,
-          audio_path: "<skipped-ambient>",
+          audio_path: "<synthesized-drone>",
           duration_ms: seg.duration_ms,
         });
         continue;
       }
 
-      const voice_id = KOKORO_VOICE_MAP[seg.voice];
-      if (!voice_id) {
-        throw new Error(`No Kokoro voice mapped for "${seg.voice}".`);
+      let pcm: Pcm;
+      if (seg.voice === "chorus") {
+        // Layer the ensemble: render the same SSML through each voice and sum
+        // with small timing offsets to produce choral texture.
+        const lanes = [];
+        for (const member of CHORUS_ENSEMBLE) {
+          const member_pcm = await renderSpeech(tts, member.voice_id, seg.ssml);
+          lanes.push({ pcm: member_pcm, offset_ms: member.offset_ms });
+        }
+        pcm = mix(lanes);
+      } else {
+        const voice_id = KOKORO_VOICE_MAP[seg.voice];
+        if (!voice_id) {
+          throw new Error(`No Kokoro voice mapped for "${seg.voice}".`);
+        }
+        pcm = await renderSpeech(tts, voice_id, seg.ssml);
       }
-      const pcm = await renderSpeech(tts, voice_id, seg.ssml);
       pcm_segments.push(pcm);
-      const duration_ms = Math.round((pcm.samples.length / pcm.sample_rate) * 1000);
+      const duration_ms = Math.round(
+        (pcm.samples.length / pcm.sample_rate) * 1000,
+      );
       rendered.push({
         segment: seg,
         audio_path: "<inline>",
