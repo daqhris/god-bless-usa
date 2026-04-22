@@ -1,7 +1,18 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
+import type { ZodType } from "zod";
 import { DirectorOutputSchema, type DirectorOutput } from "./schema.js";
 import { DIRECTOR_SYSTEM_PROMPT } from "./prompts.js";
+
+// @anthropic-ai/sdk 0.88–0.90 types zodOutputFormat against Zod v3's ZodType,
+// but the helper's *runtime* calls Zod v4's toJSONSchema. Our schema is built
+// with the zod/v4 API (see schema.ts) so the runtime path is correct; only
+// the TypeScript signature lags the implementation. The cast below makes the
+// lag explicit rather than silencing it with `any`. Revisit when the SDK
+// updates its helper types to v4.
+const directorSchemaForSdk = DirectorOutputSchema as unknown as ZodType<
+  DirectorOutput
+>;
 
 export interface DirectSceneInput {
   scene_id: string;
@@ -35,7 +46,7 @@ export async function directScene(
     ],
     output_config: {
       effort: "high",
-      format: zodOutputFormat(DirectorOutputSchema),
+      format: zodOutputFormat(directorSchemaForSdk),
     },
     messages: [
       {
