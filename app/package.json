@@ -13,6 +13,7 @@
     "render:scene": "tsx src/render.ts",
     "render:audio": "tsx src/render-audio.ts",
     "render:all": "tsx src/render-all.ts",
+    "render:all-scenes": "tsx src/render-all-scenes.ts",
     "serve": "serve public -l 5173",
     "typecheck": "tsc --noEmit"
   },

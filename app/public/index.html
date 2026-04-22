@@ -59,25 +59,41 @@
         padding-top: 1.8rem;
         margin-top: 2.4rem;
       }
+      section.master {
+        border: 1px solid var(--accent);
+        padding: 1.5rem;
+        margin-top: 3rem;
+        background: rgba(138, 44, 44, 0.04);
+      }
       h2 {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         font-weight: 600;
-        margin: 0 0 0.5rem;
+        margin: 0 0 0.45rem;
       }
       p.note {
         color: var(--muted);
-        font-size: 0.95rem;
-        margin: 0 0 1rem;
+        font-size: 0.92rem;
+        margin: 0 0 0.8rem;
       }
       audio {
         width: 100%;
-        margin-top: 0.6rem;
+        margin-top: 0.5rem;
       }
       .scene-meta {
         color: var(--muted);
-        font-size: 0.85rem;
-        letter-spacing: 0.02em;
+        font-size: 0.82rem;
+        letter-spacing: 0.03em;
         text-transform: uppercase;
+        margin: 0 0 0.2rem;
+      }
+      .missing {
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-style: italic;
+        padding: 0.6rem 0.8rem;
+        border: 1px dashed var(--rule);
+        border-radius: 2px;
+        margin-top: 0.4rem;
       }
       .warning {
         background: rgba(138, 44, 44, 0.08);
@@ -108,19 +124,217 @@
     <div class="warning">
       <strong>Headphones recommended.</strong> The piece is directed for intimate,
       non-looping playback through a single visitor's headphones. This preview
-      page plays each scene as a standalone audio file.
+      page plays each scene as a standalone audio file, with a combined master
+      track at the bottom.
     </div>
+
+    <section class="master">
+      <p class="scene-meta">Complete Performance</p>
+      <h2>God Bless The United States Of Aliens — Master Track</h2>
+      <p class="note">
+        All thirteen scenes concatenated into a single ~15-minute performance,
+        with a 1.5-second gap between scenes. Produced by
+        <code>npm run render:all-scenes</code>.
+      </p>
+      <audio
+        controls
+        preload="none"
+        src="assets/audio/god-bless-usa.wav"
+      ></audio>
+      <p class="missing">
+        Available after you run <code>npm run render:all-scenes</code> locally
+        with your Anthropic API key set. The thirteen per-scene WAVs will
+        populate the sections below at the same time.
+      </p>
+    </section>
 
     <section>
       <p class="scene-meta">Scene I</p>
       <h2>The Eyewitness Report</h2>
       <p class="note">
-        Voice: <em>THE EYEWITNESS</em>. Bureaucratic, clipped, filing an incident
-        report from outside the atmosphere. Rendered with Kokoro-82M.
+        Voice: <em>THE EYEWITNESS</em>. Bureaucratic, clipped, filing an
+        incident report from outside the atmosphere.
       </p>
       <audio controls preload="metadata" src="assets/audio/01-eyewitness.wav">
         Your browser does not support the <code>&lt;audio&gt;</code> element.
       </audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene II</p>
+      <h2>The Chorus (First Appearance)</h2>
+      <p class="note">
+        Voice: <em>THE CHORUS</em>. The congregation fused into a single voice —
+        rendered by layering three female Kokoro voices with small timing
+        offsets.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/02-chorus-first.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene III</p>
+      <h2>Church Leader's Speech</h2>
+      <p class="note">
+        Voice: <em>THE CHURCH LEADER</em>. Warm authority, pastoral irony.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/03-church-leader-speech.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene IV</p>
+      <h2>The Chorus (Second Appearance)</h2>
+      <p class="note">
+        Slightly warmer than the first appearance — the congregation has
+        settled into worship.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/04-chorus-second.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene V</p>
+      <h2>Church Leader's Speech (continued)</h2>
+      <p class="note">
+        The preacher is now in rhythm. Pacing picks up, then deliberately
+        slows on "loud siren."
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/05-church-leader-speech-continued.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene VI</p>
+      <h2>The Chorus (Third Appearance)</h2>
+      <p class="note">
+        Fuller now. The congregation responds to the absolution with the
+        refrain.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/06-chorus-third.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene VII</p>
+      <h2>Church Leader's Speech (continued) + [SILENCE]</h2>
+      <p class="note">
+        The longest unbroken passage. Ends with four full seconds of silence.
+        The visitor must sit inside it.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/07-church-leader-silence.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene VIII</p>
+      <h2>Church Leader's Speech (concluded) + [AMEN]</h2>
+      <p class="note">
+        Quiet, almost to oneself. Ends on the only one-word moment of the
+        piece.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/08-church-leader-amen.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene IX</p>
+      <h2>The Praying Alien — Chain of Thoughts</h2>
+      <p class="note">
+        Voice: <em>THE PRAYING ALIEN</em>. Interior monologue, drier acoustic,
+        three signals (train / heart pulse / gut feeling).
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/09-praying-alien.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene X</p>
+      <h2>The Chorus (Fourth and Final Appearance)</h2>
+      <p class="note">
+        The alien has rejoined the congregation. The fullest, most inhabited
+        version of the refrain.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/10-chorus-fourth.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene XI</p>
+      <h2>Church Leader's Prayer</h2>
+      <p class="note">
+        Prayer, not sermon. Intimate. The preacher speaks toward something
+        above or beyond. Ends on "HUGS".
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/11-church-leader-prayer.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene XII</p>
+      <h2>The Chorus (Final Echo)</h2>
+      <p class="note">
+        Slowest of all four appearances. Each phrase a bell tolling.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/12-chorus-final-echo.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene XIII</p>
+      <h2>The Blessing</h2>
+      <p class="note">
+        Almost a whisper. Merry Christmas. Happy New Year. Organ drone returns.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/13-blessing.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Scene XIV (optional)</p>
+      <h2>Coda — The Eyewitness Certification</h2>
+      <p class="note">
+        The filing of incident reports resumes. The ceremony is concluded; the
+        record is sealed. Pass <code>--include-coda</code> to
+        <code>render:all-scenes</code> to include it.
+      </p>
+      <audio controls preload="metadata" src="assets/audio/14-coda.wav"></audio>
     </section>
 
     <footer>
@@ -130,7 +344,8 @@
         Performance by
         <a href="https://daqhris.com">Chris-Armel Iradukunda (daqhris)</a>
         in collaboration with Claude Opus 4.7 (performance director at runtime,
-        co-developer of this app). Kokoro-82M voice engine © hexgrad, Apache-2.0.
+        co-developer of this app). Kokoro-82M voice engine © hexgrad,
+        Apache-2.0.
       </p>
       <p>
         Submission to the <em>Build with Opus 4.7</em> hackathon (April 2026).

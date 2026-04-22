@@ -65,27 +65,30 @@ cd app
 cp .env.example .env         # fill in ANTHROPIC_API_KEY
 npm install
 
-# Step-by-step:
-npm run render:scene -- scenes/01-eyewitness.md --out dist/directions
-npm run render:audio -- dist/directions/01-eyewitness.json --out public/assets/audio
-
-# Or in one go:
+# Render ONE scene end-to-end (director + audio):
 npm run render:all -- scenes/01-eyewitness.md
 
-# Then preview in a browser:
+# Render ALL thirteen scenes and concatenate into a ~15-minute master WAV:
+npm run render:all-scenes
+# add --include-coda to append Scene XIV
+# add --no-master to skip the concatenation step
+# add --gap-ms 2000 to change the inter-scene silence (default 1500 ms)
+
+# Preview in a browser (same folder GitHub Pages will serve):
 npm run serve
 # open http://localhost:5173
 ```
 
-First run downloads the Kokoro-82M ONNX model (~80 MB) into the HuggingFace transformers cache; subsequent runs are instant.
+First run downloads the Kokoro-82M ONNX model (~80 MB) into the HuggingFace transformers cache; subsequent runs are instant. A full 13-scene render on a modern laptop takes roughly 6–10 minutes (TTS-bound; the director calls are cached after scene 1).
 
-**Rendering without an API key.** A hand-crafted fixture lives at `scenes/fixtures/01-eyewitness.example.json`. You can render it to audio without calling Claude:
+**Rendering without an API key (fixtures).** Hand-crafted direction fixtures live under `scenes/fixtures/` — one per representative scene. You can render them to audio without calling Claude:
 
 ```bash
-npm run render:audio -- scenes/fixtures/01-eyewitness.example.json
+npm run render:audio -- scenes/fixtures/01-eyewitness.example.json    # Eyewitness
+npm run render:audio -- scenes/fixtures/02-chorus-first.example.json  # Chorus ensemble
 ```
 
-This validates the Kokoro adapter + SSML parser + WAV writer end-to-end on zero API cost.
+These validate the Kokoro adapter + SSML parser + WAV writer end-to-end at zero API cost, and specifically let reviewers hear the chorus layering and the synthesized drone without touching an Anthropic key.
 
 ## Opus 4.7 configuration (see `src/director/index.ts`)
 
@@ -99,18 +102,30 @@ This validates the Kokoro adapter + SSML parser + WAV writer end-to-end on zero 
 
 - **Model:** `onnx-community/Kokoro-82M-v1.0-ONNX` — 82M parameters, Apache-2.0, ONNX quantized (`q8`), runs on CPU.
 - **Sample rate:** 24 kHz mono.
-- **Voice map** (`src/voices/voice-map.ts`): EYEWITNESS → `af_heart` · CHURCH LEADER → `bm_george` · CHORUS → `bf_emma` (will be layered for choral texture in PR #3) · PRAYING ALIEN → `am_puck`.
+- **Voice map** (`src/voices/voice-map.ts`): EYEWITNESS → `af_heart` · CHURCH LEADER → `bm_george` · CHORUS → ensemble (see below) · PRAYING ALIEN → `am_puck`.
 - **SSML handling:** `<speak>` wrapper + `<break time="Nms"/>` for inline pauses. `<emphasis>` and `<prosody>` tags are stripped before phonemization (they're hints for the director's intent; Kokoro's natural prosody handles the delivery). Scene-level `[SILENCE]` / `[3-second pause]` become explicit silence segments.
 - **`__dirname` shim:** kokoro-js 1.2.x loads bundled voice files via `import.meta.dirname`, which requires Node ≥ 20.11. The adapter also sets a global `__dirname` as a fallback so older Node 20.x users get a graceful path rather than a confusing `paths[0]` error. `engines` in `package.json` still declares the ≥ 20.11 requirement.
+
+## Chorus — "the congregation fused into a single voice"
+
+Rather than attempt phase-vocoder pitch shifting in pure JS, the adapter renders each CHORUS speech segment through a **three-voice ensemble** (`bf_emma`, `af_bella`, `af_nicole` — all graded B or better in Kokoro's voice table) and sums the results with small timing offsets (0, +25 ms, −15 ms). The natural pitch variance between the three voices produces choral texture; the timing offsets create the slight desync that distinguishes a congregation from a unison chant. The ensemble is defined in `src/voices/voice-map.ts#CHORUS_ENSEMBLE` and can be edited without touching the adapter.
+
+See `src/voices/mix.ts` for the mixer (pad-and-sum with peak clipping). No DSP dependencies beyond pure-TypeScript arithmetic.
+
+## Ambient cues — synthesized organ drone
+
+The script calls for a stone-room church ambience in the PRELUDE, AMEN decay tail, and closing fade. For licence safety (no sampled assets) and reproducibility, the adapter **synthesizes** these cues as additive sine partials (fundamental A2 / octave / perfect fifth / octave-of-fifth) with a slow amplitude LFO and gentle fade in / out. It's not a real pipe organ — it reads as ambient presence. See `src/voices/ambient.ts`.
+
+Real reverb on speech, and the "thin drone underneath throughout" that the sound-design framework calls for, are post-mix concerns deferred to a later PR.
 
 ## Milestones
 
 - ~~PR #1 — Scaffold + director pipeline for one scene end-to-end. No audio yet.~~ ✅
-- **PR #2 (this PR)** — Kokoro-82M voice adapter + Scene I rendered to WAV + local-serve preview.
-- **PR #3** — All 13 scenes rendered. Chorus voice layered (multiple passes summed with small pitch/timing offsets). Ambient cues wired in.
+- ~~PR #2 — Kokoro-82M voice adapter + Scene I rendered to WAV + local-serve preview.~~ ✅
+- **PR #3 (this PR)** — All 13 scenes extracted; chorus ensemble layering; synthesized ambient cues; `render:all-scenes` batch CLI with master-WAV concatenation.
 - **PR #4** — Visitor-facing web player: QR landing, "put on headphones" consent, non-looping playback, end state linking back to the USALIEN token. GitHub Pages deploy.
 - **PR #5 (stretch)** — Live director mode (per-visitor regeneration) behind a tiny serverless function.
-- **PR #6** — Arweave pin of the final bundle, submission packaging.
+- **PR #6** — Speech reverb + "drone underneath throughout" post-mix. Arweave pin of the final bundle. Submission packaging.
 
 ## Voice licensing
 
