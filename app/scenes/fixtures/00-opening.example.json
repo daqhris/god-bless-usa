@@ -4,10 +4,10 @@
   "segments": [
     {
       "type": "ambient",
-      "cue": "Deep church bell, single toll, long decay. Organ drone enters as bell decays. ~6.5 seconds total.",
-      "duration_ms": 6500,
+      "cue": "Roman / Vatican-style bell peal — four tolls alternating between a mother bell (65 Hz fundamental) and a daughter bell a minor third higher, struck at ~1.1 s intervals so the tails phase through each other. Organ drone enters underneath at ~2.8 s, while the peal is still ringing. ~8.5 seconds total.",
+      "duration_ms": 8500,
       "kind": "bell_then_drone",
-      "director_note": "Cathedral opening. The bell announces the space; the drone inhabits it."
+      "director_note": "Cathedral opening. The peal announces mass, in the tradition of Rome's churches; the drone inhabits the space underneath as the bells decay."
     },
     {
       "type": "speech",

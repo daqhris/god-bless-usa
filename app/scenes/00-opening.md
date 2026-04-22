@@ -6,7 +6,7 @@
 
 ### CATHEDRAL OPENING
 
-*[Ambient: deep church bell — single toll, long decay. Organ drone enters as the bell decays. Total ~6.5 seconds. Use ambient kind "bell_then_drone".]*
+*[Ambient: Roman / Vatican-style bell peal — four tolls at ~1.1 s intervals, alternating between a deeper "mother bell" and a "daughter bell" a minor third higher. The decays phase through each other; the organ drone enters underneath while the peal is still ringing. Total ~8.5 seconds. Use ambient kind "bell_then_drone".]*
 
 ---
 
