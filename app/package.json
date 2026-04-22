@@ -6,17 +6,25 @@
   "description": "AI-voiced performance app for God Bless The United States Of Aliens — 61st Venice Biennale 2026",
   "license": "MIT",
   "author": "Chris-Armel Iradukunda (daqhris) <media@daqhris.com>",
+  "engines": {
+    "node": ">=20.11"
+  },
   "scripts": {
     "render:scene": "tsx src/render.ts",
+    "render:audio": "tsx src/render-audio.ts",
+    "render:all": "tsx src/render-all.ts",
+    "serve": "serve public -l 5173",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",
     "dotenv": "^16.4.5",
+    "kokoro-js": "^1.2.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "serve": "^14.2.6",
     "tsx": "^4.7.2",
     "typescript": "^5.4.5"
   }

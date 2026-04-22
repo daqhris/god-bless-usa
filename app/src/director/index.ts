@@ -35,7 +35,7 @@ export async function directScene(
     ],
     output_config: {
       effort: "high",
-      format: zodOutputFormat(DirectorOutputSchema, "performance_direction"),
+      format: zodOutputFormat(DirectorOutputSchema),
     },
     messages: [
       {

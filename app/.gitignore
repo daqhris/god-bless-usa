@@ -4,7 +4,6 @@ dist/
 .env.local
 .env.*.local
 
-# Rendered audio is an output artifact. Uncomment the exclusion below to keep
-# rendered audio out of the repo during development; remove the comment (so
-# rendered audio IS committed) when preparing the canonical archival bundle.
-# assets/audio/rendered/
+# Rendered audio under public/assets/audio/ IS committed — it's the canonical
+# archival artifact served by GitHub Pages and by any offline player.
+# Temporary direction JSON written by render:scene/render:all to dist/ is not.
