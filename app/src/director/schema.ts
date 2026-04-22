@@ -1,4 +1,10 @@
-import { z } from "zod";
+// The Anthropic SDK's `zodOutputFormat` helper (in @anthropic-ai/sdk ≥ 0.88)
+// runs schemas through Zod v4's JSON-schema converter, which reads `.def` on
+// each node. Zod's root "zod" export is still v3 (which uses `._def`), so
+// importing from there produces a schema that crashes the helper with
+// "Cannot read properties of undefined (reading 'def')". The zod package
+// (3.25.x) ships both APIs; pulling `z` from "zod/v4" gives v4-shaped nodes.
+import { z } from "zod/v4";
 import { VOICE_NAMES } from "./voices.js";
 
 const PostProcessingSchema = z.object({
