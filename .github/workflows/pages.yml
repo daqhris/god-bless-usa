@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+# Triggered on every push to main, plus manually via the Actions tab
+# (workflow_dispatch). The artifact is the static contents of app/public/ —
+# no build step required, since the visitor player is plain HTML / CSS / JS
+# and the audio is pre-rendered into the same folder.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/public/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+# Required permissions for the official deploy-pages action.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment may run at a time. Don't cancel an in-flight
+# deploy when a new push arrives — let it finish so the live site never
+# falls into a half-deployed state.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./app/public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
