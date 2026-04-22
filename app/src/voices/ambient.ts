@@ -101,12 +101,26 @@ export function synthesizeBellToll(
 }
 
 /**
+ * Mother bell ↔ daughter bell ratio.
+ *
+ *   5 / 4 — major third (~+386 cents). Brighter, more celebratory. Canonical.
+ *   6 / 5 — minor third (~+316 cents). Darker, more liturgical / funereal.
+ *   4 / 3 — perfect fourth (~+498 cents). Martial.
+ *   3 / 2 — perfect fifth (~+702 cents). Wide, almost hymnal.
+ *   5 / 3 — major sixth (~+884 cents). Much wider; light, festive peal.
+ *
+ * Single constant so A/B swaps are a one-line edit.
+ */
+export const BELL_PEAL_RATIO = 5 / 4;
+
+/**
  * Synthesize a peal of church bells — Roman / Vatican cathedral style. Three
  * to five tolls at a steady interval, alternating between a "mother bell"
- * (the requested fundamental) and a "daughter bell" tuned a minor-third
- * higher (6:5 ratio). Each strike happens while previous tolls are still
- * decaying, so the tails phase and form the "cloud of sound" that reads as
- * a religious introduction to mass rather than a single threshold stroke.
+ * (the requested fundamental) and a "daughter bell" tuned BELL_PEAL_RATIO
+ * higher (default: major third, 5:4). Each strike happens while previous
+ * tolls are still decaying, so the tails phase and form the "cloud of sound"
+ * that reads as a religious introduction to mass rather than a single
+ * threshold stroke.
  *
  * Defaults to 4 tolls at 1100ms spacing — fits comfortably in ~4.4 seconds
  * of strikes with decays extending to ~7s. Adjust toll_count and
@@ -119,7 +133,7 @@ export function synthesizeBellPeal(
   inter_toll_ms = 1100,
   mother_hz = 65,
 ): Pcm {
-  const daughter_hz = mother_hz * (6 / 5); // minor third above the mother bell
+  const daughter_hz = mother_hz * BELL_PEAL_RATIO;
   const pitches = [mother_hz, daughter_hz];
 
   const lanes: Array<{ pcm: Pcm; offset_ms: number; gain: number }> = [];
