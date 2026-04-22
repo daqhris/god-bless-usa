@@ -1,8 +1,11 @@
+# Secrets: enforced at repo root too, duplicated here so devs working in /app
+# see the rule without climbing the tree. .env.example is the only exception.
+.env
+.env.*
+!.env.example
+
 node_modules/
 dist/
-.env
-.env.local
-.env.*.local
 
 # Rendered audio under public/assets/audio/ IS committed — it's the canonical
 # archival artifact served by GitHub Pages and by any offline player.
