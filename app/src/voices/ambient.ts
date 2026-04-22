@@ -101,24 +101,73 @@ export function synthesizeBellToll(
 }
 
 /**
- * Bell tolls; organ drone enters as the bell decays; both occupy the
- * requested window. The bell gets the first ~2.5 seconds, the drone
- * crossfades in around 1 second in and continues to the end. Used for
- * the opening invocation (Scene 0) and any scene that needs a "we are
- * formally entering this section" announcement.
+ * Mother bell ↔ daughter bell ratio.
+ *
+ *   5 / 4 — major third (~+386 cents). Brighter, more celebratory. Canonical.
+ *   6 / 5 — minor third (~+316 cents). Darker, more liturgical / funereal.
+ *   4 / 3 — perfect fourth (~+498 cents). Martial.
+ *   3 / 2 — perfect fifth (~+702 cents). Wide, almost hymnal.
+ *   5 / 3 — major sixth (~+884 cents). Much wider; light, festive peal.
+ *
+ * Single constant so A/B swaps are a one-line edit.
+ */
+export const BELL_PEAL_RATIO = 5 / 4;
+
+/**
+ * Synthesize a peal of church bells — Roman / Vatican cathedral style. Three
+ * to five tolls at a steady interval, alternating between a "mother bell"
+ * (the requested fundamental) and a "daughter bell" tuned BELL_PEAL_RATIO
+ * higher (default: major third, 5:4). Each strike happens while previous
+ * tolls are still decaying, so the tails phase and form the "cloud of sound"
+ * that reads as a religious introduction to mass rather than a single
+ * threshold stroke.
+ *
+ * Defaults to 4 tolls at 1100ms spacing — fits comfortably in ~4.4 seconds
+ * of strikes with decays extending to ~7s. Adjust toll_count and
+ * inter_toll_ms if a particular scene wants a shorter or longer peal.
+ */
+export function synthesizeBellPeal(
+  duration_ms: number,
+  sample_rate: number,
+  toll_count = 4,
+  inter_toll_ms = 1100,
+  mother_hz = 65,
+): Pcm {
+  const daughter_hz = mother_hz * BELL_PEAL_RATIO;
+  const pitches = [mother_hz, daughter_hz];
+
+  const lanes: Array<{ pcm: Pcm; offset_ms: number; gain: number }> = [];
+  for (let i = 0; i < toll_count; i++) {
+    const fundamental = pitches[i % 2]!;
+    // Each toll gets the remaining window so its decay isn't clipped. Floor at
+    // 400 ms so a very short tail still sounds like a strike rather than a click.
+    const window_ms = Math.max(400, duration_ms - i * inter_toll_ms);
+    const toll = synthesizeBellToll(window_ms, sample_rate, fundamental);
+    // Mother bell slightly louder to anchor the peal; daughter is the reply.
+    const gain = i % 2 === 0 ? 0.55 : 0.45;
+    lanes.push({ pcm: toll, offset_ms: i * inter_toll_ms, gain });
+  }
+
+  return mix(lanes);
+}
+
+/**
+ * Bells peal; organ drone enters underneath as the peal is still ringing; both
+ * occupy the requested window. Used for the opening invocation (Scene 0) and
+ * any scene that needs a "we are formally entering this section" announcement.
+ * The drone comes in during the peal (not after) so the transition feels like
+ * the bells summoning the organ, not a hand-off.
  */
 export function synthesizeBellThenDrone(
   duration_ms: number,
   sample_rate: number,
 ): Pcm {
-  // The bell allocation: enough for the perceptible decay, but capped so it
-  // doesn't crowd longer ambient cues.
-  const bell_window_ms = Math.min(3500, duration_ms);
-  const bell = synthesizeBellToll(bell_window_ms, sample_rate);
+  const peal = synthesizeBellPeal(duration_ms, sample_rate);
   const drone = synthesizeOrganDrone(duration_ms, sample_rate);
-  // Drone enters ~1.1s into the bell so the bell is heard cleanly first.
+  // Drone enters ~2.8s in — after three of the four tolls have struck, so the
+  // peal establishes itself before the organ joins.
   return mix([
-    { pcm: bell, offset_ms: 0, gain: 1 },
-    { pcm: drone, offset_ms: 1100, gain: 0.85 },
+    { pcm: peal, offset_ms: 0, gain: 1 },
+    { pcm: drone, offset_ms: 2800, gain: 0.75 },
   ]);
 }
