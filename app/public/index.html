@@ -2,402 +2,94 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>God Bless The United States Of Aliens — Performance Preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>God Bless The United States Of Aliens</title>
     <meta
       name="description"
-      content="AI-voiced performance of God Bless The United States Of Aliens. Preview page — pre-rendered scenes only. The full visitor-facing player ships in a later PR."
+      content="An AI-voiced eyewitness report. A 15-minute non-looping performance for a single visitor in headphones. By Chris-Armel Iradukunda (daqhris), in collaboration with Claude Opus 4.7. For the 61st International Art Exhibition — La Biennale di Venezia, 2026."
     />
-    <style>
-      :root {
-        color-scheme: light dark;
-        --fg: #1a1a1a;
-        --muted: #5a5a5a;
-        --bg: #f9f6ef;
-        --accent: #8a2c2c;
-        --rule: #d8d2c4;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --fg: #e8e4d9;
-          --muted: #9a948a;
-          --bg: #181816;
-          --accent: #d47575;
-          --rule: #2a2927;
-        }
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        background: var(--bg);
-        color: var(--fg);
-      }
-      body {
-        font-family: Georgia, "Fraunces", "Playfair Display", serif;
-        line-height: 1.55;
-        padding: 3rem 1.5rem 5rem;
-        max-width: 42rem;
-        margin: 0 auto;
-      }
-      h1 {
-        font-size: 1.9rem;
-        font-weight: 600;
-        margin: 0 0 0.2rem;
-        line-height: 1.2;
-      }
-      .subtitle {
-        color: var(--muted);
-        font-style: italic;
-        margin: 0 0 2rem;
-      }
-      section {
-        border-top: 1px solid var(--rule);
-        padding-top: 1.8rem;
-        margin-top: 2.4rem;
-      }
-      section.master {
-        border: 1px solid var(--accent);
-        padding: 1.5rem;
-        margin-top: 3rem;
-        background: rgba(138, 44, 44, 0.04);
-      }
-      h2 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        margin: 0 0 0.45rem;
-      }
-      p.note {
-        color: var(--muted);
-        font-size: 0.92rem;
-        margin: 0 0 0.8rem;
-      }
-      audio {
-        width: 100%;
-        margin-top: 0.5rem;
-      }
-      .scene-meta {
-        color: var(--muted);
-        font-size: 0.82rem;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        margin: 0 0 0.2rem;
-      }
-      .missing {
-        color: var(--muted);
-        font-size: 0.85rem;
-        font-style: italic;
-        padding: 0.6rem 0.8rem;
-        border: 1px dashed var(--rule);
-        border-radius: 2px;
-        margin-top: 0.4rem;
-      }
-      .warning {
-        background: rgba(138, 44, 44, 0.08);
-        border-left: 3px solid var(--accent);
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-        margin-top: 1.6rem;
-      }
-      footer {
-        margin-top: 4rem;
-        padding-top: 1.2rem;
-        border-top: 1px solid var(--rule);
-        font-size: 0.85rem;
-        color: var(--muted);
-      }
-      footer a {
-        color: inherit;
-      }
-    </style>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://daqhris.com/god-bless-usa/" />
+    <link rel="stylesheet" href="style.css" />
+
+    <meta property="og:title" content="God Bless The United States Of Aliens" />
+    <meta
+      property="og:description"
+      content="An AI-voiced eyewitness report. A 15-minute non-looping performance, for the 61st Venice Biennale, 2026."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://daqhris.com/god-bless-usa/" />
+    <meta property="og:image" content="https://daqhris.com/god-bless-usa/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body>
-    <h1>God Bless The United States Of Aliens</h1>
-    <p class="subtitle">
-      An AI-voiced performance, rendered scene by scene. Preview page — not the
-      visitor-facing player.
-    </p>
+  <body class="visitor">
+    <main>
+      <!-- Stage 1 — Landing -->
+      <section class="stage" id="stage-landing">
+        <h1>God Bless The United States Of Aliens</h1>
+        <p class="subtitle">An all-seeing eyewitness report.</p>
+        <p class="prep">
+          <strong>Headphones recommended.</strong> The piece is approximately
+          fifteen minutes and does not loop. Each visitor initiates their own
+          private mass.
+        </p>
+        <button class="begin" id="begin" type="button">Begin</button>
+        <p class="credit">
+          By Chris-Armel Iradukunda (daqhris), in collaboration with Claude
+          Opus 4.7. For the 61st International Art Exhibition —
+          La Biennale di Venezia, Bosnia and Herzegovina Pavilion
+          (<em>Domus Diasporica</em>), 2026.
+        </p>
+      </section>
 
-    <div class="warning">
-      <strong>Headphones recommended.</strong> The piece is directed for intimate,
-      non-looping playback through a single visitor's headphones. This preview
-      page plays each scene as a standalone audio file. The master track at the
-      top concatenates them in <strong>playback order</strong> — which differs
-      from the script's numbering because THE CHURCH LEADER speaks first and
-      THE CHORUS responds. Each section is labelled with both its playback
-      position and the Roman-numeral scene number from the source script.
-    </div>
+      <!-- Stage 2 — Playing -->
+      <section class="stage" id="stage-playing" hidden>
+        <button class="escape" id="escape" type="button" aria-label="End the performance">End</button>
+        <div class="pulse" aria-hidden="true"></div>
+        <p class="listening">Listening</p>
+      </section>
 
-    <section class="master">
-      <p class="scene-meta">Complete Performance</p>
-      <h2>God Bless The United States Of Aliens — Master Track</h2>
-      <p class="note">
-        Fifteen scenes total — the Opening Invocation (Scene 0) plus the
-        fourteen numbered scenes — concatenated with a 3-second gap between
-        each. Produced by <code>npm run render:all-scenes</code>.
-      </p>
-      <audio
-        controls
-        preload="none"
-        src="assets/audio/god-bless-usa.wav"
-      ></audio>
-      <p class="missing">
-        Available after you run <code>npm run render:all-scenes</code> locally
-        with your Anthropic API key set. The per-scene WAVs will populate the
-        sections below at the same time.
-      </p>
-    </section>
+      <!-- Stage 3 — Ended -->
+      <section class="stage" id="stage-ended" hidden>
+        <h2>The performance is complete.</h2>
+        <ul class="links">
+          <li>
+            <a
+              href="https://basescan.org/address/0x2193ddd4d64bad38c7bd523090f333f425560a72#code"
+              rel="noopener"
+            >USALIEN — the source story, on Base</a>
+          </li>
+          <li>
+            <a href="https://daqhris.com" rel="noopener">daqhris.com</a>
+          </li>
+          <li>
+            <a href="preview.html">Listen scene by scene</a>
+          </li>
+        </ul>
+        <p class="credit">
+          AI-voiced performance of the short story <em>"God Bless The United
+          States Of Aliens — An All-Seeing Eyewitness Report"</em>, written
+          Christmas Eve 2024, minted as the USALIEN ERC-721 on the Base
+          blockchain, permanently archived on Arweave. Performance directed
+          by Claude Opus 4.7; voices by Kokoro-82M (Apache-2.0). For the
+          61st Venice Biennale, 2026.
+        </p>
+        <img
+          class="qr"
+          src="assets/qr/god-bless-usa.svg"
+          alt="QR code linking to this performance"
+          width="110"
+          height="110"
+        />
+      </section>
+    </main>
 
-    <section>
-      <p class="scene-meta">Playback 1 · Scene 0</p>
-      <h2>Opening Invocation</h2>
-      <p class="note">
-        Roman / Vatican-style bell peal (four tolls alternating a "mother
-        bell" and a "daughter bell" a <strong>major third</strong> higher
-        — 5:4 ratio, brighter and more celebratory than a minor third —
-        ~1.1 s apart, tails phasing through each other) → organ drone
-        swells underneath while the peal is still ringing → THE CHORUS
-        whispers "Someone else…" as a premonition → beat of silence →
-        THE EYEWITNESS names the file ("Alien Report. December 24, 2024.
-        God Bless The United States Of Aliens. An All-Seeing Eyewitness
-        Report.") over a typewriter bed that trails into Scene I. New
-        scene, not in the original script — added to establish both
-        registers (liturgical + surveillance) in the first 15 seconds.
-      </p>
-      <audio controls preload="metadata" src="assets/audio/00-opening.wav">
-        Your browser does not support the <code>&lt;audio&gt;</code> element.
-      </audio>
-    </section>
+    <audio
+      id="master-audio"
+      src="assets/audio/god-bless-usa.wav"
+      preload="none"
+    ></audio>
 
-    <section>
-      <p class="scene-meta">Playback 2 · Scene I</p>
-      <h2>The Eyewitness Report</h2>
-      <p class="note">
-        Voice: <em>THE EYEWITNESS</em>. Bureaucratic, clipped, filing an
-        incident report from outside the atmosphere. The typewriter bed
-        continues from Scene 0 — the same transmission. The PRELUDE that
-        opened this scene in the original script has moved to Scene 0.
-      </p>
-      <audio controls preload="metadata" src="assets/audio/01-eyewitness.wav">
-      </audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 3 · Scene III</p>
-      <h2>Church Leader's Speech</h2>
-      <p class="note">
-        Voice: <em>THE CHURCH LEADER</em>. Warm authority, pastoral irony.
-        First time he speaks to the congregation.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/03-church-leader-speech.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 4 · Scene II</p>
-      <h2>The Chorus (First Appearance)</h2>
-      <p class="note">
-        Voice: <em>THE CHORUS</em>. The congregation responds to the leader's
-        address. Rendered by layering four Kokoro voices (three female + one
-        male) with narrow timing offsets — near-synchronicity. Numbered "II"
-        in the source script even though it plays third, because the chorus
-        was written as the second section; our master moves it to follow the
-        leader's first speech.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/02-chorus-first.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 5 · Scene V</p>
-      <h2>Church Leader's Speech (continued)</h2>
-      <p class="note">
-        The preacher is now in rhythm. Pacing picks up, then deliberately
-        slows on "loud siren."
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/05-church-leader-speech-continued.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 6 · Scene IV</p>
-      <h2>The Chorus (Second Appearance)</h2>
-      <p class="note">
-        Slightly warmer than the first appearance — the congregation has
-        settled into worship.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/04-chorus-second.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 7 · Scene VII</p>
-      <h2>Church Leader's Speech (continued) + [SILENCE]</h2>
-      <p class="note">
-        The longest unbroken passage. Ends with four full seconds of silence.
-        The visitor must sit inside it.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/07-church-leader-silence.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 8 · Scene VI</p>
-      <h2>The Chorus (Third Appearance)</h2>
-      <p class="note">
-        Fuller now. The congregation responds to the absolution with the
-        refrain.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/06-chorus-third.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 9 · Scene VIII</p>
-      <h2>Church Leader's Speech (concluded) + [AMEN]</h2>
-      <p class="note">
-        Quiet, almost to oneself. Ends on the only one-word moment of the
-        piece — AMEN, voiced by the <strong>full ensemble</strong> (priest +
-        four chorus voices + praying alien, six lanes summed). The entire
-        congregation validates what was said.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/08-church-leader-amen.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 10 · Scene IX</p>
-      <h2>The Praying Alien — Chain of Thoughts</h2>
-      <p class="note">
-        Voice: <em>THE PRAYING ALIEN</em> (<code>af_nicole</code> —
-        Kokoro's intimate-headphone voice). Interior monologue, drier
-        acoustic, three signals (brain train / heart pulse / gut feeling)
-        with accelerating prosody and emphasis on the italicized
-        interjections. The section headers ("File: Distracting
-        Chain-of-Thoughts," "Signal one. Train of Thoughts," etc.) are
-        voiced by <em>THE EYEWITNESS</em> as scribed report metadata —
-        these describe alien-tech mind-reading and would not plausibly be
-        the alien's own interior monologue, so the eyewitness files them.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/09-praying-alien.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 11 · Scene X</p>
-      <h2>The Chorus (Fourth and Final Appearance)</h2>
-      <p class="note">
-        The alien has rejoined the congregation. The fullest, most inhabited
-        version of the refrain.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/10-chorus-fourth.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 12 · Scene XI</p>
-      <h2>Church Leader's Prayer</h2>
-      <p class="note">
-        Prayer, not sermon. Intimate. The preacher speaks toward something
-        above or beyond. The single word "HUGS" is voiced by the
-        <strong>full ensemble</strong>, like AMEN — the moment of collective
-        warmth where priest, chorus, and praying alien share a single
-        utterance. The line that follows ("Glory to peacekeeping hugs…")
-        returns to the church leader alone.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/11-church-leader-prayer.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 13 · Scene XII</p>
-      <h2>The Chorus (Final Echo)</h2>
-      <p class="note">
-        Slowest of all four appearances. Each phrase a bell tolling.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/12-chorus-final-echo.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 14 · Scene XIII</p>
-      <h2>The Blessing</h2>
-      <p class="note">
-        Almost a whisper. Merry Christmas. Happy New Year. Organ drone returns.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/13-blessing.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Playback 15 · Scene XIV</p>
-      <h2>Coda — The Eyewitness Certification</h2>
-      <p class="note">
-        The filing of incident reports resumes. The surveillance loop opened
-        by Scene I closes here. The typewriter bed returns and trails off
-        into the final 5-second silence. The closing paragraph — the
-        author's ancestral memory of the landlocked African kingdom — is
-        included from the original story text. Ships by default; pass
-        <code>--no-coda</code> to opt out.
-      </p>
-      <audio controls preload="metadata" src="assets/audio/14-coda.wav"></audio>
-    </section>
-
-    <footer>
-      <p>
-        Source text: <a href="https://app.manifold.xyz/txt/god-bless-usa">USALIEN</a>
-        — Base blockchain, December 2024, permanently archived on Arweave.
-        Performance by
-        <a href="https://daqhris.com">Chris-Armel Iradukunda (daqhris)</a>
-        in collaboration with Claude Opus 4.7 (performance director at runtime,
-        co-developer of this app). Kokoro-82M voice engine © hexgrad,
-        Apache-2.0.
-      </p>
-      <p>
-        Submission to the <em>Build with Opus 4.7</em> hackathon (April 2026).
-        Intended for the
-        <em>61st International Art Exhibition — La Biennale di Venezia, 2026,
-        Bosnia and Herzegovina Pavilion — Domus Diasporica</em>.
-      </p>
-    </footer>
+    <script src="player.js" defer></script>
   </body>
 </html>

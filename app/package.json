@@ -14,6 +14,7 @@
     "render:audio": "tsx src/render-audio.ts",
     "render:all": "tsx src/render-all.ts",
     "render:all-scenes": "tsx src/render-all-scenes.ts",
+    "generate:qr": "tsx scripts/generate-qr.ts",
     "serve": "serve public -l 5173",
     "typecheck": "tsc --noEmit"
   },
@@ -25,6 +26,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "@types/qrcode": "^1.5.6",
+    "qrcode": "^1.5.4",
     "serve": "^14.2.6",
     "tsx": "^4.7.2",
     "typescript": "^5.4.5"
