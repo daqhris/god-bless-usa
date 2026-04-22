@@ -3,12 +3,6 @@
   "title": "Scene I — The Eyewitness Report",
   "segments": [
     {
-      "type": "ambient",
-      "cue": "Church ambient opens — 5 seconds of organ drone, stone room. Fade to near-silence but not complete silence — a thin drone underneath remains throughout.",
-      "duration_ms": 5000,
-      "director_note": "PRELUDE. Sets the acoustic. No voice yet."
-    },
-    {
       "type": "speech",
       "voice": "eyewitness",
       "ssml": "<speak>USA's overseas-based beings were seen praying <break time=\"600ms\"/> in a protesting church, <break time=\"600ms\"/> bending heads upwards, <break time=\"600ms\"/> gazing towards a church leader <break time=\"600ms\"/> standing on a pedestal, <break time=\"600ms\"/> all surrounded by Hollywoodian posters <break time=\"600ms\"/> about the 2025 celestial games, <break time=\"600ms\"/> soon to be held in various aerial fields <break time=\"600ms\"/> atop their homeland territory.</speak>",
@@ -26,5 +20,5 @@
       "director_note": "The eyewitness closes the file. Hold the silence — do not shorten."
     }
   ],
-  "overall_notes": "Scene I establishes the EYEWITNESS as the detached narrator of record. Slow, clipped, bureaucratic. The thin drone underneath remains audible beneath the prelude silence and should not be filled."
+  "overall_notes": "Scene I is the actual incident report — the cathedral bell, organ drone, premonitory chorus, and report header now live in Scene 0 (Opening Invocation). EYEWITNESS continues from there."
 }

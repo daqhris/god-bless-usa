@@ -1,0 +1,99 @@
+{
+  "scene_id": "00-opening",
+  "title": "Scene 0 — Opening Invocation",
+  "segments": [
+    {
+      "type": "ambient",
+      "cue": "Deep church bell, single toll, long decay. Organ drone enters as bell decays. ~6.5 seconds total.",
+      "duration_ms": 6500,
+      "kind": "bell_then_drone",
+      "director_note": "Cathedral opening. The bell announces the space; the drone inhabits it."
+    },
+    {
+      "type": "speech",
+      "voice": "chorus",
+      "ssml": "<speak><emphasis level=\"moderate\">Someone else...</emphasis></speak>",
+      "speed": 0.85,
+      "post_processing": {
+        "reverb": "heavy",
+        "pitch_shift_semitones": -2,
+        "dry_close": false
+      },
+      "director_note": "PREMONITION. The refrain is planted before it has meaning. Slowest and quietest chorus appearance in the piece. Heavy reverb so the line decays into the drone."
+    },
+    {
+      "type": "silence",
+      "duration_ms": 2000,
+      "director_note": "The drone breathes alone. Listener sits inside the cathedral."
+    },
+    {
+      "type": "speech",
+      "voice": "eyewitness",
+      "ssml": "<speak><emphasis level=\"moderate\">Alien</emphasis> Report.</speak>",
+      "speed": 0.95,
+      "post_processing": {
+        "reverb": "light",
+        "pitch_shift_semitones": 0,
+        "dry_close": false
+      },
+      "director_note": "The word 'Alien' is the weight. The file is filed by an alien narrator."
+    },
+    {
+      "type": "silence",
+      "duration_ms": 800,
+      "director_note": "Half-beat — title clusters being typed."
+    },
+    {
+      "type": "speech",
+      "voice": "eyewitness",
+      "ssml": "<speak>December 24, 2024.</speak>",
+      "speed": 0.95,
+      "post_processing": {
+        "reverb": "light",
+        "pitch_shift_semitones": 0,
+        "dry_close": false
+      },
+      "director_note": "Date of the incident. Flat, as a filing stamp."
+    },
+    {
+      "type": "silence",
+      "duration_ms": 1500,
+      "director_note": "Typewriter clusters as the title is being typed out."
+    },
+    {
+      "type": "speech",
+      "voice": "eyewitness",
+      "ssml": "<speak>God Bless The United States Of Aliens.</speak>",
+      "speed": 0.95,
+      "post_processing": {
+        "reverb": "light",
+        "pitch_shift_semitones": 0,
+        "dry_close": false
+      },
+      "director_note": "The title itself — spoken as a filing stamp, not as rhetoric."
+    },
+    {
+      "type": "silence",
+      "duration_ms": 800,
+      "director_note": "Half-beat."
+    },
+    {
+      "type": "speech",
+      "voice": "eyewitness",
+      "ssml": "<speak>An All-Seeing Eyewitness Report.</speak>",
+      "speed": 0.95,
+      "post_processing": {
+        "reverb": "light",
+        "pitch_shift_semitones": 0,
+        "dry_close": false
+      },
+      "director_note": "The subtitle, establishing genre: surveillance report."
+    },
+    {
+      "type": "silence",
+      "duration_ms": 2000,
+      "director_note": "The typewriter trails into Scene I. The report proper begins."
+    }
+  ],
+  "overall_notes": "The opening invocation establishes both registers the piece will alternate between: liturgical (bell, organ, chorus premonition) and surveillance (alien narrator, typewriter, incident report header). The whispered 'Someone else...' plants the refrain before the listener has a frame for it — when Scene III leads into the first full chorus appearance, the listener will have heard it once already."
+}

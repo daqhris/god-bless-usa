@@ -99,7 +99,7 @@ desired by all diverse-looking beings?"
 
 ---
 
-*[Quietly — this is the only moment of warmth in the entire performance:]*
+*[Voice: FULL ENSEMBLE — priest, all four chorus voices, AND the praying alien together. This is the moment of warmth in the entire performance, the equivalent of the congregational handshake / hug / kiss-of-peace. The alien rejoins audibly here. Render as a full_ensemble speech segment with heavy reverb and slow speed. Not loud — collectively quiet, like a held breath shared.]*
 
 **"HUGS."**
 

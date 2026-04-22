@@ -20,6 +20,7 @@ import { concat, silence, writeWav, type Pcm } from "./voices/wav.js";
  * needed to reshape the performance.
  */
 export const DEFAULT_PLAYLIST: string[] = [
+  "00-opening",
   "01-eyewitness",
   "03-church-leader-speech",
   "02-chorus-first",
