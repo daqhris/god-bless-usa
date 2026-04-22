@@ -6,6 +6,11 @@ import { concat, silence, writeWav, type Pcm } from "./wav.js";
 import { mix } from "./mix.js";
 import { synthesizeOrganDrone } from "./ambient.js";
 import {
+  synthesizeTypewriterBed,
+  EYEWITNESS_UNDERLAY_GAIN,
+  EYEWITNESS_UNDERLAY_TAIL_MS,
+} from "./underlay.js";
+import {
   CHORUS_ENSEMBLE,
   KOKORO_MODEL_ID,
   KOKORO_SAMPLE_RATE,
@@ -44,10 +49,16 @@ async function loadTts(): Promise<KokoroTTS> {
   return cached;
 }
 
+function clampSpeed(s: number): number {
+  if (!Number.isFinite(s)) return 1;
+  return Math.max(0.5, Math.min(2, s));
+}
+
 async function renderSpeech(
   tts: KokoroTTS,
   voice_id: string,
   ssml: string,
+  base_speed: number,
 ): Promise<Pcm> {
   const tokens = tokenizeSsml(ssml);
   const chunks: Pcm[] = [];
@@ -56,13 +67,12 @@ async function renderSpeech(
       chunks.push(silence(tok.ms, KOKORO_SAMPLE_RATE));
       continue;
     }
+    const effective_speed = clampSpeed(base_speed * tok.speed_factor);
     const audio = await tts.generate(tok.text, {
-      // Voice IDs come from a static map in voice-map.ts; kokoro-js types the
-      // voice as a keyof-union, which our string value matches at runtime.
       voice: voice_id as NonNullable<
         Parameters<KokoroTTS["generate"]>[1]
       >["voice"],
-      speed: 1,
+      speed: effective_speed,
     });
     const samples =
       audio.audio instanceof Float32Array
@@ -111,12 +121,18 @@ export const kokoroAdapter: VoiceAdapter = {
       }
 
       let pcm: Pcm;
+      const base_speed = clampSpeed(seg.speed ?? 1);
       if (seg.voice === "chorus") {
         // Layer the ensemble: render the same SSML through each voice and sum
         // with small timing offsets to produce choral texture.
         const lanes = [];
         for (const member of CHORUS_ENSEMBLE) {
-          const member_pcm = await renderSpeech(tts, member.voice_id, seg.ssml);
+          const member_pcm = await renderSpeech(
+            tts,
+            member.voice_id,
+            seg.ssml,
+            base_speed,
+          );
           lanes.push({ pcm: member_pcm, offset_ms: member.offset_ms });
         }
         pcm = mix(lanes);
@@ -125,7 +141,24 @@ export const kokoroAdapter: VoiceAdapter = {
         if (!voice_id) {
           throw new Error(`No Kokoro voice mapped for "${seg.voice}".`);
         }
-        pcm = await renderSpeech(tts, voice_id, seg.ssml);
+        pcm = await renderSpeech(tts, voice_id, seg.ssml, base_speed);
+
+        // EYEWITNESS gets a typewriter bed — the report is being typed as it
+        // is transmitted. The bed extends a tail past the last word so the
+        // keystrokes bridge into the inter-scene silence / next scene.
+        if (seg.voice === "eyewitness") {
+          const voice_ms = Math.round(
+            (pcm.samples.length / pcm.sample_rate) * 1000,
+          );
+          const bed = synthesizeTypewriterBed(
+            voice_ms + EYEWITNESS_UNDERLAY_TAIL_MS,
+            KOKORO_SAMPLE_RATE,
+          );
+          pcm = mix([
+            { pcm, offset_ms: 0, gain: 1 },
+            { pcm: bed, offset_ms: 0, gain: EYEWITNESS_UNDERLAY_GAIN },
+          ]);
+        }
       }
       pcm_segments.push(pcm);
       const duration_ms = Math.round(

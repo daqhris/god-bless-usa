@@ -17,6 +17,13 @@ const SpeechSegmentSchema = z.object({
   type: z.literal("speech"),
   voice: z.enum(VOICE_NAMES),
   ssml: z.string(),
+  // Base speech rate for this segment. 1.0 is Kokoro's default neutral
+  // delivery. Typical range 0.85–1.15. Use slower values (0.85–0.92) for
+  // reverent / pastoral weight; faster values (1.05–1.12) for accelerating
+  // passages like the Praying Alien's signals. <emphasis> tags inside the
+  // SSML further slow specific phrases within a segment — they compose
+  // multiplicatively with this base speed in the adapter.
+  speed: z.number(),
   post_processing: PostProcessingSchema,
   director_note: z.string(),
 });

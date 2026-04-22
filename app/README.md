@@ -68,11 +68,15 @@ npm install
 # Render ONE scene end-to-end (director + audio):
 npm run render:all -- scenes/01-eyewitness.md
 
-# Render ALL thirteen scenes and concatenate into a ~15-minute master WAV:
+# Render ALL thirteen scenes (plus the coda) and concatenate into the master WAV:
 npm run render:all-scenes
-# add --include-coda to append Scene XIV
-# add --no-master to skip the concatenation step
-# add --gap-ms 2000 to change the inter-scene silence (default 1500 ms)
+# scenes play in the canonical order defined by DEFAULT_PLAYLIST in
+#   src/render-all-scenes.ts — leader speaks, then chorus responds.
+# flags:
+#   --no-coda              → drop Scene XIV from the master
+#   --no-master            → skip concatenation
+#   --gap-ms 2000          → change inter-scene silence (default 1500 ms)
+#   --playlist <file.json> → override playlist with a JSON array of scene IDs
 
 # Preview in a browser (same folder GitHub Pages will serve):
 npm run serve
@@ -102,15 +106,22 @@ These validate the Kokoro adapter + SSML parser + WAV writer end-to-end at zero 
 
 - **Model:** `onnx-community/Kokoro-82M-v1.0-ONNX` — 82M parameters, Apache-2.0, ONNX quantized (`q8`), runs on CPU.
 - **Sample rate:** 24 kHz mono.
-- **Voice map** (`src/voices/voice-map.ts`): EYEWITNESS → `af_heart` · CHURCH LEADER → `bm_george` · CHORUS → ensemble (see below) · PRAYING ALIEN → `am_puck`.
-- **SSML handling:** `<speak>` wrapper + `<break time="Nms"/>` for inline pauses. `<emphasis>` and `<prosody>` tags are stripped before phonemization (they're hints for the director's intent; Kokoro's natural prosody handles the delivery). Scene-level `[SILENCE]` / `[3-second pause]` become explicit silence segments.
+- **Voice map** (`src/voices/voice-map.ts`): EYEWITNESS → `af_heart` · CHURCH LEADER → `bm_george` · CHORUS → four-voice ensemble (see below) · PRAYING ALIEN → `af_nicole` (Kokoro's 🎧 intimate-headphone voice — fits an interior monologue that doesn't know it's being overheard).
+- **SSML handling:** `<speak>` wrapper + `<break time="Nms"/>` for inline pauses. `<emphasis>…</emphasis>` is **honored** — the adapter renders emphasized phrases at 0.88× the segment's base speed, giving them landing weight (Kokoro has no native emphasis; slowing is the cleanest substitute). `<prosody>` is stripped — pacing lives in the segment-level `speed` field instead. Scene-level `[SILENCE]` / `[3-second pause]` become explicit silence segments.
+- **`speed` per segment:** 1.0 neutral, 0.88–0.95 for reverent / pastoral / sung lines, 1.05–1.10 for accelerating passages (the Praying Alien's heartbeat signal). Emphasis tags compose multiplicatively with segment speed.
 - **`__dirname` shim:** kokoro-js 1.2.x loads bundled voice files via `import.meta.dirname`, which requires Node ≥ 20.11. The adapter also sets a global `__dirname` as a fallback so older Node 20.x users get a graceful path rather than a confusing `paths[0]` error. `engines` in `package.json` still declares the ≥ 20.11 requirement.
 
 ## Chorus — "the congregation fused into a single voice"
 
-Rather than attempt phase-vocoder pitch shifting in pure JS, the adapter renders each CHORUS speech segment through a **three-voice ensemble** (`bf_emma`, `af_bella`, `af_nicole` — all graded B or better in Kokoro's voice table) and sums the results with small timing offsets (0, +25 ms, −15 ms). The natural pitch variance between the three voices produces choral texture; the timing offsets create the slight desync that distinguishes a congregation from a unison chant. The ensemble is defined in `src/voices/voice-map.ts#CHORUS_ENSEMBLE` and can be edited without touching the adapter.
+The adapter renders each CHORUS speech segment through a **four-voice ensemble** (three female + one male: `bf_emma`, `af_bella`, `af_sarah`, `am_michael`) and sums the results with narrow timing offsets (0, +6, −5, +9 ms). The male voice gives the congregation the diversity of pitch and timbre that a real "amen" carries; the narrow offsets keep the ensemble near-synchronous — validation, not a round. The [AMEN] in Scene VIII is specifically directed to use this voice rather than the Church Leader alone.
 
 See `src/voices/mix.ts` for the mixer (pad-and-sum with peak clipping). No DSP dependencies beyond pure-TypeScript arithmetic.
+
+## Typewriter underlay for THE EYEWITNESS
+
+The eyewitness is filing an incident report; the report is being typed as it is transmitted. When a speech segment's voice is `eyewitness`, the adapter mixes a **synthesized typewriter bed** underneath (`src/voices/underlay.ts` — filtered noise keystrokes with exponential decay, pseudorandom 170–360 ms intervals, occasional bell ting for line-ends). The bed runs at 0.25× gain so it sits under the voice as presence, not foreground. It also extends ~1.1 s past the last word so the keystrokes trail into the inter-scene silence — the bridge the score asks for between Scene I (report) and Scene II (mass begins). Deterministic PRNG means every render produces the same bed, which matters for museum-grade reproducibility.
+
+The coda (Scene XIV) uses the same voice and therefore inherits the same underlay — the surveillance loop closes audibly with the typewriter finishing its transmission.
 
 ## Ambient cues — synthesized organ drone
 
@@ -122,10 +133,13 @@ Real reverb on speech, and the "thin drone underneath throughout" that the sound
 
 - ~~PR #1 — Scaffold + director pipeline for one scene end-to-end. No audio yet.~~ ✅
 - ~~PR #2 — Kokoro-82M voice adapter + Scene I rendered to WAV + local-serve preview.~~ ✅
-- **PR #3 (this PR)** — All 13 scenes extracted; chorus ensemble layering; synthesized ambient cues; `render:all-scenes` batch CLI with master-WAV concatenation.
-- **PR #4** — Visitor-facing web player: QR landing, "put on headphones" consent, non-looping playback, end state linking back to the USALIEN token. GitHub Pages deploy.
-- **PR #5 (stretch)** — Live director mode (per-visitor regeneration) behind a tiny serverless function.
-- **PR #6** — Speech reverb + "drone underneath throughout" post-mix. Arweave pin of the final bundle. Submission packaging.
+- ~~PR #3~~ — All 13 scenes extracted; chorus ensemble layering; synthesized ambient cues; `render:all-scenes` batch CLI. ✅
+- ~~PR #4 (chore)~~ — gitignore hardening against API-key leaks. ✅
+- ~~Hotfix~~ — `zod/v4` import for the Anthropic SDK's JSON-schema converter. ✅
+- **PR #5 (this PR)** — Audio revisions from the artist's first listening pass: male voice in chorus + narrow offsets, Praying Alien → `af_nicole`, typewriter underlay for EYEWITNESS, emphasis honored with per-segment speed, master playlist reordered so leader precedes chorus, coda default-on, AMEN directed to chorus.
+- **PR #6** — Visitor-facing web player: QR landing, "put on headphones" consent, non-looping playback, end state linking back to the USALIEN token. GitHub Pages deploy.
+- **PR #7 (stretch)** — Live director mode (per-visitor regeneration) behind a tiny serverless function.
+- **PR #8** — Sonic beds for Scene IX signals (brain / heart / gut); speech reverb; "drone underneath throughout" post-mix; Arweave pin; submission packaging.
 
 ## Voice licensing
 

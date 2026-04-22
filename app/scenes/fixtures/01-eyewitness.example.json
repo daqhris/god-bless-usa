@@ -11,13 +11,14 @@
     {
       "type": "speech",
       "voice": "eyewitness",
-      "ssml": "<speak><prosody rate=\"slow\">USA's overseas-based beings were seen praying <break time=\"600ms\"/> in a protesting church, <break time=\"600ms\"/> bending heads upwards, <break time=\"600ms\"/> gazing towards a church leader <break time=\"600ms\"/> standing on a pedestal, <break time=\"600ms\"/> all surrounded by Hollywoodian posters <break time=\"600ms\"/> about the 2025 celestial games, <break time=\"600ms\"/> soon to be held in various aerial fields <break time=\"600ms\"/> atop their homeland territory.</prosody></speak>",
+      "ssml": "<speak>USA's overseas-based beings were seen praying <break time=\"600ms\"/> in a protesting church, <break time=\"600ms\"/> bending heads upwards, <break time=\"600ms\"/> gazing towards a church leader <break time=\"600ms\"/> standing on a pedestal, <break time=\"600ms\"/> all surrounded by Hollywoodian posters <break time=\"600ms\"/> about the 2025 celestial games, <break time=\"600ms\"/> soon to be held in various aerial fields <break time=\"600ms\"/> atop their homeland territory.</speak>",
+      "speed": 0.92,
       "post_processing": {
         "reverb": "light",
         "pitch_shift_semitones": 0,
         "dry_close": false
       },
-      "director_note": "Bureaucratic precision. Each clause is a filed observation — the emotion lives in the words themselves, never performed."
+      "director_note": "Bureaucratic precision. Each clause is a filed observation — the emotion lives in the words themselves, never performed. Typewriter bed under this segment (eyewitness underlay)."
     },
     {
       "type": "silence",
