@@ -61,7 +61,10 @@ function parse_args(): Args {
     concat_out: has("--no-master")
       ? null
       : resolve(get("--master-out") ?? "public/assets/audio/god-bless-usa.wav"),
-    inter_scene_gap_ms: Number(get("--gap-ms") ?? "1500"),
+    // 3-second default gives each scene acoustic room to breathe and leaves
+    // deliberate negative space for later soundscape layers. Override via
+    // --gap-ms N for tighter or looser pacing.
+    inter_scene_gap_ms: Number(get("--gap-ms") ?? "3000"),
     // Coda ships by default — it closes the surveillance loop. --no-coda opts out.
     include_coda: !has("--no-coda"),
     playlist_path: get("--playlist"),

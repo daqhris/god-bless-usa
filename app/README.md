@@ -75,7 +75,7 @@ npm run render:all-scenes
 # flags:
 #   --no-coda              → drop Scene XIV from the master
 #   --no-master            → skip concatenation
-#   --gap-ms 2000          → change inter-scene silence (default 1500 ms)
+#   --gap-ms 2000          → change inter-scene silence (default 3000 ms — gives each scene room to breathe)
 #   --playlist <file.json> → override playlist with a JSON array of scene IDs
 
 # Preview in a browser (same folder GitHub Pages will serve):

@@ -124,16 +124,19 @@
     <div class="warning">
       <strong>Headphones recommended.</strong> The piece is directed for intimate,
       non-looping playback through a single visitor's headphones. This preview
-      page plays each scene as a standalone audio file, with a combined master
-      track at the bottom.
+      page plays each scene as a standalone audio file. The master track at the
+      top concatenates them in <strong>playback order</strong> — which differs
+      from the script's numbering because THE CHURCH LEADER speaks first and
+      THE CHORUS responds. Each section is labelled with both its playback
+      position and the Roman-numeral scene number from the source script.
     </div>
 
     <section class="master">
       <p class="scene-meta">Complete Performance</p>
       <h2>God Bless The United States Of Aliens — Master Track</h2>
       <p class="note">
-        All thirteen scenes concatenated into a single ~15-minute performance,
-        with a 1.5-second gap between scenes. Produced by
+        All fourteen scenes concatenated into a single performance, with a
+        3-second gap between scenes. Produced by
         <code>npm run render:all-scenes</code>.
       </p>
       <audio
@@ -143,17 +146,18 @@
       ></audio>
       <p class="missing">
         Available after you run <code>npm run render:all-scenes</code> locally
-        with your Anthropic API key set. The thirteen per-scene WAVs will
-        populate the sections below at the same time.
+        with your Anthropic API key set. The per-scene WAVs will populate the
+        sections below at the same time.
       </p>
     </section>
 
     <section>
-      <p class="scene-meta">Scene I</p>
+      <p class="scene-meta">Playback 1 · Scene I</p>
       <h2>The Eyewitness Report</h2>
       <p class="note">
         Voice: <em>THE EYEWITNESS</em>. Bureaucratic, clipped, filing an
-        incident report from outside the atmosphere.
+        incident report from outside the atmosphere. Mixed with a synthesized
+        typewriter bed — the report is being typed as it is transmitted.
       </p>
       <audio controls preload="metadata" src="assets/audio/01-eyewitness.wav">
         Your browser does not support the <code>&lt;audio&gt;</code> element.
@@ -161,25 +165,11 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene II</p>
-      <h2>The Chorus (First Appearance)</h2>
-      <p class="note">
-        Voice: <em>THE CHORUS</em>. The congregation fused into a single voice —
-        rendered by layering three female Kokoro voices with small timing
-        offsets.
-      </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/02-chorus-first.wav"
-      ></audio>
-    </section>
-
-    <section>
-      <p class="scene-meta">Scene III</p>
+      <p class="scene-meta">Playback 2 · Scene III</p>
       <h2>Church Leader's Speech</h2>
       <p class="note">
         Voice: <em>THE CHURCH LEADER</em>. Warm authority, pastoral irony.
+        First time he speaks to the congregation.
       </p>
       <audio
         controls
@@ -189,21 +179,25 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene IV</p>
-      <h2>The Chorus (Second Appearance)</h2>
+      <p class="scene-meta">Playback 3 · Scene II</p>
+      <h2>The Chorus (First Appearance)</h2>
       <p class="note">
-        Slightly warmer than the first appearance — the congregation has
-        settled into worship.
+        Voice: <em>THE CHORUS</em>. The congregation responds to the leader's
+        address. Rendered by layering four Kokoro voices (three female + one
+        male) with narrow timing offsets — near-synchronicity. Numbered "II"
+        in the source script even though it plays third, because the chorus
+        was written as the second section; our master moves it to follow the
+        leader's first speech.
       </p>
       <audio
         controls
         preload="metadata"
-        src="assets/audio/04-chorus-second.wav"
+        src="assets/audio/02-chorus-first.wav"
       ></audio>
     </section>
 
     <section>
-      <p class="scene-meta">Scene V</p>
+      <p class="scene-meta">Playback 4 · Scene V</p>
       <h2>Church Leader's Speech (continued)</h2>
       <p class="note">
         The preacher is now in rhythm. Pacing picks up, then deliberately
@@ -217,21 +211,21 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene VI</p>
-      <h2>The Chorus (Third Appearance)</h2>
+      <p class="scene-meta">Playback 5 · Scene IV</p>
+      <h2>The Chorus (Second Appearance)</h2>
       <p class="note">
-        Fuller now. The congregation responds to the absolution with the
-        refrain.
+        Slightly warmer than the first appearance — the congregation has
+        settled into worship.
       </p>
       <audio
         controls
         preload="metadata"
-        src="assets/audio/06-chorus-third.wav"
+        src="assets/audio/04-chorus-second.wav"
       ></audio>
     </section>
 
     <section>
-      <p class="scene-meta">Scene VII</p>
+      <p class="scene-meta">Playback 6 · Scene VII</p>
       <h2>Church Leader's Speech (continued) + [SILENCE]</h2>
       <p class="note">
         The longest unbroken passage. Ends with four full seconds of silence.
@@ -245,11 +239,26 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene VIII</p>
+      <p class="scene-meta">Playback 7 · Scene VI</p>
+      <h2>The Chorus (Third Appearance)</h2>
+      <p class="note">
+        Fuller now. The congregation responds to the absolution with the
+        refrain.
+      </p>
+      <audio
+        controls
+        preload="metadata"
+        src="assets/audio/06-chorus-third.wav"
+      ></audio>
+    </section>
+
+    <section>
+      <p class="scene-meta">Playback 8 · Scene VIII</p>
       <h2>Church Leader's Speech (concluded) + [AMEN]</h2>
       <p class="note">
         Quiet, almost to oneself. Ends on the only one-word moment of the
-        piece.
+        piece — AMEN, voiced by the four-voice chorus ensemble, not the
+        leader alone. The congregation validates what was said.
       </p>
       <audio
         controls
@@ -259,11 +268,14 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene IX</p>
+      <p class="scene-meta">Playback 9 · Scene IX</p>
       <h2>The Praying Alien — Chain of Thoughts</h2>
       <p class="note">
-        Voice: <em>THE PRAYING ALIEN</em>. Interior monologue, drier acoustic,
-        three signals (train / heart pulse / gut feeling).
+        Voice: <em>THE PRAYING ALIEN</em> (<code>af_nicole</code> —
+        Kokoro's intimate-headphone voice). Interior monologue, drier
+        acoustic, three signals (brain train / heart pulse / gut feeling)
+        with accelerating prosody and emphasis on the italicized
+        interjections.
       </p>
       <audio
         controls
@@ -273,7 +285,7 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene X</p>
+      <p class="scene-meta">Playback 10 · Scene X</p>
       <h2>The Chorus (Fourth and Final Appearance)</h2>
       <p class="note">
         The alien has rejoined the congregation. The fullest, most inhabited
@@ -287,7 +299,7 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene XI</p>
+      <p class="scene-meta">Playback 11 · Scene XI</p>
       <h2>Church Leader's Prayer</h2>
       <p class="note">
         Prayer, not sermon. Intimate. The preacher speaks toward something
@@ -301,7 +313,7 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene XII</p>
+      <p class="scene-meta">Playback 12 · Scene XII</p>
       <h2>The Chorus (Final Echo)</h2>
       <p class="note">
         Slowest of all four appearances. Each phrase a bell tolling.
@@ -314,7 +326,7 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene XIII</p>
+      <p class="scene-meta">Playback 13 · Scene XIII</p>
       <h2>The Blessing</h2>
       <p class="note">
         Almost a whisper. Merry Christmas. Happy New Year. Organ drone returns.
@@ -327,12 +339,15 @@
     </section>
 
     <section>
-      <p class="scene-meta">Scene XIV (optional)</p>
+      <p class="scene-meta">Playback 14 · Scene XIV</p>
       <h2>Coda — The Eyewitness Certification</h2>
       <p class="note">
-        The filing of incident reports resumes. The ceremony is concluded; the
-        record is sealed. Pass <code>--include-coda</code> to
-        <code>render:all-scenes</code> to include it.
+        The filing of incident reports resumes. The surveillance loop opened
+        by Scene I closes here. The typewriter bed returns and trails off
+        into the final 5-second silence. The closing paragraph — the
+        author's ancestral memory of the landlocked African kingdom — is
+        included from the original story text. Ships by default; pass
+        <code>--no-coda</code> to opt out.
       </p>
       <audio controls preload="metadata" src="assets/audio/14-coda.wav"></audio>
     </section>
