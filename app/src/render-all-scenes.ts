@@ -1,11 +1,40 @@
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
-import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, stat } from "node:fs/promises";
 import { resolve, basename, extname, join } from "node:path";
 import { directScene } from "./director/index.js";
 import { kokoroAdapter } from "./voices/kokoro.js";
 import { KOKORO_SAMPLE_RATE } from "./voices/voice-map.js";
 import { concat, silence, writeWav, type Pcm } from "./voices/wav.js";
+
+/**
+ * Canonical performance order for the master track.
+ *
+ * Deviates from the script's source-order (which has chorus first) so the
+ * narrative reads: THE EYEWITNESS reports, THEN THE CHURCH LEADER addresses
+ * the congregation, THEN THE CHORUS responds with the refrain. The chorus
+ * "responds" to a preceding leader segment throughout, as in a real mass.
+ *
+ * Scene IDs are the filenames under app/scenes/ (without .md extension).
+ * Editing this list (or pointing --playlist at a JSON array) is all that's
+ * needed to reshape the performance.
+ */
+export const DEFAULT_PLAYLIST: string[] = [
+  "01-eyewitness",
+  "03-church-leader-speech",
+  "02-chorus-first",
+  "05-church-leader-speech-continued",
+  "04-chorus-second",
+  "07-church-leader-silence",
+  "06-chorus-third",
+  "08-church-leader-amen",
+  "09-praying-alien",
+  "10-chorus-fourth",
+  "11-church-leader-prayer",
+  "12-chorus-final-echo",
+  "13-blessing",
+  "14-coda",
+];
 
 interface Args {
   scenes_dir: string;
@@ -14,6 +43,7 @@ interface Args {
   concat_out: string | null;
   inter_scene_gap_ms: number;
   include_coda: boolean;
+  playlist_path: string | null;
 }
 
 function parse_args(): Args {
@@ -32,7 +62,9 @@ function parse_args(): Args {
       ? null
       : resolve(get("--master-out") ?? "public/assets/audio/god-bless-usa.wav"),
     inter_scene_gap_ms: Number(get("--gap-ms") ?? "1500"),
-    include_coda: has("--include-coda"),
+    // Coda ships by default — it closes the surveillance loop. --no-coda opts out.
+    include_coda: !has("--no-coda"),
+    playlist_path: get("--playlist"),
   };
 }
 
@@ -41,13 +73,40 @@ function fail(msg: string): never {
   process.exit(1);
 }
 
-async function listSceneFiles(dir: string, include_coda: boolean) {
-  const entries = await readdir(dir, { withFileTypes: true });
-  return entries
-    .filter((e) => e.isFile() && e.name.endsWith(".md"))
-    .map((e) => join(dir, e.name))
-    .filter((path) => include_coda || !basename(path).startsWith("14-"))
-    .sort();
+async function loadPlaylist(
+  dir: string,
+  playlist_path: string | null,
+  include_coda: boolean,
+): Promise<string[]> {
+  let ids: string[];
+  if (playlist_path) {
+    const raw = await readFile(resolve(playlist_path), "utf8");
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed) || !parsed.every((x) => typeof x === "string")) {
+      fail(
+        `--playlist ${playlist_path}: expected a JSON array of scene-id strings`,
+      );
+    }
+    ids = parsed;
+  } else {
+    ids = [...DEFAULT_PLAYLIST];
+  }
+  if (!include_coda) {
+    ids = ids.filter((id) => id !== "14-coda");
+  }
+
+  // Verify each playlist entry corresponds to a real scene file.
+  const resolved: string[] = [];
+  for (const id of ids) {
+    const path = join(dir, `${id}.md`);
+    try {
+      await stat(path);
+    } catch {
+      fail(`playlist entry "${id}" has no matching scene file at ${path}`);
+    }
+    resolved.push(path);
+  }
+  return resolved;
 }
 
 async function main() {
@@ -57,13 +116,17 @@ async function main() {
     fail("ANTHROPIC_API_KEY is not set. Copy app/.env.example to app/.env.");
   }
 
-  const scene_paths = await listSceneFiles(args.scenes_dir, args.include_coda);
+  const scene_paths = await loadPlaylist(
+    args.scenes_dir,
+    args.playlist_path,
+    args.include_coda,
+  );
   if (scene_paths.length === 0) {
-    fail(`no *.md scenes found in ${args.scenes_dir}`);
+    fail(`playlist is empty after --no-coda filtering`);
   }
 
   process.stderr.write(
-    `render-all-scenes: ${scene_paths.length} scene(s) queued from ${args.scenes_dir}.\n`,
+    `render-all-scenes: playlist of ${scene_paths.length} scene(s) from ${args.scenes_dir}.\n`,
   );
 
   await mkdir(args.direction_out, { recursive: true });
@@ -106,9 +169,6 @@ async function main() {
       `    kokoro:   ${result.total_duration_ms}ms @ ${args.audio_out}/${scene_id}.wav.\n`,
     );
 
-    // Re-read the saved PCM from the concatenated per-scene buffer isn't exposed
-    // by the adapter — rebuild the master on the fly by re-rendering is wasteful.
-    // We reload from the freshly written WAV file via a small helper instead.
     const reread = await loadWav(join(args.audio_out, `${scene_id}.wav`));
     rendered_pcms.push(reread);
     if (idx < scene_paths.length - 1) {
@@ -135,7 +195,6 @@ async function main() {
 // Minimal WAV reader — only what we need (16-bit PCM mono, matches our writer).
 async function loadWav(path: string): Promise<Pcm> {
   const buf = await readFile(path);
-  // RIFF chunk header at offset 0; data chunk after the 44-byte header.
   const sample_rate = buf.readUInt32LE(24);
   const bits_per_sample = buf.readUInt16LE(34);
   if (bits_per_sample !== 16) {

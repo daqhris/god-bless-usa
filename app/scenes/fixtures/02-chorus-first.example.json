@@ -5,13 +5,14 @@
     {
       "type": "speech",
       "voice": "chorus",
-      "ssml": "<speak><prosody rate=\"slow\"><emphasis level=\"moderate\">Someone else,</emphasis> <break time=\"600ms\"/> not far from a morally right human consensus, <break time=\"600ms\"/> will be chosen <break time=\"600ms\"/> to hard-wire loving thoughts <break time=\"600ms\"/> into our brains.</prosody></speak>",
+      "ssml": "<speak><emphasis level=\"moderate\">Someone else,</emphasis> <break time=\"600ms\"/> not far from a morally right human consensus, <break time=\"600ms\"/> will be chosen <break time=\"600ms\"/> to hard-wire loving thoughts <break time=\"600ms\"/> into our brains.</speak>",
+      "speed": 0.95,
       "post_processing": {
         "reverb": "heavy",
         "pitch_shift_semitones": -2,
         "dry_close": false
       },
-      "director_note": "First hearing of the refrain. Landed monotone-chanted rather than sung; the line is not explained — it arrives. Emphasis on the two opening words. Each | is a 600ms sacred pause."
+      "director_note": "First hearing of the refrain. Landed monotone-chanted rather than sung; the line is not explained — it arrives. Emphasis on the two opening words — the adapter slows them for landing weight. Each | is a 600ms sacred pause."
     },
     {
       "type": "silence",
