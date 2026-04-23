@@ -25,7 +25,7 @@ An AI-voiced web performance of the story lives in [`/app`](./app/) — a ~15-mi
 
 A guest work in ***Domus Diasporica***, the **Pavilion of Bosnia and Herzegovina** at the 61st International Art Exhibition — La Biennale di Venezia.
 
-- Exhibition conceived by **[Mladen Bundalo](https://bundalomladen.com/)** (b. 1986, Prijedor; lives and works in Brussels).
+- Exhibition conceived by **[Mladen Bundalo](https://www.mladenbundalo.com/)** (b. 1986, Prijedor; lives and works in Brussels).
 - Commissioned by **Sarita Vujković** (Director, Museum of Contemporary Art of the Republic of Srpska).
 - Curated by **Isidora Živković** (Banjac).
 - Production: Museum of Contemporary Art of the Republic of Srpska + Association Vizart.

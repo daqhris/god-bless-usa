@@ -38,7 +38,7 @@ Opus 4.7 plays three overlapping roles, all declared transparently and credited 
 
 The AI-voiced performance is exhibited as a **guest work in *Domus Diasporica***, the Pavilion of Bosnia and Herzegovina at the 61st International Art Exhibition — La Biennale di Venezia.
 
-- **Exhibitor (inviting artist):** [Mladen Bundalo](https://bundalomladen.com/) (b. 1986, Prijedor; lives and works in Brussels). Interdisciplinary artist, filmmaker, and author. His work explores belonging, migration, diaspora, uncertainty, and value across film, photography, drawing, and in situ installation.
+- **Exhibitor (inviting artist):** [Mladen Bundalo](https://www.mladenbundalo.com/) (b. 1986, Prijedor; lives and works in Brussels). Interdisciplinary artist, filmmaker, and author. His work explores belonging, migration, diaspora, uncertainty, and value across film, photography, drawing, and in situ installation.
 - **Commissioner:** Sarita Vujković (Director, Museum of Contemporary Art of the Republic of Srpska; professor at the Academy of Arts, University of Banja Luka).
 - **Curator:** Isidora Živković (Banjac).
 - **Production:** Museum of Contemporary Art of the Republic of Srpska + Association Vizart.
@@ -51,7 +51,7 @@ The themes of this AI-voiced performance — a diasporic alien narrator filing a
 
 ### How the invitation came about
 
-The invitation originated at the **[Hectolitre](https://www.hectolitre.be/) art space** in Brussels, where daqhris works from and where Mladen Bundalo is a former coordinator and current resident. Mladen offered daqhris a guest-work spot in *Domus Diasporica* in the context of daqhris's country of origin (Burundi) not being represented at the Biennale. The two artists share a working space, not just a national framework; the relationship is closer than a curatorial introduction.
+The invitation originated at the **[Hectolitre](https://www.hectolitre.space/) art space** in Brussels, where daqhris works from and where Mladen Bundalo is a former coordinator and current resident. Mladen offered daqhris a guest-work spot in *Domus Diasporica* in the context of daqhris's country of origin (Burundi) not being represented at the Biennale. The two artists share a working space, not just a national framework; the relationship is closer than a curatorial introduction.
 
 ### Physical placement at Palazzo Malipiero
 
