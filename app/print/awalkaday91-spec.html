@@ -2,20 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>awalkaday 91-2022 — Print Specification</title>
+    <title>awalkaday 91-2022 — Print Specification (A4 landscape)</title>
     <style>
-      @page {
-        size: 450mm 300mm;
-        margin: 0;
-      }
+      /* Working specification document — NOT framed. Prints on A4 landscape.
+         The visualization on this page shows the EXPECTED framed result so
+         the artist can confirm the print sizing before the shop begins. */
+      @page { size: A4 landscape; margin: 0; }
+
       :root {
         --bg: #0a0908;
         --fg: #e8e4d9;
         --muted: #8a8478;
         --accent: #d4a869;
         --rule: rgba(212, 168, 105, 0.35);
-        --paper: #1a1714;     /* simulated warm-tone paper inside frame */
-        --frame-wood: #3a2b1e; /* warm wooden frame */
+        --paper-mat: #e7e1d0;   /* the cream matting around the photo */
+        --frame-wood: #d4b489;  /* bright polished wood (warm caramel) */
+        --frame-wood-dark: #a88556; /* slightly deeper ring for edge shadow */
       }
       * { box-sizing: border-box; }
       html, body {
@@ -26,186 +28,172 @@
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
       }
       .page {
-        width: 450mm; height: 300mm;
-        background: var(--bg);
-        padding: 27.5mm 25mm;
+        width: 297mm; height: 210mm;
+        padding: 11mm 13mm;
         display: grid;
         grid-template-rows: auto 1fr auto;
-        gap: 5mm;
+        gap: 4mm;
       }
 
       /* Header */
       header {
         display: flex; align-items: flex-end; justify-content: space-between;
         border-bottom: 1px solid var(--rule);
-        padding-bottom: 3mm;
+        padding-bottom: 2.5mm;
       }
-      header .title h1 {
-        font-size: 19pt; font-weight: 600;
+      header h1 {
+        font-size: 17pt; font-weight: 600;
         margin: 0; letter-spacing: 0.01em;
       }
-      header .title .sub {
+      header .sub {
         font-style: italic; color: var(--muted);
-        font-size: 9pt; margin-top: 1mm;
+        font-size: 8.5pt; margin-top: 0.8mm;
       }
-      header .eyebrow {
-        text-align: right;
-      }
-      header .eyebrow .kicker {
-        font-size: 7pt; letter-spacing: 0.3em; text-transform: uppercase;
+      header .kicker {
+        font-size: 6.5pt; letter-spacing: 0.3em; text-transform: uppercase;
         color: var(--accent);
       }
-      header .eyebrow .dims {
-        color: var(--muted); font-style: italic; font-size: 8.5pt;
-        margin-top: 1mm;
+      header .dims {
+        color: var(--muted); font-style: italic; font-size: 7.5pt;
+        margin-top: 0.8mm; text-align: right;
       }
+      .right { text-align: right; }
 
       /* Body: visualization | specs */
       .body {
         display: grid;
-        grid-template-columns: 180mm 1fr;
-        gap: 10mm;
+        grid-template-columns: 152mm 1fr;
+        gap: 8mm;
+        align-items: start;
       }
 
-      /* VISUALIZATION — shows 400×400mm print in 180mm wide box,
-         scale = 180/400 = 0.45 */
+      /* -------- VISUALIZATION --------
+         Shows the 450 × 300 mm frame at 0.333× scale:
+            frame-outer    → 150 × 100 mm
+            frame-visible  → 133.33 × 81.67 mm (400 × 245 mm × 0.333)
+            photo-print    → 66.67 × 66.67 mm  (200 × 200 mm × 0.333)
+                              centered horizontally in visible window,
+                              with ~7.5 mm top/bottom margin */
       .viz {
         position: relative;
-        padding: 0 2mm;
+        padding-top: 4mm;
       }
       .viz .frame-outer {
-        /* 450 × 300 mm frame at 0.4mm/mm scale = 180 × 120 mm visualization */
-        width: 180mm; height: 120mm;
-        background: var(--frame-wood);
         position: relative;
-        margin-top: 8mm;
-        border-radius: 0.4mm;
+        width: 150mm; height: 100mm;
+        /* Simulated polished wood — subtle diagonal lightness variation
+           gives a "lacquered" feel against the dark page */
+        background:
+          linear-gradient(135deg,
+            var(--frame-wood) 0%,
+            #e7cda1 35%,
+            var(--frame-wood) 55%,
+            var(--frame-wood-dark) 100%);
+        border-radius: 0.8mm;
+        box-shadow:
+          0 0 1.5mm rgba(0, 0, 0, 0.4) inset,
+          0 0.2mm 0.8mm rgba(212, 168, 105, 0.35);
       }
-      /* Visible window INSIDE the frame: 400 × 245 mm real → 160 × 98 mm viz.
-         Inset by 10mm horiz and 11mm vert within the frame visualization
-         (scaled rabbet). */
       .viz .frame-visible {
         position: absolute;
-        left: 10mm; top: 11mm;
-        width: 160mm; height: 98mm;
-        background: var(--paper);
-        overflow: hidden;
+        left: 8.35mm; top: 9.17mm;
+        width: 133.33mm; height: 81.67mm;
+        background: var(--paper-mat);
       }
-      /* The PRINT itself is 400×400mm, which at 0.4mm/mm = 160×160mm.
-         Horizontally fills the visible window; vertically the print EXTENDS
-         beyond top and bottom of the visible window by 31mm each side
-         (representing 77.5mm of the print hidden behind the rabbet). */
-      .viz .print-area {
+      .viz .photo-print {
+        /* 200 × 200 mm at 0.333× = 66.67 × 66.67 mm.
+           Centered horizontally: (133.33 − 66.67) / 2 = 33.33 mm left
+           Vertical margin: (81.67 − 66.67) / 2 = 7.5 mm top */
         position: absolute;
-        left: 10mm;
-        top: -20mm;    /* print extends 31mm above visible window, approx */
-        width: 160mm;
-        height: 160mm;
-        background:
-          linear-gradient(to bottom, rgba(138, 102, 82, 0.35), rgba(30, 38, 52, 0.7) 55%, rgba(10, 9, 8, 1) 85%);
+        left: 33.33mm; top: 7.5mm;
+        width: 66.67mm; height: 66.67mm;
+        background-image: url("./awalkaday91-preview.jpg");
+        background-size: cover;
+        background-position: center;
       }
-      /* Dashed outline indicating where the print extends beyond visible */
-      .viz .print-outline {
-        position: absolute;
-        left: 10mm; top: -20mm;
-        width: 160mm; height: 160mm;
-        border: 1px dashed rgba(212, 168, 105, 0.35);
-        pointer-events: none;
-      }
-      /* The three lights — positioned on the print-area using % of 400×400 */
+      /* Light overlays — positioned in % of the 66.67 × 66.67 mm print */
       .light {
         position: absolute;
         border-radius: 50%;
-        background: #fff8e0;
-        box-shadow: 0 0 2mm rgba(255, 248, 224, 0.9);
-      }
-      .light.a { /* 99.5, 146.4 → 24.9%, 36.6% */
-        left: 24.9%; top: 36.6%;
-        width: 1.4mm; height: 1.4mm;
-        transform: translate(-50%, -50%);
-      }
-      .light.b { /* 114.8, 195.7 → 28.7%, 48.9% — elongated contrail */
-        left: 28.7%; top: 48.9%;
-        width: 5mm; height: 0.7mm;
-        transform: translate(-50%, -50%) rotate(-18deg);
-      }
-      .light.c { /* 273.6, 206.6 → 68.4%, 51.6% — vertical streak */
-        left: 68.4%; top: 51.6%;
-        width: 0.7mm; height: 2.5mm;
-        transform: translate(-50%, -50%);
-      }
-      /* Markers beside the visualization pointing to each light */
-      .viz .marker-labels {
-        position: absolute;
-        top: 8mm; left: 0;
-        width: 180mm; height: 120mm;
+        background: rgba(255, 248, 224, 0.85);
+        box-shadow: 0 0 1.8mm rgba(255, 230, 160, 0.9);
         pointer-events: none;
       }
-      .viz .marker {
+      .light.a { left: 24.9%; top: 36.6%; width: 1.3mm; height: 1.3mm;
+                 transform: translate(-50%, -50%); }
+      .light.b { left: 28.7%; top: 48.9%; width: 4.2mm; height: 0.7mm;
+                 transform: translate(-50%, -50%) rotate(-20deg); }
+      .light.c { left: 68.4%; top: 51.6%; width: 0.7mm; height: 2.3mm;
+                 transform: translate(-50%, -50%); }
+
+      /* Small A/B/C badges placed beside each light so the visualization is
+         self-labelling. Positioned in % of the 66.67 × 66.67 mm photo. */
+      .badge {
         position: absolute;
-        font-size: 6.5pt;
         font-family: "Courier New", monospace;
-        letter-spacing: 0.05em;
-        color: var(--accent);
-        white-space: nowrap;
+        font-size: 5.5pt;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #d4a869;
+        text-shadow: 0 0 0.6mm rgba(0, 0, 0, 0.9);
+        pointer-events: none;
       }
-      .viz .marker .dot {
-        display: inline-block; width: 1.2mm; height: 1.2mm;
-        border-radius: 50%; background: var(--accent);
-        margin-right: 0.8mm; vertical-align: middle;
-      }
-      /* Hidden-area indicators */
-      .viz .hidden-label {
+      .badge.a { left: 18%; top: 30%; }     /* upper-left of Light A */
+      .badge.b { left: 19%; top: 51%; }     /* lower-left of Light B */
+      .badge.c { left: 72%; top: 45%; }     /* upper-right of Light C */
+
+      .callouts {
         position: absolute;
-        font-size: 6pt;
-        font-style: italic;
-        color: rgba(212, 168, 105, 0.55);
-        letter-spacing: 0.05em;
+        top: 0; left: 0;
+        width: 152mm; height: 120mm;
+        pointer-events: none;
       }
-      .viz .caption {
+      .callouts .caption {
         position: absolute;
-        font-size: 6.5pt;
+        font-size: 6.3pt;
         color: var(--muted);
-        letter-spacing: 0.05em;
+        font-style: italic;
       }
 
-      /* SPECS — right column */
+      /* -------- SPECS -------- */
       .specs {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 3mm;
+        gap: 2.5mm;
         align-content: start;
       }
       .specs section h2 {
-        font-size: 8pt; font-weight: 700;
-        letter-spacing: 0.12em; text-transform: uppercase;
-        color: var(--accent); margin: 0 0 1.5mm;
+        font-size: 7.5pt; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--accent); margin: 0 0 1mm;
       }
       .specs dl {
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: 0.8mm 5mm;
-        font-size: 7.5pt; line-height: 1.35;
+        gap: 0.5mm 4mm;
+        font-size: 7.2pt; line-height: 1.32;
         margin: 0;
       }
       .specs dt { color: var(--muted); font-style: italic; }
-      .specs dd {
-        margin: 0; text-align: right; font-weight: 600;
-      }
+      .specs dd { margin: 0; text-align: right; font-weight: 600; }
       .specs dd.accent { color: var(--accent); }
+      .specs section .note {
+        font-size: 6.8pt; color: var(--muted);
+        margin-top: 1mm; line-height: 1.35; font-style: italic;
+      }
 
-      /* Footer: weblinks + pavilion credit */
+      /* -------- FOOTER -------- */
       footer {
         border-top: 1px solid var(--rule);
-        padding-top: 3mm;
+        padding-top: 2.5mm;
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: 8mm;
+        gap: 6mm;
         align-items: end;
       }
       footer .links {
-        font-size: 7pt;
-        line-height: 1.55;
+        font-size: 6.8pt;
+        line-height: 1.5;
         color: var(--muted);
       }
       footer .links a {
@@ -215,16 +203,16 @@
         text-decoration-color: rgba(212, 168, 105, 0.45);
       }
       footer .links .label {
-        display: inline-block; width: 18mm;
+        display: inline-block; width: 20mm;
         color: var(--muted); font-style: italic;
       }
       footer .pavilion {
         text-align: right;
-        font-size: 6.5pt;
+        font-size: 6.2pt;
         letter-spacing: 0.06em;
         color: var(--muted);
-        max-width: 95mm;
-        line-height: 1.55;
+        max-width: 90mm;
+        line-height: 1.5;
       }
       footer .pavilion em { font-style: italic; color: var(--fg); }
     </style>
@@ -233,75 +221,71 @@
     <div class="page">
 
       <header>
-        <div class="title">
+        <div>
           <h1>awalkaday 91-2022</h1>
           <div class="sub">Brussels, Belgium · 2022 · awalkaday.art</div>
         </div>
-        <div class="eyebrow">
+        <div class="right">
           <div class="kicker">Print Specification</div>
-          <div class="dims">Frame 450 × 300 mm &nbsp;·&nbsp; Visible opening 400 × 245 mm</div>
+          <div class="dims">Frame 450 × 300 mm &nbsp;·&nbsp; Visible opening 400 × 245 mm &nbsp;·&nbsp; A4 spec sheet</div>
         </div>
       </header>
 
       <div class="body">
-        <!-- Left: visual mockup of print + frame -->
+        <!-- LEFT: visualization with the actual photo inside the frame -->
         <div class="viz">
           <div class="frame-outer">
-            <!-- print-area extends beyond the visible window top/bottom -->
-            <div class="print-area">
-              <span class="light a" aria-hidden="true"></span>
-              <span class="light b" aria-hidden="true"></span>
-              <span class="light c" aria-hidden="true"></span>
+            <div class="frame-visible">
+              <div class="photo-print">
+                <span class="light a" aria-hidden="true"></span>
+                <span class="light b" aria-hidden="true"></span>
+                <span class="light c" aria-hidden="true"></span>
+                <span class="badge a">A</span>
+                <span class="badge b">B</span>
+                <span class="badge c">C</span>
+              </div>
             </div>
-            <div class="print-outline"></div>
-            <div class="frame-visible"></div>
           </div>
 
-          <!-- Labels identifying the three lights, placed beside the visualization -->
-          <div class="marker-labels">
-            <div class="marker" style="left: 3mm; top: 32mm;">
-              <span class="dot"></span>A — small dot
+          <!-- Captions below the frame visualization -->
+          <div class="callouts">
+            <div class="caption" style="left: 0; top: 107mm;">
+              Photo print 200 × 200 mm (square) · centered in the 400 × 245 mm
+              visible window · 100 mm horizontal + 22.5 mm vertical margin
             </div>
-            <div class="marker" style="left: 3mm; top: 48mm;">
-              <span class="dot"></span>B — diagonal contrail
-            </div>
-            <div class="marker" style="left: 127mm; top: 50mm;">
-              <span class="dot"></span>C — vertical streak
-            </div>
-            <div class="hidden-label" style="left: 10mm; top: -5mm;">
-              77.5 mm — hidden behind top rabbet
-            </div>
-            <div class="hidden-label" style="left: 10mm; top: 113mm;">
-              77.5 mm — hidden behind bottom rabbet
-            </div>
-            <div class="caption" style="left: 0; top: 122mm;">
-              Frame 450 × 300 mm · Visible 400 × 245 mm · Print 400 × 400 mm (square)
+            <div class="caption" style="left: 0; top: 112mm;">
+              Frame outer 450 × 300 mm · bright polished wood ·
+              cream mat behind the print · three lights marked A, B, C
             </div>
           </div>
         </div>
 
-        <!-- Right: technical specifications -->
+        <!-- RIGHT: specs -->
         <div class="specs">
           <section>
-            <h2>Frame</h2>
+            <h2>Frame (physical, already bought)</h2>
             <dl>
-              <dt>Outer dimensions</dt><dd>450 × 300 mm (landscape)</dd>
+              <dt>Outer dimensions</dt><dd>450 × 300 mm landscape</dd>
               <dt>Visible opening</dt><dd>400 × 245 mm</dd>
-              <dt>Rabbet horizontal</dt><dd>25 mm each side</dd>
-              <dt>Rabbet vertical</dt><dd>27.5 mm each side</dd>
+              <dt>Rabbet horizontal / vertical</dt><dd>25 mm · 27.5 mm</dd>
             </dl>
           </section>
 
           <section>
-            <h2>Print File</h2>
+            <h2>Print file (photo output)</h2>
             <dl>
-              <dt>Print dimensions</dt><dd>400 × 400 mm (square)</dd>
-              <dt>Orientation</dt><dd>Square — no rotation</dd>
+              <dt>Print dimensions</dt><dd class="accent">200 × 200 mm (square)</dd>
+              <dt>Placement in frame</dt><dd>Centered — 100 mm H, 22.5 mm V margin</dd>
               <dt>Source resolution</dt><dd>4906 × 4906 px</dd>
-              <dt>Output at 400 mm</dt><dd class="accent">312 dpi — fine-art quality</dd>
+              <dt>Output at 200 mm</dt><dd class="accent">623 dpi — beyond fine-art</dd>
               <dt>Colour mode</dt><dd>Greyscale (or CMYK mono)</dd>
-              <dt>Hidden overhang</dt><dd>77.5 mm top &amp; bottom</dd>
+              <dt>Orientation</dt><dd>No rotation</dd>
             </dl>
+            <p class="note">
+              Smaller square than the old 400 × 400 mm plan — gives comfortable
+              margin around the lights (previously A and B sat within 100 mm of the
+              left rabbet; now 150 mm+). Nothing is hidden behind the frame lip.
+            </p>
           </section>
 
           <section>
@@ -315,25 +299,20 @@
           </section>
 
           <section>
-            <h2>Three Light Formations (in the 400 × 400 mm print)</h2>
+            <h2>Three light formations (in the 200 × 200 mm print)</h2>
             <dl>
-              <dt>A — small bright dot (top)</dt>    <dd class="accent">99.5 mm L · 146.4 mm T</dd>
-              <dt>B — diagonal contrail (centre)</dt><dd class="accent">114.8 mm L · 195.7 mm T</dd>
-              <dt>C — vertical streak (right)</dt>   <dd class="accent">273.6 mm L · 206.6 mm T</dd>
-              <dt>Visible window (top → bottom)</dt> <dd>77.5 mm → 322.5 mm</dd>
-              <dt>Loupe recommendation</dt>          <dd>5× – 8× on shelf</dd>
+              <dt>A — small dot (top)</dt>         <dd class="accent">49.8 mm L · 73.2 mm T</dd>
+              <dt>B — diagonal contrail (centre)</dt><dd class="accent">57.4 mm L · 97.8 mm T</dd>
+              <dt>C — vertical streak (right)</dt> <dd class="accent">136.8 mm L · 103.2 mm T</dd>
+              <dt>Nearest frame edge (any light)</dt><dd>≥ 95 mm</dd>
+              <dt>Loupe recommendation</dt>         <dd>5× – 8× on shelf</dd>
             </dl>
-          </section>
-
-          <section>
-            <h2>Authorship</h2>
-            <dl>
-              <dt>Title</dt><dd>awalkaday 91-2022</dd>
-              <dt>Artist</dt><dd>Chris-Armel Iradukunda (daqhris)</dd>
-              <dt>Series</dt><dd>awalkaday.art</dd>
-              <dt>Year</dt><dd>2022</dd>
-              <dt>Archive</dt><dd>Arweave permanent storage</dd>
-            </dl>
+            <p class="note">
+              Measured from the 4906 × 4906 px Arweave source via scipy
+              connected-component analysis on a background-subtracted sky mask
+              (clusters ≥ 10 px, threshold = local mean + 35). Triangle pattern
+              recalls the three stars on Burundi's flag.
+            </p>
           </section>
         </div>
       </div>
@@ -344,8 +323,8 @@
             <a href="https://awalkaday.art">awalkaday.art</a>
           </div>
           <div><span class="label">Artist</span>
-            <a href="https://daqhris.com">daqhris.com</a> &nbsp;·&nbsp;
-            daqhris.base.eth
+            <a href="https://daqhris.com">daqhris.com</a>
+            &nbsp;·&nbsp; daqhris.base.eth
           </div>
           <div><span class="label">Photo (source)</span>
             <a href="https://xjp7hza4gi5jdcag2jq3jmtdysje24arqrq2mxdxxqenaxadq7yq.arweave.net/ul_z5BwyOpGIBtJhtLJjxJJNcBGEYaZcd7wI0FwDh_E">Arweave permanent storage</a>
