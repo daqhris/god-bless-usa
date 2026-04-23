@@ -31,9 +31,13 @@
         overflow: hidden;
       }
       .visible {
+        /* Visible opening of the rabbet. Inner padding keeps content away
+           from the frame lip so the first and last lines aren't eaten by
+           small framing tolerances. Safe content box is 384 × 229 mm. */
         width: 400mm; height: 245mm;
         display: flex; flex-direction: column;
         position: relative;
+        padding: 8mm;
       }
 
       .eyebrow {
@@ -72,7 +76,7 @@
 
       .body {
         column-count: 3; column-gap: 6mm;
-        font-size: 7.15pt; line-height: 1.38;
+        font-size: 6.85pt; line-height: 1.34;
         flex: 1;
       }
       .body h3 {
@@ -86,7 +90,7 @@
         font-style: italic; color: var(--accent);
         margin: 1.8mm 0 0.6mm;
       }
-      .body p { margin: 0 0 1.6mm; }
+      .body p { margin: 0 0 1.3mm; }
       .body p.refrain {
         font-style: italic; color: var(--accent);
         text-align: center; margin: 1.3mm 0;
@@ -124,21 +128,24 @@
         margin-top: 2.5mm;
         border-top: 1px solid var(--rule);
       }
-      .footer-left, .footer-right { font-size: 7.2pt; line-height: 1.38; }
+      .footer-left, .footer-right { font-size: 8pt; line-height: 1.4; }
       .footer-left { text-align: right; }
       .footer-right { text-align: left; }
       .footer-left strong, .footer-right strong {
-        display: block; letter-spacing: 0.04em;
-        text-transform: uppercase; font-size: 6.8pt;
-        margin-bottom: 0.8mm;
+        display: block; letter-spacing: 0.05em;
+        text-transform: uppercase; font-size: 7.5pt;
+        margin-bottom: 1mm;
       }
       .footer-left .meta, .footer-right .meta {
-        color: var(--muted); font-style: italic; font-size: 6.8pt;
+        color: var(--muted); font-style: italic; font-size: 7.3pt;
       }
+      /* Enlarged QR — museum wall scan needs to work at ~0.5–1 m phone
+         distance. 44 mm housing (with 1.5 mm white padding around the SVG)
+         clears that easily, still leaves text room on both flanking sides. */
       .qr-wrap {
         background: var(--fg);
-        padding: 1.8mm; border-radius: 0.8mm;
-        width: 26mm; height: 26mm;
+        padding: 1.5mm; border-radius: 1mm;
+        width: 44mm; height: 44mm;
         display: flex; align-items: center; justify-content: center;
       }
       .qr-wrap svg { width: 100%; height: 100%; display: block; }
