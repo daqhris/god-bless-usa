@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>God Bless The United States Of Aliens — Bulletin Print Specification</title>
+    <style>
+      /* Working specification document for the framed liturgical bulletin.
+         Prints on A4 landscape; the bulletin itself prints at 450 × 300 mm
+         (matching the frame outer) and is NOT this document. See bulletin.html
+         for the bulletin source. */
+      @page { size: A4 landscape; margin: 0; }
+
+      :root {
+        --bg: #0a0908;
+        --fg: #e8e4d9;
+        --muted: #8a8478;
+        --accent: #d4a869;
+        --rule: rgba(212, 168, 105, 0.35);
+        --paper-mat: #e7e1d0;
+        --frame-wood: #d4b489;
+        --frame-wood-dark: #a88556;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0; padding: 0;
+        background: var(--bg); color: var(--fg);
+        font-family: Georgia, "Fraunces", "Playfair Display", serif;
+        -webkit-font-smoothing: antialiased;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+      .page {
+        width: 297mm; height: 210mm;
+        padding: 11mm 13mm;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 4mm;
+      }
+
+      /* Header */
+      header {
+        display: flex; align-items: flex-end; justify-content: space-between;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 2.5mm;
+      }
+      header h1 {
+        font-size: 16pt; font-weight: 600;
+        margin: 0; letter-spacing: 0.01em;
+      }
+      header .sub {
+        font-style: italic; color: var(--muted);
+        font-size: 8.5pt; margin-top: 0.8mm;
+      }
+      header .kicker {
+        font-size: 6.5pt; letter-spacing: 0.3em; text-transform: uppercase;
+        color: var(--accent);
+      }
+      header .dims {
+        color: var(--muted); font-style: italic; font-size: 7.5pt;
+        margin-top: 0.8mm; text-align: right;
+      }
+      .right { text-align: right; }
+
+      /* Body: visualization | specs */
+      .body {
+        display: grid;
+        grid-template-columns: 152mm 1fr;
+        gap: 8mm;
+        align-items: start;
+      }
+
+      /* -------- VISUALIZATION --------
+         Frame 450 × 300 mm at 0.333× scale → 150 × 100 mm visualization.
+         Bulletin is the SAME size as the frame outer (450 × 300 mm); the
+         wooden frame lip covers the outer 25 mm (H) / 27.5 mm (V) of the
+         bulletin on each side. The visible area through the rabbet opening
+         is 400 × 245 mm → 133.33 × 81.67 mm in the viz. */
+      .viz {
+        position: relative;
+        padding-top: 4mm;
+      }
+      .viz .frame-outer {
+        position: relative;
+        width: 150mm; height: 100mm;
+        background:
+          linear-gradient(135deg,
+            var(--frame-wood) 0%,
+            #e7cda1 35%,
+            var(--frame-wood) 55%,
+            var(--frame-wood-dark) 100%);
+        border-radius: 0.8mm;
+        box-shadow:
+          0 0 1.5mm rgba(0, 0, 0, 0.4) inset,
+          0 0.2mm 0.8mm rgba(212, 168, 105, 0.35);
+      }
+      .viz .frame-visible {
+        /* The rabbet opening through which the bulletin's visible area is
+           seen. 133.33 × 81.67 mm, centered. */
+        position: absolute;
+        left: 8.34mm; top: 9.17mm;
+        width: 133.33mm; height: 81.67mm;
+        overflow: hidden;
+        background: var(--bg); /* in case image fails to load */
+      }
+      .viz .bulletin {
+        /* The full bulletin print scaled to 150 × 100 mm, shifted so that
+           its outer 8.34 mm (H) / 9.17 mm (V) are hidden behind the wood
+           frame. The visible 133.33 × 81.67 mm centre reveals the
+           bulletin's visible area. */
+        display: block;
+        width: 150mm;
+        height: 100mm;
+        margin-left: -8.34mm;
+        margin-top: -9.17mm;
+        /* Slight clarity bump — the preview is ~1200px, it holds up at this size */
+        image-rendering: -webkit-optimize-contrast;
+      }
+
+      .callouts {
+        position: absolute;
+        top: 0; left: 0;
+        width: 152mm; height: 120mm;
+        pointer-events: none;
+      }
+      .callouts .caption {
+        position: absolute;
+        font-size: 6.3pt;
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      /* -------- SPECS -------- */
+      .specs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.2mm;
+        align-content: start;
+      }
+      .specs section h2 {
+        font-size: 7.5pt; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--accent); margin: 0 0 0.9mm;
+      }
+      .specs dl {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.4mm 4mm;
+        font-size: 7.1pt; line-height: 1.3;
+        margin: 0;
+      }
+      .specs dt { color: var(--muted); font-style: italic; }
+      .specs dd { margin: 0; text-align: right; font-weight: 600; }
+      .specs dd.accent { color: var(--accent); }
+      .specs section .note {
+        font-size: 6.7pt; color: var(--muted);
+        margin-top: 0.8mm; line-height: 1.3; font-style: italic;
+      }
+
+      /* -------- FOOTER -------- */
+      footer {
+        border-top: 1px solid var(--rule);
+        padding-top: 2.5mm;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6mm;
+        align-items: end;
+      }
+      footer .links {
+        font-size: 6.8pt;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      footer .links a {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        text-decoration-color: rgba(212, 168, 105, 0.45);
+      }
+      footer .links .label {
+        display: inline-block; width: 22mm;
+        color: var(--muted); font-style: italic;
+      }
+      footer .pavilion {
+        text-align: right;
+        font-size: 6.2pt;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        max-width: 90mm;
+        line-height: 1.5;
+      }
+      footer .pavilion em { font-style: italic; color: var(--fg); }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+
+      <header>
+        <div>
+          <h1>God Bless The United States Of Aliens — Liturgical Bulletin</h1>
+          <div class="sub">Christmas Eve 2024 · a framed portal to the AI-voiced performance</div>
+        </div>
+        <div class="right">
+          <div class="kicker">Print Specification</div>
+          <div class="dims">Bulletin prints at 450 × 300 mm (A3-ish, frame-filling) &nbsp;·&nbsp; A4 spec sheet</div>
+        </div>
+      </header>
+
+      <div class="body">
+        <!-- LEFT: visualization with the actual bulletin rendered inside the frame -->
+        <div class="viz">
+          <div class="frame-outer">
+            <div class="frame-visible">
+              <img class="bulletin"
+                   src="./bulletin-preview.jpg"
+                   alt="Liturgical bulletin rendered inside a bright polished wood frame" />
+            </div>
+          </div>
+
+          <div class="callouts">
+            <div class="caption" style="left: 0; top: 107mm;">
+              Bulletin fills the full 450 × 300 mm frame outer · 25 mm (H)
+              and 27.5 mm (V) bleed behind the wood rabbet
+            </div>
+            <div class="caption" style="left: 0; top: 112mm;">
+              Safe content area 384 × 229 mm · 8 mm interior margin · 3 columns
+              · enlarged QR (44 mm) centered in the footer band
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: specs -->
+        <div class="specs">
+          <section>
+            <h2>Frame (physical, identical to photo frame)</h2>
+            <dl>
+              <dt>Outer dimensions</dt><dd>450 × 300 mm landscape</dd>
+              <dt>Visible opening</dt><dd>400 × 245 mm</dd>
+              <dt>Rabbet horizontal / vertical</dt><dd>25 mm · 27.5 mm</dd>
+              <dt>Wood finish</dt><dd>Bright polished (matches photo frame)</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Print file (bulletin output)</h2>
+            <dl>
+              <dt>Print dimensions</dt><dd class="accent">450 × 300 mm (frame-filling)</dd>
+              <dt>Rabbet opening (visible)</dt><dd>400 × 245 mm</dd>
+              <dt>Bleed (each side)</dt><dd>25 mm H · 27.5 mm V</dd>
+              <dt>Safe content area</dt><dd class="accent">384 × 229 mm (8 mm inside rabbet)</dd>
+              <dt>Orientation</dt><dd>Landscape</dd>
+              <dt>Source file</dt><dd>god-bless-usa_bulletin_final.pdf</dd>
+              <dt>Colour mode</dt><dd>CMYK (deep blacks) or RGB proof</dd>
+            </dl>
+            <p class="note">
+              Unlike the photo (which sits as a 200 mm square inside a cream
+              mat), the bulletin prints edge-to-edge at the frame's full outer
+              dimensions. The wooden rabbet covers the outer 25 mm (H) /
+              27.5 mm (V) strip; text stays inside an additional 8 mm safety
+              margin so framing tolerance can't clip the first/last lines.
+            </p>
+          </section>
+
+          <section>
+            <h2>Paper</h2>
+            <dl>
+              <dt>Recommended stock</dt><dd>Heavy matte cardstock, 300–350 gsm</dd>
+              <dt>Alternative</dt><dd>Fine-art matte paper (same as photo)</dd>
+              <dt>Finish</dt><dd>Matte — avoid gloss (glass glare)</dd>
+              <dt>Black point</dt><dd>Maximum — dark background is load-bearing</dd>
+              <dt>Archival ink</dt><dd>Pigment-based, UV-resistant</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Content &amp; typography</h2>
+            <dl>
+              <dt>Typeface</dt><dd>Georgia / Fraunces / Playfair Display</dd>
+              <dt>Layout</dt><dd>3-column body, asterism refrains (⁂)</dd>
+              <dt>Text</dt><dd>Full verbatim story (see /story.md)</dd>
+              <dt>QR size</dt><dd class="accent">44 × 44 mm housing · scannable from 0.5–1 m</dd>
+              <dt>QR target</dt><dd>daqhris.com/god-bless-usa/</dd>
+              <dt>QR scan action</dt><dd>Opens the ~12 min AI-voiced mass</dd>
+            </dl>
+            <p class="note">
+              Dark ground #0a0908 · cream body #e8e4d9 · warm amber accent
+              #d4a869 for refrains, section markers, and the QR housing.
+              QR deliberately oversized for museum-wall viewing distance.
+            </p>
+          </section>
+
+          <section>
+            <h2>Authorship</h2>
+            <dl>
+              <dt>Title</dt><dd>God Bless The United States Of Aliens</dd>
+              <dt>Artist</dt><dd>Chris-Armel Iradukunda (daqhris)</dd>
+              <dt>Source text</dt><dd>Written Christmas Eve 2024</dd>
+              <dt>Token</dt><dd>USALIEN · Base blockchain · Dec 2024</dd>
+              <dt>Archive</dt><dd>Arweave permanent storage</dd>
+              <dt>Bulletin rendering</dt><dd>2026, co-directed with Claude Opus 4.7</dd>
+            </dl>
+          </section>
+        </div>
+      </div>
+
+      <footer>
+        <div class="links">
+          <div><span class="label">Story (web)</span>
+            <a href="https://daqhris.com/god-bless-usa/story.html">daqhris.com/god-bless-usa/story.html</a>
+          </div>
+          <div><span class="label">Collect</span>
+            <a href="https://app.manifold.xyz/txt/god-bless-usa">app.manifold.xyz/txt/god-bless-usa</a>
+            &nbsp;·&nbsp;
+            <a href="https://basescan.org/address/0xaec14e14e0acb86ba90864785054edc627a2337e">Verify on Base</a>
+          </div>
+          <div><span class="label">Artist</span>
+            <a href="https://daqhris.com">daqhris.com</a>
+            &nbsp;·&nbsp; daqhris.base.eth
+          </div>
+          <div><span class="label">Audio (live)</span>
+            <a href="https://daqhris.com/god-bless-usa/">daqhris.com/god-bless-usa/</a>
+            &nbsp;·&nbsp; same URL the QR encodes
+          </div>
+        </div>
+        <div class="pavilion">
+          A guest work in <em>Domus Diasporica</em> by Mladen Bundalo<br/>
+          Pavilion of Bosnia and Herzegovina · 61st La Biennale di Venezia<br/>
+          Palazzo Malipiero · May 9 – November 22, 2026
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>
