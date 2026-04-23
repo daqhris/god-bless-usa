@@ -1,15 +1,19 @@
-# Print files for the Biennale frame
+# Print files for the Biennale frames
 
-Two print-ready artifacts at different page sizes — one goes into the frame, the
-other is a working document for the print shop:
+Three print-ready artifacts — two get framed, one is a working spec for the shop:
 
-| File | Page size | Purpose | Deliverable |
+| File | Page size | Purpose | Deliverable PDF |
 |---|---|---|---|
-| [`bulletin.html`](./bulletin.html) | **450 × 300 mm** (frame-matching) | Framed portal with the full story text + live QR pointing to `https://daqhris.com/god-bless-usa/`. The framed bulletin visitors see first. | PDF at `~/Downloads/god-bless-usa_bulletin_final.pdf` |
-| [`awalkaday91-spec.html`](./awalkaday91-spec.html) | **A4 landscape** (297 × 210 mm) | Print specification sheet for the companion photograph *awalkaday 91-2022*. Shows the expected framed result with the photo embedded, and all printing specs. | PDF at `~/Downloads/awalkaday91_print-specification_final.pdf` |
+| [`bulletin.html`](./bulletin.html) | **450 × 300 mm** | **(framed)** Liturgical bulletin — full story text + live QR pointing at `https://daqhris.com/god-bless-usa/`. The framed portal visitors see first. | `~/Downloads/god-bless-usa_bulletin_final.pdf` |
+| [`bulletin-spec.html`](./bulletin-spec.html) | **A4 landscape** | Print specification for the bulletin above, with the bulletin rendered inside a mockup of the bright-polished-wood frame. Matches the photo spec's visual language. | `~/Downloads/god-bless-usa_bulletin-specification_final.pdf` |
+| [`awalkaday91-spec.html`](./awalkaday91-spec.html) | **A4 landscape** | Print specification for the companion photograph *awalkaday 91-2022*. Photo embedded inside the same frame mockup with A/B/C badges on the three light formations. | `~/Downloads/awalkaday91_print-specification_final.pdf` |
 
-The bulletin gets framed behind glass. The spec sheet is a working reference for
-the print shop — it is NOT framed.
+**Framed (goes inside the frame, behind glass):**
+- The bulletin (prints from `bulletin.html`)
+- The photograph — full-res JPEG from the artist's Arweave archive, printed at 200 × 200 mm per `awalkaday91-spec.html`
+
+**Not framed (working documents for the print shop):**
+- Both `*-spec.html` PDFs — references explaining what the printer should do
 
 The actual photograph file is the source JPEG at the artist's
 [Arweave archive](https://xjp7hza4gi5jdcag2jq3jmtdysje24arqrq2mxdxxqenaxadq7yq.arweave.net/ul_z5BwyOpGIBtJhtLJjxJJNcBGEYaZcd7wI0FwDh_E)
@@ -23,17 +27,43 @@ No Node dependencies required — Chrome's headless mode handles the print direc
 CHROME="/c/Program Files/Google/Chrome/Application/chrome.exe"   # Windows
 cd app/print
 
+# The framed bulletin (450 × 300 mm)
 "$CHROME" --headless --disable-gpu --print-to-pdf-no-header \
   --print-to-pdf="$HOME/Downloads/god-bless-usa_bulletin_final.pdf" \
   "file:///$(pwd)/bulletin.html"
 
+# Bulletin print-specification sheet (A4 landscape)
+"$CHROME" --headless --disable-gpu --print-to-pdf-no-header \
+  --print-to-pdf="$HOME/Downloads/god-bless-usa_bulletin-specification_final.pdf" \
+  "file:///$(pwd)/bulletin-spec.html"
+
+# Photograph print-specification sheet (A4 landscape)
 "$CHROME" --headless --disable-gpu --print-to-pdf-no-header \
   --print-to-pdf="$HOME/Downloads/awalkaday91_print-specification_final.pdf" \
   "file:///$(pwd)/awalkaday91-spec.html"
 ```
 
 Each HTML sets its own `@page { size: …; margin: 0; }` — `450mm 300mm` for the
-bulletin, `A4 landscape` for the spec. No scaling, no cropping.
+bulletin, `A4 landscape` for both spec sheets. No scaling, no cropping.
+
+### Regenerating the bulletin preview (for the bulletin spec visualization)
+
+The bulletin spec embeds a thumbnail of the bulletin PDF inside the frame mockup.
+If the bulletin changes, regenerate the thumbnail:
+
+```bash
+python -c "
+import fitz
+from PIL import Image
+doc = fitz.open(r'$HOME/Downloads/god-bless-usa_bulletin_final.pdf')
+pix = doc[0].get_pixmap(dpi=150)
+pix.save(r'app/print/bulletin-preview-raw.png')
+img = Image.open(r'app/print/bulletin-preview-raw.png')
+img.thumbnail((1200, 800), Image.LANCZOS)
+img.save(r'app/print/bulletin-preview.jpg', quality=85, optimize=True)
+import os; os.remove(r'app/print/bulletin-preview-raw.png')
+"
+```
 
 ## Design notes
 
@@ -93,7 +123,12 @@ Triangular arrangement reminiscent of the three stars on Burundi's flag.
 ## Assets
 
 - `awalkaday91-preview.jpg` — 700 × 700 preview of the photograph (23 KB), used
-  in the spec visualization. Safe to commit — it's a derived low-res asset,
-  and the full-res 4906 × 4906 original is canonically archived on Arweave.
+  in the photo spec visualization. Safe to commit — it's a derived low-res
+  asset, and the full-res 4906 × 4906 original is canonically archived on
+  Arweave.
 - `awalkaday91-preview-inverted.jpg` — alternative inverted-colour preview,
   kept for future variants (not currently used).
+- `bulletin-preview.jpg` — 1200 × 800 thumbnail of the bulletin PDF (~140 KB),
+  used in the bulletin spec visualization. Derived from
+  `bulletin_final.pdf` via PyMuPDF at 150 dpi. Regenerated whenever the
+  bulletin content changes.
