@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>God Bless The United States Of Aliens — Framed Bulletin</title>
+    <style>
+      @page {
+        size: 450mm 300mm;
+        margin: 0;
+      }
+      :root {
+        --bg: #0a0908;
+        --fg: #e8e4d9;
+        --muted: #8a8478;
+        --accent: #d4a869;
+        --rule: rgba(212, 168, 105, 0.35);
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0; padding: 0;
+        background: var(--bg); color: var(--fg);
+        font-family: Georgia, "Fraunces", "Playfair Display", serif;
+        -webkit-font-smoothing: antialiased;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+      .page {
+        width: 450mm; height: 300mm;
+        background: var(--bg);
+        padding: 27.5mm 25mm;
+        position: relative;
+        overflow: hidden;
+      }
+      .visible {
+        width: 400mm; height: 245mm;
+        display: flex; flex-direction: column;
+        position: relative;
+      }
+
+      .eyebrow {
+        font-size: 6.8pt; letter-spacing: 0.25em; text-transform: uppercase;
+        color: var(--muted); text-align: center;
+        padding-bottom: 1.5mm;
+      }
+      .eyebrow .star { color: var(--accent); margin: 0 1.5em; }
+
+      h1.title {
+        font-size: 20pt; font-weight: 600;
+        text-align: center; margin: 0.5mm 0 1.5mm;
+        letter-spacing: 0.012em; line-height: 1.05;
+      }
+      hr.rule {
+        border: 0; border-top: 1px solid var(--rule);
+        margin: 0 30mm 2mm; height: 0;
+      }
+
+      .lede {
+        font-style: italic; text-align: center;
+        font-size: 7.8pt; line-height: 1.42;
+        color: var(--fg);
+        margin: 0 auto 2mm; max-width: 240mm;
+      }
+      .star-row {
+        text-align: center; color: var(--accent);
+        font-size: 8.5pt; margin: 1mm 0;
+      }
+      .refrain-main {
+        text-align: center; font-style: italic;
+        font-size: 7.6pt; line-height: 1.35;
+        color: var(--accent);
+        margin: 0 auto 1.5mm; max-width: 130mm;
+      }
+
+      .body {
+        column-count: 3; column-gap: 6mm;
+        font-size: 7.15pt; line-height: 1.38;
+        flex: 1;
+      }
+      .body h3 {
+        font-size: 7.6pt; font-weight: 700;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        margin: 0 0 1.3mm; color: var(--fg);
+      }
+      .body h3.section-break { margin-top: 2.5mm; }
+      .body h4 {
+        font-size: 7.15pt; font-weight: 600;
+        font-style: italic; color: var(--accent);
+        margin: 1.8mm 0 0.6mm;
+      }
+      .body p { margin: 0 0 1.6mm; }
+      .body p.refrain {
+        font-style: italic; color: var(--accent);
+        text-align: center; margin: 1.3mm 0;
+      }
+      .body p.bracket {
+        text-align: center; font-style: italic; color: var(--accent);
+        font-size: 7.2pt; margin: 1.5mm 0;
+      }
+      .body p.alarm { color: #d47575; font-weight: 600; }
+      .body p.warm { color: var(--accent); font-weight: 600; }
+      .body .emph { color: var(--accent); font-style: italic; }
+      .body p.outro {
+        font-style: italic; color: var(--muted); font-size: 6.8pt;
+        margin-top: 1.6mm;
+      }
+      .body p.guarantee {
+        color: var(--accent); font-weight: 700; font-style: italic;
+      }
+      .body p.christmas {
+        text-align: center; font-weight: 700;
+        letter-spacing: 0.06em; margin-top: 1.2mm;
+      }
+      .body .divider {
+        text-align: center; color: var(--accent);
+        font-size: 7.5pt; margin: 1.5mm 0 1mm;
+      }
+      .body em.book { font-style: italic; color: var(--fg); }
+
+      .footer {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 6mm;
+        padding-top: 2.5mm;
+        margin-top: 2.5mm;
+        border-top: 1px solid var(--rule);
+      }
+      .footer-left, .footer-right { font-size: 7.2pt; line-height: 1.38; }
+      .footer-left { text-align: right; }
+      .footer-right { text-align: left; }
+      .footer-left strong, .footer-right strong {
+        display: block; letter-spacing: 0.04em;
+        text-transform: uppercase; font-size: 6.8pt;
+        margin-bottom: 0.8mm;
+      }
+      .footer-left .meta, .footer-right .meta {
+        color: var(--muted); font-style: italic; font-size: 6.8pt;
+      }
+      .qr-wrap {
+        background: var(--fg);
+        padding: 1.8mm; border-radius: 0.8mm;
+        width: 26mm; height: 26mm;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .qr-wrap svg { width: 100%; height: 100%; display: block; }
+
+      .credit-bar {
+        text-align: center;
+        font-size: 6.3pt; letter-spacing: 0.06em;
+        color: var(--muted);
+        padding-top: 2mm;
+        margin-top: 2mm;
+        border-top: 1px solid var(--rule);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="visible">
+
+        <div class="eyebrow">
+          <span class="star">⁂</span>
+          An All-Seeing Eyewitness Report about a Christmas Mass Prayer
+          <span class="star">⁂</span>
+        </div>
+
+        <h1 class="title">GOD BLESS THE UNITED STATES OF ALIENS</h1>
+        <hr class="rule" />
+
+        <p class="lede">
+          USA's overseas-based beings were seen praying in a protesting church,
+          bending heads upwards, gazing towards a church leader standing on a pedestal,
+          all surrounded by Hollywoodian posters about the 2025 celestial games,
+          soon to be held in various aerial fields atop their homeland territory.
+        </p>
+
+        <div class="star-row">⁂</div>
+        <p class="refrain-main">
+          🎶 Someone else, not far from a morally right human consensus,
+          will be chosen to hard-wire loving thoughts into our brains. 🎶
+        </p>
+        <div class="star-row">⁂</div>
+
+        <div class="body">
+
+          <h3>Church Leader's Speech</h3>
+          <p>Thanks to all USA-funded church attendees.</p>
+          <p>
+            For showing up in due course to pray for the rescue of all kinds of
+            beings, while everyone is thirsty for an avant-garde cinematic drama,
+            steadily ready to warm up during wintertime home-alone days.
+          </p>
+
+          <p class="refrain">
+            Someone else, not far from a morally right human consensus,
+            will be chosen to hard-wire loving thoughts into our brains.
+          </p>
+
+          <p>
+            Curious to see if the plot of using super-beings as tools, not trained
+            at Cambridge University, nor fluent in electoral analytics, for a
+            thoughtful and successful attempt to win human choices at a federal
+            competition, will end on a poetic note or a loud siren.
+          </p>
+          <p>
+            Some of you didn't think of consciously choosing a conciliatory
+            candidate. Some of you defied wise counseling and voiced divisive
+            rhetoric.
+          </p>
+          <p>
+            Regardless of your careless sins, our beloved God will always grant
+            you as much oxygen as your carbon-based embodiments request.
+          </p>
+
+          <p class="refrain">
+            Someone else, not far from a morally right human consensus,
+            will be chosen to hard-wire loving thoughts into our brains.
+          </p>
+
+          <p>
+            No matter how many years you decide to fake powerful feelings,
+            roleplay as original migrants, tag each other as superior or inferior
+            and refuse to open the heavenly gates of the USA to your colored
+            look-alikes, I can only promise you one reward.
+          </p>
+          <p>
+            As the leader of this overseas church, I promise that our God of all
+            Aliens still works overtime, witnessing everything in the USA,
+            engraving your sins into an upgradeable holy book, at least once per
+            week on a holiday, anywhere else on the Blue Planet.
+          </p>
+          <p>
+            If the number one rallying motto, earlier this year, of a federal
+            competition across the Atlantic-sized water canyon, was about
+            deporting a diverse set of non-whitened aliens…
+          </p>
+          <p class="bracket">— SILENCE —</p>
+          <p>
+            Why wouldn't the OGs among non-whitened aliens show up since they
+            were outspokenly summoned?
+          </p>
+          <p>
+            Flying beneath the sky-high clouds and underneath the water canyon
+            horizon, hovering over terrestrial superweapon warehouses and defense
+            facilities?
+          </p>
+          <p class="bracket">— AMEN —</p>
+
+          <h3 class="section-break">One Praying Alien's Distracting Chain-of-Thoughts</h3>
+
+          <h4>Train of Thoughts Signals</h4>
+          <p>
+            Without whistleblowing, my soft warehouse of logically encoded texts
+            warned me — warning of a cosmical joke. Skies, like flashlights
+            flickering on screens, are lit up by unknown and unidentified beings!
+          </p>
+          <p>
+            What will the soon to be sworn-in leader of the human-looking USA do
+            on the inaugural day of moving his gold-plated toilet seat back into
+            a whitened office?
+          </p>
+          <p><em class="emph">Negotiate or Deport?</em></p>
+
+          <h4>Drumbeating Heart Pulse</h4>
+          <p>Who will be the first to stumble upon such a puzzling presidential quiz?</p>
+          <p>
+            Many puzzled aliens have already thought of a clue: a lyrical
+            promoter of a supposedly non-ghostwritten book, the
+            <em class="book">'Art of the Deal'</em>.
+          </p>
+          <p>
+            It is party time in a country that is famous for pioneering the hood
+            film genre in cinemas. For God's sake!
+          </p>
+          <p>
+            To foot the bill of our after-party, let's recall the first
+            spacefaring, nationalized, migrant man who thought of bankrolling the
+            chosen chief of USA-based humans with green-colored
+            dollar-denominated bills.
+          </p>
+          <p>
+            Let's pop the corn, <em class="book">'Boyz n the Hood'</em>!
+          </p>
+
+          <h4>Drumbeating Gut Feeling</h4>
+          <p>
+            Instead, as transparent as soundwaves, another electronically-spread
+            intangible source of revenue was the gas empowering an updated engine
+            of electoral triumph.
+          </p>
+          <p>
+            Who knows? Just another white lie of mine waiting to be settled with
+            the laborious and cheap assistance of a non-human tool mislabeled as
+            a digital bank memory!
+          </p>
+          <p>
+            Why am I thinking of a <em class="emph">bank</em> all of a sudden
+            near year-end? And not, for example, random words like
+            <em class="book">'synthetic Tanganyika data lake'</em>? Because its
+            merits are <em class="emph">bankable</em>!
+          </p>
+          <p class="warm">
+            Green-looking candles are skyrocketing.<br/>
+            Green-looking parties are degrowthing.
+          </p>
+
+          <p class="refrain">
+            Someone else, not far from a morally right human consensus,
+            will be chosen to hard-wire loving thoughts into our brains.
+          </p>
+
+          <h3 class="section-break">Church Leader's Prayer</h3>
+          <p>
+            We were all busy watching from home, with our heads bent downwards,
+            eyeing lit up rectangular screens, watching non-Palestinian-flag-
+            waving aliens vanishing away from a super-weaponry-powered genocidal
+            theatre of combat.
+          </p>
+          <p>
+            Now, after jumping forward in the year 2024, our peaceful attention
+            has become hijacked by renewed anxious thoughts.
+          </p>
+          <p>
+            Headlines gearing up to announce that the world's first powerhouse is
+            stunned by the puzzled faces of their ground-based defenders!
+          </p>
+          <p>
+            Our brothers and sisters are asking out loud among themselves:
+            <span class="alarm">'What will we do to these non-ground-based
+            foreign aliens? Arrest? Shoot? Threaten? Coerce? Embargo?'</span>
+          </p>
+          <p>
+            All at once, USA-based human-looking aliens are googling:
+            'What to do when overseen and surveilled by beings with bigger balls
+            than yours?'
+          </p>
+          <p>
+            Their red-blooded relatives abroad, not attending this church, are
+            googling: 'Why did their sensitive and fenced areas get flashed at,
+            like in a cul-de-sac film scene, as seen from above?'
+          </p>
+          <p>
+            Every one of us wonders: 'How will they kick away from the USA
+            territory the non-state-approved sets of aliens?'
+          </p>
+          <p>
+            Dear God, wake us up when true and untrue aliens are NOT counted,
+            triaged, and kicked away from the ballpark by technologically
+            superior powerhouses.
+          </p>
+          <p>
+            This is NOT one of a series of a mirrored show about human-performed
+            drama that will enlighten our smiles this Christmas season.
+          </p>
+          <p>
+            <strong>Are there other kinds of sweetened gifts that are not yet
+            deliverable through screens?</strong>
+          </p>
+          <p>
+            <strong>Guess what's the traditional anxiety-numbing gift desired
+            by all diverse-looking beings?</strong>
+          </p>
+          <p class="bracket">— HUGS —</p>
+          <p class="warm">
+            Glory to peacekeeping hugs in all neighborhoods of the
+            United States of Aliens!
+          </p>
+
+          <p class="refrain">
+            Someone else, not far from a morally right human consensus,
+            will be chosen to hard-wire loving thoughts into our brains.
+          </p>
+
+          <p class="christmas">MERRY CHRISTMAS &nbsp;·&nbsp; HAPPY NEW YEAR</p>
+
+          <div class="divider">⁂</div>
+
+          <p class="outro">
+            Protesting church's speeches, prayers and wishes disclosed to everyone
+            on the eve of the last Christmas before 2025. Sent from an artist's
+            artificial studio inside a whitened house in the neighborhood of an
+            overseas USA-funded church. By an identified, non-whitened,
+            human-looking storyteller, formerly legally-designated as an alien
+            and a migrant.
+          </p>
+
+          <p class="guarantee">
+            One hundred percent guaranteed: NO digitally laboring beings hired to
+            ghostwrite this work of fiction.
+          </p>
+
+          <p class="outro">
+            Enlightened by the author's memories, of being a church-attending and
+            globe-trotting human, and his ancestors' stories about first-time
+            encounters with advanced, whitened and alien-looking humans, before a
+            colonial era and a few hundred years ago, on the soil of a landlocked
+            non-US-colonized African kingdom, known as a Hard To Pronounce Name
+            in the official language of its post-colonial era.
+          </p>
+        </div>
+
+        <div class="footer">
+          <div class="footer-left">
+            <strong>Scan to hear the mass</strong>
+            performed by non-human voices<br />
+            <span class="meta">Claude Opus 4.7 (co-director) · Kokoro-82M · ~12 min</span>
+          </div>
+          <div class="qr-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges"><path fill="#f9f6ef" d="M0 0h33v33H0z"/><path stroke="#0a0908" d="M2 2.5h7m6 0h3m2 0h3m1 0h7M2 3.5h1m5 0h1m2 0h3m1 0h4m3 0h1m1 0h1m5 0h1M2 4.5h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1M2 5.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h2m1 0h3m2 0h1m1 0h3m1 0h1M2 6.5h1m1 0h3m1 0h1m1 0h2m5 0h6m1 0h1m1 0h3m1 0h1M2 7.5h1m5 0h1m1 0h2m1 0h1m8 0h1m1 0h1m5 0h1M2 8.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M10 9.5h4m2 0h1m1 0h1m2 0h2M2 10.5h1m1 0h5m2 0h1m2 0h1m4 0h1m4 0h5M4 11.5h1m1 0h1m2 0h1m3 0h1m1 0h3m2 0h3m1 0h3m3 0h1M2 12.5h4m2 0h1m2 0h1m1 0h8m1 0h2m2 0h1M2 13.5h1m1 0h1m8 0h3m2 0h1m1 0h5m2 0h1m1 0h1M4 14.5h2m2 0h7m1 0h1m2 0h1m1 0h1m5 0h2M2 15.5h1m1 0h1m1 0h1m4 0h1m7 0h3m1 0h4m3 0h1M3 16.5h3m1 0h2m1 0h1m1 0h2m3 0h2m3 0h7M4 17.5h4m1 0h2m1 0h2m2 0h2m2 0h1m1 0h1m3 0h1m2 0h1M4 18.5h5m3 0h3m2 0h1m1 0h1m1 0h1m3 0h1m1 0h2M2 19.5h1m2 0h1m3 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1M2 20.5h1m1 0h3m1 0h1m1 0h1m1 0h7m3 0h2m1 0h2m1 0h1M2 21.5h1m2 0h3m2 0h3m2 0h1m5 0h2m1 0h1m1 0h1m2 0h1M2 22.5h1m2 0h1m2 0h7m1 0h4m1 0h6m1 0h3M10 23.5h1m2 0h1m4 0h1m3 0h1m3 0h5M2 24.5h7m2 0h1m5 0h6m1 0h1m1 0h3M2 25.5h1m5 0h1m1 0h1m3 0h1m1 0h3m2 0h2m3 0h1m2 0h2M2 26.5h1m1 0h3m1 0h1m1 0h4m3 0h3m2 0h5m1 0h2M2 27.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m2 0h3m3 0h4M2 28.5h1m1 0h3m1 0h1m1 0h1m4 0h6m2 0h7M2 29.5h1m5 0h1m2 0h1m5 0h2m3 0h1m1 0h1m1 0h2m1 0h1M2 30.5h7m1 0h2m1 0h2m1 0h1m2 0h3m1 0h4m1 0h1"/></svg>
+          </div>
+          <div class="footer-right">
+            <strong>Chris-Armel Iradukunda</strong>
+            daqhris &nbsp;·&nbsp; daqhris.base.eth<br />
+            <span class="meta">Token: USALIEN · Base · Dec 2024</span>
+          </div>
+        </div>
+
+        <p class="credit-bar">
+          A guest work in <em>Domus Diasporica</em> by Mladen Bundalo
+          ·&nbsp; Pavilion of Bosnia and Herzegovina ·&nbsp; 61st La Biennale di Venezia
+          ·&nbsp; Palazzo Malipiero ·&nbsp; May 9 – November 22, 2026
+        </p>
+
+      </div>
+    </div>
+  </body>
+</html>

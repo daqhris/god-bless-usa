@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>awalkaday 91-2022 — Print Specification</title>
+    <style>
+      @page {
+        size: 450mm 300mm;
+        margin: 0;
+      }
+      :root {
+        --bg: #0a0908;
+        --fg: #e8e4d9;
+        --muted: #8a8478;
+        --accent: #d4a869;
+        --rule: rgba(212, 168, 105, 0.35);
+        --paper: #1a1714;     /* simulated warm-tone paper inside frame */
+        --frame-wood: #3a2b1e; /* warm wooden frame */
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0; padding: 0;
+        background: var(--bg); color: var(--fg);
+        font-family: Georgia, "Fraunces", "Playfair Display", serif;
+        -webkit-font-smoothing: antialiased;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+      .page {
+        width: 450mm; height: 300mm;
+        background: var(--bg);
+        padding: 27.5mm 25mm;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 5mm;
+      }
+
+      /* Header */
+      header {
+        display: flex; align-items: flex-end; justify-content: space-between;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 3mm;
+      }
+      header .title h1 {
+        font-size: 19pt; font-weight: 600;
+        margin: 0; letter-spacing: 0.01em;
+      }
+      header .title .sub {
+        font-style: italic; color: var(--muted);
+        font-size: 9pt; margin-top: 1mm;
+      }
+      header .eyebrow {
+        text-align: right;
+      }
+      header .eyebrow .kicker {
+        font-size: 7pt; letter-spacing: 0.3em; text-transform: uppercase;
+        color: var(--accent);
+      }
+      header .eyebrow .dims {
+        color: var(--muted); font-style: italic; font-size: 8.5pt;
+        margin-top: 1mm;
+      }
+
+      /* Body: visualization | specs */
+      .body {
+        display: grid;
+        grid-template-columns: 180mm 1fr;
+        gap: 10mm;
+      }
+
+      /* VISUALIZATION — shows 400×400mm print in 180mm wide box,
+         scale = 180/400 = 0.45 */
+      .viz {
+        position: relative;
+        padding: 0 2mm;
+      }
+      .viz .frame-outer {
+        /* 450 × 300 mm frame at 0.4mm/mm scale = 180 × 120 mm visualization */
+        width: 180mm; height: 120mm;
+        background: var(--frame-wood);
+        position: relative;
+        margin-top: 8mm;
+        border-radius: 0.4mm;
+      }
+      /* Visible window INSIDE the frame: 400 × 245 mm real → 160 × 98 mm viz.
+         Inset by 10mm horiz and 11mm vert within the frame visualization
+         (scaled rabbet). */
+      .viz .frame-visible {
+        position: absolute;
+        left: 10mm; top: 11mm;
+        width: 160mm; height: 98mm;
+        background: var(--paper);
+        overflow: hidden;
+      }
+      /* The PRINT itself is 400×400mm, which at 0.4mm/mm = 160×160mm.
+         Horizontally fills the visible window; vertically the print EXTENDS
+         beyond top and bottom of the visible window by 31mm each side
+         (representing 77.5mm of the print hidden behind the rabbet). */
+      .viz .print-area {
+        position: absolute;
+        left: 10mm;
+        top: -20mm;    /* print extends 31mm above visible window, approx */
+        width: 160mm;
+        height: 160mm;
+        background:
+          linear-gradient(to bottom, rgba(138, 102, 82, 0.35), rgba(30, 38, 52, 0.7) 55%, rgba(10, 9, 8, 1) 85%);
+      }
+      /* Dashed outline indicating where the print extends beyond visible */
+      .viz .print-outline {
+        position: absolute;
+        left: 10mm; top: -20mm;
+        width: 160mm; height: 160mm;
+        border: 1px dashed rgba(212, 168, 105, 0.35);
+        pointer-events: none;
+      }
+      /* The three lights — positioned on the print-area using % of 400×400 */
+      .light {
+        position: absolute;
+        border-radius: 50%;
+        background: #fff8e0;
+        box-shadow: 0 0 2mm rgba(255, 248, 224, 0.9);
+      }
+      .light.a { /* 99.5, 146.4 → 24.9%, 36.6% */
+        left: 24.9%; top: 36.6%;
+        width: 1.4mm; height: 1.4mm;
+        transform: translate(-50%, -50%);
+      }
+      .light.b { /* 114.8, 195.7 → 28.7%, 48.9% — elongated contrail */
+        left: 28.7%; top: 48.9%;
+        width: 5mm; height: 0.7mm;
+        transform: translate(-50%, -50%) rotate(-18deg);
+      }
+      .light.c { /* 273.6, 206.6 → 68.4%, 51.6% — vertical streak */
+        left: 68.4%; top: 51.6%;
+        width: 0.7mm; height: 2.5mm;
+        transform: translate(-50%, -50%);
+      }
+      /* Markers beside the visualization pointing to each light */
+      .viz .marker-labels {
+        position: absolute;
+        top: 8mm; left: 0;
+        width: 180mm; height: 120mm;
+        pointer-events: none;
+      }
+      .viz .marker {
+        position: absolute;
+        font-size: 6.5pt;
+        font-family: "Courier New", monospace;
+        letter-spacing: 0.05em;
+        color: var(--accent);
+        white-space: nowrap;
+      }
+      .viz .marker .dot {
+        display: inline-block; width: 1.2mm; height: 1.2mm;
+        border-radius: 50%; background: var(--accent);
+        margin-right: 0.8mm; vertical-align: middle;
+      }
+      /* Hidden-area indicators */
+      .viz .hidden-label {
+        position: absolute;
+        font-size: 6pt;
+        font-style: italic;
+        color: rgba(212, 168, 105, 0.55);
+        letter-spacing: 0.05em;
+      }
+      .viz .caption {
+        position: absolute;
+        font-size: 6.5pt;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* SPECS — right column */
+      .specs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3mm;
+        align-content: start;
+      }
+      .specs section h2 {
+        font-size: 8pt; font-weight: 700;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--accent); margin: 0 0 1.5mm;
+      }
+      .specs dl {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.8mm 5mm;
+        font-size: 7.5pt; line-height: 1.35;
+        margin: 0;
+      }
+      .specs dt { color: var(--muted); font-style: italic; }
+      .specs dd {
+        margin: 0; text-align: right; font-weight: 600;
+      }
+      .specs dd.accent { color: var(--accent); }
+
+      /* Footer: weblinks + pavilion credit */
+      footer {
+        border-top: 1px solid var(--rule);
+        padding-top: 3mm;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8mm;
+        align-items: end;
+      }
+      footer .links {
+        font-size: 7pt;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+      footer .links a {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        text-decoration-color: rgba(212, 168, 105, 0.45);
+      }
+      footer .links .label {
+        display: inline-block; width: 18mm;
+        color: var(--muted); font-style: italic;
+      }
+      footer .pavilion {
+        text-align: right;
+        font-size: 6.5pt;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        max-width: 95mm;
+        line-height: 1.55;
+      }
+      footer .pavilion em { font-style: italic; color: var(--fg); }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+
+      <header>
+        <div class="title">
+          <h1>awalkaday 91-2022</h1>
+          <div class="sub">Brussels, Belgium · 2022 · awalkaday.art</div>
+        </div>
+        <div class="eyebrow">
+          <div class="kicker">Print Specification</div>
+          <div class="dims">Frame 450 × 300 mm &nbsp;·&nbsp; Visible opening 400 × 245 mm</div>
+        </div>
+      </header>
+
+      <div class="body">
+        <!-- Left: visual mockup of print + frame -->
+        <div class="viz">
+          <div class="frame-outer">
+            <!-- print-area extends beyond the visible window top/bottom -->
+            <div class="print-area">
+              <span class="light a" aria-hidden="true"></span>
+              <span class="light b" aria-hidden="true"></span>
+              <span class="light c" aria-hidden="true"></span>
+            </div>
+            <div class="print-outline"></div>
+            <div class="frame-visible"></div>
+          </div>
+
+          <!-- Labels identifying the three lights, placed beside the visualization -->
+          <div class="marker-labels">
+            <div class="marker" style="left: 3mm; top: 32mm;">
+              <span class="dot"></span>A — small dot
+            </div>
+            <div class="marker" style="left: 3mm; top: 48mm;">
+              <span class="dot"></span>B — diagonal contrail
+            </div>
+            <div class="marker" style="left: 127mm; top: 50mm;">
+              <span class="dot"></span>C — vertical streak
+            </div>
+            <div class="hidden-label" style="left: 10mm; top: -5mm;">
+              77.5 mm — hidden behind top rabbet
+            </div>
+            <div class="hidden-label" style="left: 10mm; top: 113mm;">
+              77.5 mm — hidden behind bottom rabbet
+            </div>
+            <div class="caption" style="left: 0; top: 122mm;">
+              Frame 450 × 300 mm · Visible 400 × 245 mm · Print 400 × 400 mm (square)
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: technical specifications -->
+        <div class="specs">
+          <section>
+            <h2>Frame</h2>
+            <dl>
+              <dt>Outer dimensions</dt><dd>450 × 300 mm (landscape)</dd>
+              <dt>Visible opening</dt><dd>400 × 245 mm</dd>
+              <dt>Rabbet horizontal</dt><dd>25 mm each side</dd>
+              <dt>Rabbet vertical</dt><dd>27.5 mm each side</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Print File</h2>
+            <dl>
+              <dt>Print dimensions</dt><dd>400 × 400 mm (square)</dd>
+              <dt>Orientation</dt><dd>Square — no rotation</dd>
+              <dt>Source resolution</dt><dd>4906 × 4906 px</dd>
+              <dt>Output at 400 mm</dt><dd class="accent">312 dpi — fine-art quality</dd>
+              <dt>Colour mode</dt><dd>Greyscale (or CMYK mono)</dd>
+              <dt>Hidden overhang</dt><dd>77.5 mm top &amp; bottom</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Paper</h2>
+            <dl>
+              <dt>Recommended stock</dt><dd>Baryta / silver gelatin inkjet</dd>
+              <dt>Alternative</dt><dd>Fine-art matte, 200–300 gsm</dd>
+              <dt>Finish</dt><dd>Matte or satin — avoid gloss</dd>
+              <dt>Black point</dt><dd>Maximum — rich deep blacks</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Three Light Formations (in the 400 × 400 mm print)</h2>
+            <dl>
+              <dt>A — small bright dot (top)</dt>    <dd class="accent">99.5 mm L · 146.4 mm T</dd>
+              <dt>B — diagonal contrail (centre)</dt><dd class="accent">114.8 mm L · 195.7 mm T</dd>
+              <dt>C — vertical streak (right)</dt>   <dd class="accent">273.6 mm L · 206.6 mm T</dd>
+              <dt>Visible window (top → bottom)</dt> <dd>77.5 mm → 322.5 mm</dd>
+              <dt>Loupe recommendation</dt>          <dd>5× – 8× on shelf</dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Authorship</h2>
+            <dl>
+              <dt>Title</dt><dd>awalkaday 91-2022</dd>
+              <dt>Artist</dt><dd>Chris-Armel Iradukunda (daqhris)</dd>
+              <dt>Series</dt><dd>awalkaday.art</dd>
+              <dt>Year</dt><dd>2022</dd>
+              <dt>Archive</dt><dd>Arweave permanent storage</dd>
+            </dl>
+          </section>
+        </div>
+      </div>
+
+      <footer>
+        <div class="links">
+          <div><span class="label">Series</span>
+            <a href="https://awalkaday.art">awalkaday.art</a>
+          </div>
+          <div><span class="label">Artist</span>
+            <a href="https://daqhris.com">daqhris.com</a> &nbsp;·&nbsp;
+            daqhris.base.eth
+          </div>
+          <div><span class="label">Photo (source)</span>
+            <a href="https://xjp7hza4gi5jdcag2jq3jmtdysje24arqrq2mxdxxqenaxadq7yq.arweave.net/ul_z5BwyOpGIBtJhtLJjxJJNcBGEYaZcd7wI0FwDh_E">Arweave permanent storage</a>
+          </div>
+          <div><span class="label">Audio companion</span>
+            <a href="https://daqhris.com/god-bless-usa/">daqhris.com/god-bless-usa/</a>
+          </div>
+        </div>
+        <div class="pavilion">
+          A guest work in <em>Domus Diasporica</em> by Mladen Bundalo<br/>
+          Pavilion of Bosnia and Herzegovina · 61st La Biennale di Venezia<br/>
+          Palazzo Malipiero · May 9 – November 22, 2026
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>
