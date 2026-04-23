@@ -1,10 +1,11 @@
 # /app — God Bless USA performance app
 
-The digital artifact: an AI-voiced web performance of *"God Bless The United States Of Aliens — An All-Seeing Eyewitness Report."*
+The digital artifact: an AI-voiced web performance of *"God Bless The United States Of Aliens — An All-Seeing Eyewitness Report."* **Live at [daqhris.com/god-bless-usa/](https://daqhris.com/god-bless-usa/).**
 
 - **Source material** at the repository root (story, script, PDFs) is **not rewritten** — this app renders it.
-- **Submission target:** Build with Opus 4.7 hackathon, April 21–26, 2026.
-- **Exhibition target:** 61st International Art Exhibition — La Biennale di Venezia, 2026, Bosnia and Herzegovina Pavilion (*Domus Diasporica*), May–November 2026.
+- **Submission:** [Build with Opus 4.7](https://cerebralvalley.ai/e/built-with-4-7-hackathon) hackathon (Cerebral Valley × Anthropic, April 21–26, 2026).
+- **Exhibition:** A guest work in ***Domus Diasporica*** by **Mladen Bundalo** — Pavilion of Bosnia and Herzegovina at the 61st International Art Exhibition — La Biennale di Venezia. Commissioned by **Sarita Vujković**; curated by **Isidora Živković**. 61st Biennale theme: *In Minor Keys*, curated by **Koyo Kouoh**. Venue: Palazzo Malipiero, San Marco 3198, Venice. Dates: **May 9 – November 22, 2026**.
+- **Licence:** Open-source, MIT. Museum-archivable as a single self-contained folder.
 
 ## Architecture
 
