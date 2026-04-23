@@ -19,14 +19,30 @@
 
 ## Digital Performance App (`/app`)
 
-An AI-voiced web performance of the story is under active development in [`/app`](./app/) — a 13–16 minute, four-voice ceremony triggered on a visitor's smartphone via QR code, intended for the **61st International Art Exhibition — La Biennale di Venezia, 2026**, Bosnia and Herzegovina Pavilion (*Domus Diasporica*).
+An AI-voiced web performance of the story lives in [`/app`](./app/) — a ~15-minute, four-voice ceremony (plus a full ensemble for AMEN and HUGS) triggered on a visitor's smartphone via QR code. Live at **[daqhris.com/god-bless-usa/](https://daqhris.com/god-bless-usa/)**.
 
-The app is being scaffolded for submission to the **"Build with Opus 4.7"** hackathon organised by Anthropic and Cerebral Valley (April 21–26, 2026). Claude Opus 4.7 is used in two roles, both declared transparently:
+### Exhibition
 
-1. **Performance director at runtime** — each scene is directed by an Opus 4.7 API call that reads the script and emits SSML-annotated direction for an open-source text-to-speech engine (Kokoro-82M, with CosyVoice 2 and Chatterbox as fallbacks). *"Claude becomes the performance director; TTS becomes the actor"* — a plan already written into [`god-bless-usa_performance-script.md`](./god-bless-usa_performance-script.md) before the hackathon.
-2. **Co-developer of the app scaffolding** — the TypeScript code inside `/app` was written collaboratively with Claude Opus 4.7 as implementation partner; daqhris is primary author and creative director. Contributions are declared in commit trailers (`Co-Authored-By: Claude Opus 4.7`) and documented in [`/app/SUBMISSION.md`](./app/SUBMISSION.md).
+A guest work in ***Domus Diasporica***, the **Pavilion of Bosnia and Herzegovina** at the 61st International Art Exhibition — La Biennale di Venezia.
+
+- Exhibition conceived by **[Mladen Bundalo](https://bundalomladen.com/)** (b. 1986, Prijedor; lives and works in Brussels).
+- Commissioned by **Sarita Vujković** (Director, Museum of Contemporary Art of the Republic of Srpska).
+- Curated by **Isidora Živković** (Banjac).
+- Production: Museum of Contemporary Art of the Republic of Srpska + Association Vizart.
+- 61st Biennale theme: ***In Minor Keys***, curated by **Koyo Kouoh**.
+- Venue: **Palazzo Malipiero, San Marco 3198, Venice**.
+- Dates: **May 9 – November 22, 2026**.
+
+### Hackathon
+
+The app was built during the **[Build with Opus 4.7](https://cerebralvalley.ai/e/built-with-4-7-hackathon)** hackathon (Cerebral Valley × Anthropic, April 21–26, 2026). Claude Opus 4.7 plays two roles, both declared transparently:
+
+1. **Co-director of the performance at runtime** — each scene of the rendered audio was directed by an Opus 4.7 API call that reads the script and emits SSML-annotated direction for Kokoro-82M (with CosyVoice 2 and Chatterbox as licence-clean fallbacks). *"Claude becomes the performance director; TTS becomes the actor"* — a plan already written into [`god-bless-usa_performance-script.md`](./god-bless-usa_performance-script.md) before the hackathon. During development, the director role was shared with daqhris through iterative listening passes.
+2. **Co-developer of the app scaffolding** — the TypeScript code inside `/app` and the visitor player were written collaboratively with Claude Opus 4.7 as implementation partner; daqhris is primary author and creative director. Contributions declared in commit trailers (`Co-Authored-By: Claude Opus 4.7`) and documented in [`/app/SUBMISSION.md`](./app/SUBMISSION.md).
 
 The source material at this repository root (story, HTML, PDFs, performance script) predates the hackathon and is treated as libretto. The `/app` folder contains the new work.
+
+**Open-source, MIT.** Museum-archivable as a single self-contained folder — pure HTML / CSS / JavaScript + pre-rendered WAV audio, no server dependencies, no build step at runtime.
 
 ---
 
