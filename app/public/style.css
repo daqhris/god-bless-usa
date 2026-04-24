@@ -217,6 +217,87 @@ button.begin:disabled:hover { background: transparent; }
   opacity: 0.65;
 }
 
+/* ---------- Submission page (the dedicated jury introduction) ---------- */
+
+body.submission {
+  padding: 3rem 1.5rem 5rem;
+  max-width: 44rem;
+  margin: 0 auto;
+}
+body.submission h1 {
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+  line-height: 1.2;
+}
+body.submission .subtitle {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0 0 2.4rem;
+}
+body.submission .intro-video {
+  margin: 0 0 3rem;
+}
+body.submission .intro-video video {
+  width: 100%;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+body.submission .intro-video figcaption {
+  margin-top: 0.9rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-style: italic;
+}
+body.submission section {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.8rem;
+  margin-top: 2.4rem;
+}
+body.submission h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.8rem;
+}
+body.submission p,
+body.submission li {
+  font-size: 0.98rem;
+}
+body.submission dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.45rem 1.2rem;
+  margin: 0;
+  font-size: 0.92rem;
+}
+body.submission dt {
+  font-weight: 600;
+  color: var(--muted);
+}
+body.submission dd {
+  margin: 0;
+}
+body.submission a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-rule);
+  text-underline-offset: 3px;
+}
+body.submission a:hover,
+body.submission a:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+body.submission footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
 /* ---------- Preview page (the dev/jury per-scene listing) ---------- */
 
 body.preview {
