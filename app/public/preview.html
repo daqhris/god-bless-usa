@@ -29,19 +29,26 @@
       position and the Roman-numeral scene number from the source script.
     </div>
 
+    <!--
+      Every <audio> offers three <source> elements. The browser picks the first
+      it supports: Opus for Chrome/Firefox and modern iOS/Safari, AAC for older
+      iOS, WAV as the archival master reviewers may want to download directly.
+    -->
+
     <section class="master">
       <p class="scene-meta">Complete Performance</p>
       <h2>God Bless The United States Of Aliens — Master Track</h2>
       <p class="note">
         Fifteen scenes total — the Opening Invocation (Scene 0) plus the
         fourteen numbered scenes — concatenated with a 3-second gap between
-        each. Produced by <code>npm run render:all-scenes</code>.
+        each. Produced by <code>npm run render:all-scenes</code>, then
+        compressed by <code>npm run encode:audio</code>.
       </p>
-      <audio
-        controls
-        preload="none"
-        src="assets/audio/god-bless-usa.wav"
-      ></audio>
+      <audio controls preload="none">
+        <source src="assets/audio/god-bless-usa.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/god-bless-usa.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/god-bless-usa.wav" type="audio/wav" />
+      </audio>
       <p class="missing">
         Available after you run <code>npm run render:all-scenes</code> locally
         with your Anthropic API key set. The per-scene WAVs will populate the
@@ -65,7 +72,10 @@
         scene, not in the original script — added to establish both
         registers (liturgical + surveillance) in the first 15 seconds.
       </p>
-      <audio controls preload="metadata" src="assets/audio/00-opening.wav">
+      <audio controls preload="metadata">
+        <source src="assets/audio/00-opening.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/00-opening.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/00-opening.wav" type="audio/wav" />
         Your browser does not support the <code>&lt;audio&gt;</code> element.
       </audio>
     </section>
@@ -79,7 +89,10 @@
         continues from Scene 0 — the same transmission. The PRELUDE that
         opened this scene in the original script has moved to Scene 0.
       </p>
-      <audio controls preload="metadata" src="assets/audio/01-eyewitness.wav">
+      <audio controls preload="metadata">
+        <source src="assets/audio/01-eyewitness.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/01-eyewitness.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/01-eyewitness.wav" type="audio/wav" />
       </audio>
     </section>
 
@@ -90,11 +103,11 @@
         Voice: <em>THE CHURCH LEADER</em>. Warm authority, pastoral irony.
         First time he speaks to the congregation.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/03-church-leader-speech.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/03-church-leader-speech.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/03-church-leader-speech.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/03-church-leader-speech.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -108,11 +121,11 @@
         was written as the second section; our master moves it to follow the
         leader's first speech.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/02-chorus-first.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/02-chorus-first.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/02-chorus-first.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/02-chorus-first.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -122,11 +135,11 @@
         The preacher is now in rhythm. Pacing picks up, then deliberately
         slows on "loud siren."
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/05-church-leader-speech-continued.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/05-church-leader-speech-continued.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/05-church-leader-speech-continued.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/05-church-leader-speech-continued.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -136,11 +149,11 @@
         Slightly warmer than the first appearance — the congregation has
         settled into worship.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/04-chorus-second.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/04-chorus-second.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/04-chorus-second.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/04-chorus-second.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -150,11 +163,11 @@
         The longest unbroken passage. Ends with four full seconds of silence.
         The visitor must sit inside it.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/07-church-leader-silence.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/07-church-leader-silence.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/07-church-leader-silence.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/07-church-leader-silence.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -164,11 +177,11 @@
         Fuller now. The congregation responds to the absolution with the
         refrain.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/06-chorus-third.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/06-chorus-third.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/06-chorus-third.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/06-chorus-third.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -180,11 +193,11 @@
         four chorus voices + praying alien, six lanes summed). The entire
         congregation validates what was said.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/08-church-leader-amen.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/08-church-leader-amen.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/08-church-leader-amen.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/08-church-leader-amen.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -201,11 +214,11 @@
         these describe alien-tech mind-reading and would not plausibly be
         the alien's own interior monologue, so the eyewitness files them.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/09-praying-alien.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/09-praying-alien.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/09-praying-alien.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/09-praying-alien.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -215,11 +228,11 @@
         The alien has rejoined the congregation. The fullest, most inhabited
         version of the refrain.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/10-chorus-fourth.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/10-chorus-fourth.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/10-chorus-fourth.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/10-chorus-fourth.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -233,11 +246,11 @@
         utterance. The line that follows ("Glory to peacekeeping hugs…")
         returns to the church leader alone.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/11-church-leader-prayer.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/11-church-leader-prayer.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/11-church-leader-prayer.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/11-church-leader-prayer.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -246,11 +259,11 @@
       <p class="note">
         Slowest of all four appearances. Each phrase a bell tolling.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/12-chorus-final-echo.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/12-chorus-final-echo.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/12-chorus-final-echo.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/12-chorus-final-echo.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -259,11 +272,11 @@
       <p class="note">
         Almost a whisper. Merry Christmas. Happy New Year. Organ drone returns.
       </p>
-      <audio
-        controls
-        preload="metadata"
-        src="assets/audio/13-blessing.wav"
-      ></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/13-blessing.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/13-blessing.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/13-blessing.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <section>
@@ -277,7 +290,11 @@
         included from the original story text. Ships by default; pass
         <code>--no-coda</code> to opt out.
       </p>
-      <audio controls preload="metadata" src="assets/audio/14-coda.wav"></audio>
+      <audio controls preload="metadata">
+        <source src="assets/audio/14-coda.opus.ogg" type="audio/ogg; codecs=opus" />
+        <source src="assets/audio/14-coda.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+        <source src="assets/audio/14-coda.wav" type="audio/wav" />
+      </audio>
     </section>
 
     <footer>

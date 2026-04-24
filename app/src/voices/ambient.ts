@@ -157,15 +157,43 @@ export function synthesizeBellPeal(
  * any scene that needs a "we are formally entering this section" announcement.
  * The drone comes in during the peal (not after) so the transition feels like
  * the bells summoning the organ, not a hand-off.
+ *
+ * When `real_bells` is supplied (the CC-BY Vatican peal prepared by
+ * `scripts/prepare-bell-sample.ts`), the recording replaces the synthesized
+ * peal for authentic cathedral timbre. The synthesized organ drone still
+ * enters underneath at 2.8 s. Without a sample, the synthesized peal is used
+ * — deterministic, reproducible, no external asset required.
  */
 export function synthesizeBellThenDrone(
   duration_ms: number,
   sample_rate: number,
+  real_bells?: Pcm,
 ): Pcm {
-  const peal = synthesizeBellPeal(duration_ms, sample_rate);
   const drone = synthesizeOrganDrone(duration_ms, sample_rate);
-  // Drone enters ~2.8s in — after three of the four tolls have struck, so the
-  // peal establishes itself before the organ joins.
+
+  if (real_bells) {
+    if (real_bells.sample_rate !== sample_rate) {
+      throw new Error(
+        `synthesizeBellThenDrone: real_bells sample rate ${real_bells.sample_rate} != target ${sample_rate}. Resample at prep time.`,
+      );
+    }
+    // Clip the recording to the requested window — the 25 s source is longer
+    // than Scene 0 needs, and anything past `duration_ms` would bleed into the
+    // chorus premonition that follows.
+    const max_samples = Math.floor((duration_ms / 1000) * sample_rate);
+    const samples =
+      real_bells.samples.length > max_samples
+        ? real_bells.samples.slice(0, max_samples)
+        : real_bells.samples;
+    // Gain 0.9 on peaks ≈ −1 dBTP (prep loudness-normalizes there) leaves
+    // headroom for the drone to add without clipping.
+    return mix([
+      { pcm: { samples, sample_rate }, offset_ms: 0, gain: 0.9 },
+      { pcm: drone, offset_ms: 2800, gain: 0.55 },
+    ]);
+  }
+
+  const peal = synthesizeBellPeal(duration_ms, sample_rate);
   return mix([
     { pcm: peal, offset_ms: 0, gain: 1 },
     { pcm: drone, offset_ms: 2800, gain: 0.75 },

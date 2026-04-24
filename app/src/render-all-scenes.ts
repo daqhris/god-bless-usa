@@ -3,39 +3,10 @@ import Anthropic from "@anthropic-ai/sdk";
 import { readFile, writeFile, mkdir, stat } from "node:fs/promises";
 import { resolve, basename, extname, join } from "node:path";
 import { directScene } from "./director/index.js";
+import { DEFAULT_PLAYLIST } from "./playlist.js";
 import { kokoroAdapter } from "./voices/kokoro.js";
 import { KOKORO_SAMPLE_RATE } from "./voices/voice-map.js";
 import { concat, silence, writeWav, type Pcm } from "./voices/wav.js";
-
-/**
- * Canonical performance order for the master track.
- *
- * Deviates from the script's source-order (which has chorus first) so the
- * narrative reads: THE EYEWITNESS reports, THEN THE CHURCH LEADER addresses
- * the congregation, THEN THE CHORUS responds with the refrain. The chorus
- * "responds" to a preceding leader segment throughout, as in a real mass.
- *
- * Scene IDs are the filenames under app/scenes/ (without .md extension).
- * Editing this list (or pointing --playlist at a JSON array) is all that's
- * needed to reshape the performance.
- */
-export const DEFAULT_PLAYLIST: string[] = [
-  "00-opening",
-  "01-eyewitness",
-  "03-church-leader-speech",
-  "02-chorus-first",
-  "05-church-leader-speech-continued",
-  "04-chorus-second",
-  "07-church-leader-silence",
-  "06-chorus-third",
-  "08-church-leader-amen",
-  "09-praying-alien",
-  "10-chorus-fourth",
-  "11-church-leader-prayer",
-  "12-chorus-final-echo",
-  "13-blessing",
-  "14-coda",
-];
 
 interface Args {
   scenes_dir: string;
@@ -213,9 +184,20 @@ async function loadWav(path: string): Promise<Pcm> {
   return { samples, sample_rate };
 }
 
-main().catch((err) => {
-  process.stderr.write(
-    `render-all-scenes: error — ${err instanceof Error ? err.stack ?? err.message : String(err)}\n`,
-  );
-  process.exit(1);
-});
+// Entrypoint guard — running as a CLI invokes the pipeline, but a stray
+// `import { … } from "./render-all-scenes.js"` anywhere else in the codebase
+// must NOT auto-dispatch a full render (which would eat Anthropic credits
+// and overwrite scene WAVs mid-edit).
+import { fileURLToPath } from "node:url";
+const is_entrypoint =
+  !!process.argv[1] &&
+  resolve(process.argv[1]!) === resolve(fileURLToPath(import.meta.url));
+
+if (is_entrypoint) {
+  main().catch((err) => {
+    process.stderr.write(
+      `render-all-scenes: error — ${err instanceof Error ? err.stack ?? err.message : String(err)}\n`,
+    );
+    process.exit(1);
+  });
+}
