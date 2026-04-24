@@ -1,4 +1,4 @@
-# Scene IX — The Praying Alien: Chain of Thoughts
+# Scene IX — The Praying Alien: Distracting Chain-of-Thoughts
 
 *Extracted from the master performance script. The section headers
 ("Chain of Thoughts," "Train of Thoughts Signals," "Drumbeating Heart
@@ -27,7 +27,7 @@ filing stamps, not as competing narration.*
 
 ---
 
-### SCENE IX — THE PRAYING ALIEN: Chain of Thoughts
+### SCENE IX — THE PRAYING ALIEN: Distracting Chain-of-Thoughts
 *[Voice: THE PRAYING ALIEN]*
 *[Acoustic shifts: drier, closer, no reverb. This is inside a mind, not inside a church.]*
 *[The transition from EYEWITNESS scribing to this voice should feel like a camera cut.]*

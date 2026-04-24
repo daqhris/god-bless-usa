@@ -15,6 +15,14 @@ import {
   EYEWITNESS_UNDERLAY_TAIL_MS,
 } from "./underlay.js";
 import {
+  synthesizeTrainBed,
+  synthesizeHeartBed,
+  synthesizeGutBed,
+  SIGNAL_BED_GAIN,
+  SIGNAL_BED_TAIL_MS,
+} from "./signal-beds.js";
+import type { Segment } from "../director/schema.js";
+import {
   CHORUS_ENSEMBLE,
   FULL_ENSEMBLE,
   KOKORO_MODEL_ID,
@@ -83,6 +91,34 @@ function clampSpeed(s: number): number {
   return Math.max(0.5, Math.min(2, s));
 }
 
+/**
+ * Pre-scan segments to tag praying-alien segments with the signal they
+ * inhabit. The score's three signal headers ("Signal one. Train of
+ * Thoughts." etc.) are voiced by the eyewitness; the following
+ * praying-alien speech gets a corresponding ambient bed underneath.
+ * Returns a map: segment index → signal kind.
+ */
+type SignalKind = "train" | "heart" | "gut";
+function mapSignalBeds(segments: Segment[]): Map<number, SignalKind> {
+  const out = new Map<number, SignalKind>();
+  let pending: SignalKind | null = null;
+  for (let i = 0; i < segments.length; i++) {
+    const seg = segments[i]!;
+    if (seg.type === "speech" && seg.voice === "eyewitness") {
+      const text = seg.ssml.toLowerCase();
+      if (text.includes("train of thoughts")) pending = "train";
+      else if (text.includes("heart pulse")) pending = "heart";
+      else if (text.includes("gut feeling")) pending = "gut";
+      continue;
+    }
+    if (seg.type === "speech" && seg.voice === "praying_alien" && pending) {
+      out.set(i, pending);
+      pending = null;
+    }
+  }
+  return out;
+}
+
 async function renderSpeech(
   tts: KokoroTTS,
   voice_id: string,
@@ -125,8 +161,9 @@ export const kokoroAdapter: VoiceAdapter = {
 
     const rendered = [];
     const pcm_segments: Pcm[] = [];
+    const signal_beds = mapSignalBeds(direction.segments);
 
-    for (const seg of direction.segments) {
+    for (const [seg_index, seg] of direction.segments.entries()) {
       if (seg.type === "silence") {
         const pcm = silence(seg.duration_ms, KOKORO_SAMPLE_RATE);
         pcm_segments.push(pcm);
@@ -225,6 +262,27 @@ export const kokoroAdapter: VoiceAdapter = {
           pcm = mix([
             { pcm, offset_ms: 0, gain: 1 },
             { pcm: bed, offset_ms: 0, gain: EYEWITNESS_UNDERLAY_GAIN },
+          ]);
+        }
+
+        // PRAYING ALIEN in Scene IX's three signals gets an interior ambient
+        // bed beneath the voice — train chuff, heart pulse, or gut rumble.
+        // Low gain: the bed is the mind's texture, never foreground.
+        const signal = signal_beds.get(seg_index);
+        if (seg.voice === "praying_alien" && signal) {
+          const voice_ms = Math.round(
+            (pcm.samples.length / pcm.sample_rate) * 1000,
+          );
+          const bed_ms = voice_ms + SIGNAL_BED_TAIL_MS;
+          const bed =
+            signal === "train"
+              ? synthesizeTrainBed(bed_ms, KOKORO_SAMPLE_RATE)
+              : signal === "heart"
+                ? synthesizeHeartBed(bed_ms, KOKORO_SAMPLE_RATE)
+                : synthesizeGutBed(bed_ms, KOKORO_SAMPLE_RATE);
+          pcm = mix([
+            { pcm, offset_ms: 0, gain: 1 },
+            { pcm: bed, offset_ms: 0, gain: SIGNAL_BED_GAIN },
           ]);
         }
       }
