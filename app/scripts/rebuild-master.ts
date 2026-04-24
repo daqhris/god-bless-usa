@@ -1,13 +1,19 @@
 import { resolve, join } from "node:path";
 import { DEFAULT_PLAYLIST } from "../src/playlist.js";
+import {
+  MASTER_UNDERCURRENT_GAIN,
+  synthesizeUndercurrentDrone,
+} from "../src/voices/ambient.js";
+import { mix } from "../src/voices/mix.js";
 import { KOKORO_SAMPLE_RATE } from "../src/voices/voice-map.js";
 import { concat, readWav, silence, writeWav, type Pcm } from "../src/voices/wav.js";
 
 /**
- * Concatenate already-rendered per-scene WAVs into the master track. Use
- * after `render:audio` on individual scenes when re-running the full pipeline
- * (which calls Claude) would be wasteful. Inter-scene gap matches the default
- * used by `render:all-scenes` so the pacing is identical.
+ * Concatenate already-rendered per-scene WAVs into the master track, then
+ * mix a master-length undercurrent drone underneath — the "thin drone
+ * underneath throughout" the sound-design framework calls for. Inter-scene
+ * gap matches the default used by `render:all-scenes` so the pacing is
+ * identical to the director's intent.
  */
 const INTER_SCENE_GAP_MS = 3000;
 const SCENE_DIR = resolve("public/assets/audio");
@@ -25,11 +31,19 @@ async function main(): Promise<void> {
       parts.push(silence(INTER_SCENE_GAP_MS, KOKORO_SAMPLE_RATE));
     }
   }
-  const master = concat(parts);
+  const dry = concat(parts);
+  const duration_ms = Math.round(
+    (dry.samples.length / dry.sample_rate) * 1000,
+  );
+  const undercurrent = synthesizeUndercurrentDrone(duration_ms, dry.sample_rate);
+  const master = mix([
+    { pcm: dry, offset_ms: 0, gain: 1 },
+    { pcm: undercurrent, offset_ms: 0, gain: MASTER_UNDERCURRENT_GAIN },
+  ]);
   await writeWav(MASTER_OUT, master);
   const total_s = Math.round((master.samples.length / master.sample_rate));
   process.stderr.write(
-    `rebuild-master: wrote ${MASTER_OUT} (${total_s}s).\n`,
+    `rebuild-master: wrote ${MASTER_OUT} (${total_s}s, with undercurrent drone).\n`,
   );
 }
 

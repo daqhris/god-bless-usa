@@ -55,6 +55,70 @@ export function synthesizeOrganDrone(
 }
 
 /**
+ * Master-length undercurrent drone — the "thin drone underneath throughout"
+ * that the sound-design framework calls for. A sub-fundamental (55 Hz, A1)
+ * with a perfect fifth and octave stacked as a thin triad, plus two very
+ * slow LFOs so the 16-minute bed never sounds static: one modulates
+ * amplitude over ~20 s, the other detunes the fundamental by ±0.8 Hz over
+ * ~45 s. Long 12-second fades at both edges so the drone ghosts in under
+ * the opening peal rather than cutting in, and fades out under the final
+ * typewriter trail rather than stopping.
+ *
+ * Intended to mix into the concatenated master at low gain (see
+ * MASTER_UNDERCURRENT_GAIN). Not suitable for use per-segment — the long
+ * fades assume a multi-minute window.
+ */
+export function synthesizeUndercurrentDrone(
+  duration_ms: number,
+  sample_rate: number,
+): Pcm {
+  const n = Math.max(0, Math.floor((duration_ms / 1000) * sample_rate));
+  const samples = new Float32Array(n);
+  if (n === 0) return { samples, sample_rate };
+
+  const fundamental = 55; // A1
+  const partials: Array<{ ratio: number; weight: number }> = [
+    { ratio: 1, weight: 0.6 },
+    { ratio: 1.5, weight: 0.22 }, // perfect fifth
+    { ratio: 2, weight: 0.14 }, // octave
+  ];
+
+  const amp_lfo_hz = 0.05; // 20-s period
+  const detune_lfo_hz = 0.022; // 45-s period
+  const base_amp = 0.18;
+  const amp_lfo_depth = 0.05;
+  const detune_depth_hz = 0.8;
+
+  for (let i = 0; i < n; i++) {
+    const t = i / sample_rate;
+    const detune = detune_depth_hz * Math.sin(TAU * detune_lfo_hz * t);
+    let v = 0;
+    for (const { ratio, weight } of partials) {
+      v += weight * Math.sin(TAU * (fundamental + detune) * ratio * t);
+    }
+    const env = base_amp + amp_lfo_depth * Math.sin(TAU * amp_lfo_hz * t);
+    samples[i] = v * env;
+  }
+
+  // Long edge fades — the drone should arrive and leave like atmosphere,
+  // never like a switch being flipped.
+  const fade_n = Math.min(
+    Math.floor(sample_rate * 12),
+    Math.floor(n / 3),
+  );
+  for (let i = 0; i < fade_n; i++) {
+    const k = i / fade_n;
+    samples[i]! *= k;
+    samples[n - 1 - i]! *= k;
+  }
+
+  return { samples, sample_rate };
+}
+
+/** Mix level for the undercurrent drone when layered under the master. */
+export const MASTER_UNDERCURRENT_GAIN = 0.4;
+
+/**
  * Synthesize a single church bell toll. Inharmonic partials approximating a
  * real bell (1, 2, 2.5, 3 ratios with independent decay times), sharp attack,
  * long exponential decay. Default fundamental ~65 Hz puts the bell low and
