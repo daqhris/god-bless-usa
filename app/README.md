@@ -79,6 +79,26 @@ npm run render:all-scenes
 #   --gap-ms 2000          → change inter-scene silence (default 3000 ms — gives each scene room to breathe)
 #   --playlist <file.json> → override playlist with a JSON array of scene IDs
 
+# Prepare the CC-BY Vatican bell sample — trim to the 15–40 s window,
+# loudness-normalize, downmix to 24 kHz mono. The result blends into Scene 0
+# automatically on the next render (no change needed if the file is absent —
+# the synthesized peal is used as a fallback). Provide the path to the WAV
+# downloaded from https://freesound.org/people/everythingsounds/sounds/197458/ :
+npm run prepare:bell -- path/to/197458__everythingsounds__rome-vatican-changing.wav
+
+# Re-render a single scene from its cached director JSON, without touching
+# Claude — useful after changing ambient synthesis or voice mapping:
+npm run render:audio -- dist/directions/00-opening.json
+
+# Concatenate the per-scene WAVs into the master track without re-running
+# the director. Use after `render:audio` on individual scenes:
+npm run rebuild:master
+
+# Compress every WAV under public/assets/audio/ to Opus (~32 kbps mono) and
+# AAC (~64 kbps mono) alongside the originals. The visitor player prefers
+# Opus, falls back to AAC on older iOS, and keeps WAV for archival:
+npm run encode:audio
+
 # Preview in a browser (same folder GitHub Pages will serve):
 npm run serve
 # open http://localhost:5173

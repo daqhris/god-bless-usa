@@ -17,15 +17,50 @@ function show(stage) {
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 
+// Reason we gate Begin: with preload="auto" the browser starts fetching the
+// Opus/AAC master on page load. On 4G the opening bell peal + organ drone is
+// low-amplitude and silently skips if playback starts before enough has
+// buffered. We only un-gate once the browser reports it can play through, so
+// the first sound a visitor hears is Scene 0's first toll — not silence.
+let armed = false;
+function armBegin() {
+  if (armed) return;
+  armed = true;
+  beginBtn.disabled = false;
+  beginBtn.textContent = "Begin";
+}
+
+audio.addEventListener("canplaythrough", armBegin, { once: true });
+
+// Safety net — some mobile browsers fire canplay but delay canplaythrough
+// indefinitely on a stable connection. After canplay + a short grace window
+// we trust there's enough buffer to cover the opening.
+audio.addEventListener(
+  "canplay",
+  () => {
+    setTimeout(armBegin, 2500);
+  },
+  { once: true },
+);
+
+audio.addEventListener("error", () => {
+  const prep = document.querySelector("#stage-landing .prep");
+  if (prep) {
+    prep.textContent =
+      "The ceremony's audio could not load. Check your connection and reload the page.";
+  }
+  beginBtn.textContent = "Reload to retry";
+  beginBtn.disabled = true;
+});
+
 async function begin() {
   // The browser requires a user gesture to start audio with sound. The Begin
   // click satisfies that requirement; no autoplay anywhere else in the flow.
+  if (beginBtn.disabled) return;
   show("playing");
   try {
     await audio.play();
   } catch (err) {
-    // Most likely cause: the WAV failed to load (network blip, missing file).
-    // Fall back to landing and surface the error softly.
     console.error("playback failed:", err);
     show("landing");
     const prep = document.querySelector("#stage-landing .prep");

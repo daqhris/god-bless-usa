@@ -2,7 +2,7 @@ import { KokoroTTS } from "kokoro-js";
 import type { VoiceAdapter, RenderedScene } from "./adapter.js";
 import type { DirectorOutput } from "../director/schema.js";
 import { tokenizeSsml } from "./ssml.js";
-import { concat, silence, writeWav, type Pcm } from "./wav.js";
+import { concat, readWav, silence, writeWav, type Pcm } from "./wav.js";
 import { mix } from "./mix.js";
 import {
   synthesizeOrganDrone,
@@ -40,6 +40,30 @@ if (typeof _g.__dirname === "undefined") {
 }
 
 let cached: KokoroTTS | null = null;
+
+// Real Vatican bells (CC-BY 4.0, everythingsounds on Freesound). Optional —
+// when the prepared WAV is present it replaces the synthesized peal in
+// Scene 0. Loaded once per render and reused if other scenes ever call
+// `bell_then_drone`.
+const REAL_BELL_PATH = "public/assets/audio/source/rome-vatican-bells-25s.wav";
+let realBells: Pcm | null = null;
+let realBellsLoaded = false;
+async function loadRealBells(): Promise<Pcm | null> {
+  if (realBellsLoaded) return realBells;
+  realBellsLoaded = true;
+  try {
+    realBells = await readWav(REAL_BELL_PATH);
+    process.stderr.write(
+      `kokoro: loaded real bell sample (${REAL_BELL_PATH}).\n`,
+    );
+  } catch {
+    realBells = null;
+    process.stderr.write(
+      `kokoro: no real bell sample at ${REAL_BELL_PATH} — using synthesized peal.\n`,
+    );
+  }
+  return realBells;
+}
 
 async function loadTts(): Promise<KokoroTTS> {
   if (cached) return cached;
@@ -121,12 +145,15 @@ export const kokoroAdapter: VoiceAdapter = {
           case "bell":
             pcm = synthesizeBellToll(seg.duration_ms, KOKORO_SAMPLE_RATE);
             break;
-          case "bell_then_drone":
+          case "bell_then_drone": {
+            const bells = await loadRealBells();
             pcm = synthesizeBellThenDrone(
               seg.duration_ms,
               KOKORO_SAMPLE_RATE,
+              bells ?? undefined,
             );
             break;
+          }
           case "drone":
           default:
             pcm = synthesizeOrganDrone(seg.duration_ms, KOKORO_SAMPLE_RATE);

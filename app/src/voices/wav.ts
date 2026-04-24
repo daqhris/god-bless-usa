@@ -1,4 +1,4 @@
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 
 export interface Pcm {
   samples: Float32Array;
@@ -30,6 +30,63 @@ export function concat(parts: Pcm[]): Pcm {
     offset += p.samples.length;
   }
   return { samples: out, sample_rate };
+}
+
+/**
+ * Read a 16-bit PCM mono WAV file into a Pcm. Scans chunks rather than
+ * assuming data begins at byte 44, so files produced by ffmpeg (which may
+ * include "LIST" or "bext" metadata chunks before "data") are handled.
+ */
+export async function readWav(path: string): Promise<Pcm> {
+  const buf = await readFile(path);
+  if (
+    buf.toString("ascii", 0, 4) !== "RIFF" ||
+    buf.toString("ascii", 8, 12) !== "WAVE"
+  ) {
+    throw new Error(`readWav: ${path} is not a RIFF/WAVE file`);
+  }
+  let sample_rate = 0;
+  let channels = 0;
+  let bits_per_sample = 0;
+  let data_offset = 0;
+  let data_size = 0;
+
+  let cursor = 12;
+  while (cursor < buf.length - 8) {
+    const id = buf.toString("ascii", cursor, cursor + 4);
+    const size = buf.readUInt32LE(cursor + 4);
+    const payload = cursor + 8;
+    if (id === "fmt ") {
+      channels = buf.readUInt16LE(payload + 2);
+      sample_rate = buf.readUInt32LE(payload + 4);
+      bits_per_sample = buf.readUInt16LE(payload + 14);
+    } else if (id === "data") {
+      data_offset = payload;
+      data_size = size;
+      break;
+    }
+    // RIFF chunks are word-aligned; odd sizes carry a single pad byte.
+    cursor = payload + size + (size & 1);
+  }
+  if (bits_per_sample !== 16) {
+    throw new Error(
+      `readWav: ${path} — expected 16-bit PCM, got ${bits_per_sample}-bit`,
+    );
+  }
+  if (channels !== 1) {
+    throw new Error(
+      `readWav: ${path} — expected mono, got ${channels} channels`,
+    );
+  }
+  if (data_offset === 0) {
+    throw new Error(`readWav: ${path} — no "data" chunk found`);
+  }
+  const n = data_size / 2;
+  const samples = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    samples[i] = buf.readInt16LE(data_offset + i * 2) / 32767;
+  }
+  return { samples, sample_rate };
 }
 
 export async function writeWav(path: string, pcm: Pcm): Promise<void> {

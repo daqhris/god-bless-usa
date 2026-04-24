@@ -33,7 +33,7 @@
           fifteen minutes and does not loop. Each visitor initiates their own
           private mass.
         </p>
-        <button class="begin" id="begin" type="button">Begin</button>
+        <button class="begin" id="begin" type="button" disabled>Loading…</button>
         <p class="credit">
           Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus
           4.7. A guest work in <em>Domus Diasporica</em> by Mladen Bundalo
@@ -105,11 +105,16 @@
       </section>
     </main>
 
-    <audio
-      id="master-audio"
-      src="assets/audio/god-bless-usa.wav"
-      preload="none"
-    ></audio>
+    <!--
+      Source order is format preference. Opus (≈3 MB) streams on any half-decent
+      mobile connection before the peal begins; AAC fallback covers iOS Safari
+      before iOS 17; WAV remains the archival master used by the preview page.
+    -->
+    <audio id="master-audio" preload="auto">
+      <source src="assets/audio/god-bless-usa.opus.ogg" type="audio/ogg; codecs=opus" />
+      <source src="assets/audio/god-bless-usa.m4a" type="audio/mp4; codecs=mp4a.40.2" />
+      <source src="assets/audio/god-bless-usa.wav" type="audio/wav" />
+    </audio>
 
     <script src="player.js" defer></script>
   </body>
