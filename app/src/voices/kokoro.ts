@@ -21,6 +21,7 @@ import {
   SIGNAL_BED_GAIN,
   SIGNAL_BED_TAIL_MS,
 } from "./signal-beds.js";
+import { applyReverb } from "./reverb.js";
 import type { Segment } from "../director/schema.js";
 import {
   CHORUS_ENSEMBLE,
@@ -286,6 +287,20 @@ export const kokoroAdapter: VoiceAdapter = {
           ]);
         }
       }
+
+      // Post-processing reverb per the director's room assignment for this
+      // segment. Applied after all voice paths (single, chorus ensemble,
+      // full ensemble) so chorus refrains pick up the "heavy" cathedral
+      // tail the director asks for. `dry_close: true` collapses to "none"
+      // even if a reverb preset is named — the acoustic has contracted to
+      // close-mic and any room sound would contradict that.
+      if (seg.type === "speech") {
+        const reverb_kind = seg.post_processing.dry_close
+          ? "none"
+          : seg.post_processing.reverb;
+        pcm = applyReverb(pcm, reverb_kind);
+      }
+
       pcm_segments.push(pcm);
       const duration_ms = Math.round(
         (pcm.samples.length / pcm.sample_rate) * 1000,
