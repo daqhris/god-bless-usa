@@ -69,7 +69,7 @@ The piece's central conceit — "aliens" — operates across three registers sim
 2. **Technological** — the non-human voices in the piece, the AI director that generates the performance direction, the automated filing of the surveillance report. The machine-as-alien: an intelligence reading the mass from outside the species.
 3. **Cosmic** — the extraterrestrial in the story's surface narrative: "overseas-based beings" praying in a protesting church, UFOs flickering over superweapon warehouses, all-seeing eyewitnesses reporting "as seen from above."
 
-The performance collapses the three frames into a single ambiguous narrator filing a single ambiguous report.
+The performance collapses the three frames into a single narrator who is alien in all three senses at once, filing a single report that holds all three.
 
 ## Licensing
 

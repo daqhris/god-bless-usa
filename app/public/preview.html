@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>God Bless The United States Of Aliens — Performance Preview</title>
+    <title>God Bless The United States Of Aliens — Scene by Scene</title>
     <meta
       name="description"
-      content="AI-voiced performance of God Bless The United States Of Aliens. Per-scene preview page — for jury, dev, and reviewers. Visitor-facing player at /."
+      content="An eighteen-minute AI-voiced ceremony, broken into fifteen scenes. Read alongside the audio, replay any scene, move between scenes in any order. An accessibility alternative to the visitor-facing single-flow player."
     />
     <meta name="author" content="Chris-Armel Iradukunda (daqhris)" />
     <meta name="creator" content="Chris-Armel Iradukunda and Claude Opus 4.7" />
@@ -14,10 +14,10 @@
     <link rel="canonical" href="https://daqhris.com/god-bless-usa/preview.html" />
     <link rel="stylesheet" href="style.css" />
 
-    <meta property="og:title" content="God Bless The United States Of Aliens — Performance Preview" />
+    <meta property="og:title" content="God Bless The United States Of Aliens — Scene by Scene" />
     <meta
       property="og:description"
-      content="Per-scene preview of the AI-voiced ceremony. The master track at the top concatenates all fifteen scenes; sections below play each scene standalone."
+      content="The AI-voiced ceremony, broken into fifteen scenes. Read alongside the audio."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://daqhris.com/god-bless-usa/preview.html" />
@@ -27,63 +27,62 @@
   <body class="preview">
     <h1>God Bless The United States Of Aliens</h1>
     <p class="subtitle">
-      An AI-voiced performance, rendered scene by scene. Per-scene preview for
-      jury and dev — the <a href="./">visitor-facing player</a> lives at the
-      site root.
+      An eighteen-minute non-looping ceremony, broken into fifteen scenes
+      you can play and re-play in any order. Read alongside the audio. The
+      <a href="./">visitor-facing player</a> at the site root plays the
+      whole work as a single uninterrupted flow.
     </p>
 
     <div class="warning">
-      <strong>Headphones recommended.</strong> The piece is directed for intimate,
-      non-looping playback through a single visitor's headphones. This preview
-      page plays each scene as a standalone audio file. The master track at the
-      top concatenates them in <strong>playback order</strong> — which differs
-      from the script's numbering because THE CHURCH LEADER speaks first and
-      THE CHORUS responds. Each section is labelled with both its playback
-      position and the Roman-numeral scene number from the source script.
+      <strong>Headphones recommended.</strong> Each section below plays one
+      scene as a standalone audio file with a written description of what
+      the scene contains and how it is rendered. The master track at the
+      top concatenates all fifteen in playback order — which differs from
+      the source script's Roman-numeral numbering because THE CHURCH LEADER
+      speaks first and THE CHORUS responds. Each section is labelled with
+      both its playback position and the scene number from the source.
+      Useful for visitors who want to explore the piece in pieces, return
+      to a single moment, or read the structure as well as listen.
     </div>
 
     <!--
-      Every <audio> offers three <source> elements. The browser picks the first
-      it supports: Opus for Chrome/Firefox and modern iOS/Safari, AAC for older
-      iOS, WAV as the archival master reviewers may want to download directly.
+      Every <audio> offers three <source> elements. Browsers pick the
+      first they support: Opus for Chrome / Firefox / iOS 17+, AAC for
+      older iOS, WAV as the archival fallback for offline / museum use.
     -->
 
     <section class="master">
       <p class="scene-meta">Complete Performance</p>
       <h2>God Bless The United States Of Aliens — Master Track</h2>
       <p class="note">
-        Fifteen scenes total — the Opening Invocation (Scene 0) plus the
-        fourteen numbered scenes — concatenated with a 3-second gap between
-        each. Produced by <code>npm run render:all-scenes</code>, then
-        compressed by <code>npm run encode:audio</code>.
+        All fifteen scenes — Opening Invocation (Scene 0) plus Scenes I
+        through XIV — concatenated in playback order with a three-second
+        gap between each, with a thin organ drone running underneath the
+        whole thing. Approximately eighteen minutes.
       </p>
       <audio controls preload="none">
         <source src="assets/audio/god-bless-usa.opus.ogg" type="audio/ogg; codecs=opus" />
         <source src="assets/audio/god-bless-usa.m4a" type="audio/mp4; codecs=mp4a.40.2" />
         <source src="assets/audio/god-bless-usa.wav" type="audio/wav" />
       </audio>
-      <p class="missing">
-        Available after you run <code>npm run render:all-scenes</code> locally
-        with your Anthropic API key set. The per-scene WAVs will populate the
-        sections below at the same time.
-      </p>
     </section>
 
     <section>
       <p class="scene-meta">Playback 1 · Scene 0</p>
       <h2>Opening Invocation</h2>
       <p class="note">
-        Roman / Vatican-style bell peal (four tolls alternating a "mother
-        bell" and a "daughter bell" a <strong>major third</strong> higher
-        — 5:4 ratio, brighter and more celebratory than a minor third —
-        ~1.1 s apart, tails phasing through each other) → organ drone
-        swells underneath while the peal is still ringing → THE CHORUS
-        whispers "Someone else…" as a premonition → beat of silence →
-        THE EYEWITNESS names the file ("Alien Report. December 24, 2024.
-        God Bless The United States Of Aliens. An All-Seeing Eyewitness
-        Report.") over a typewriter bed that trails into Scene I. New
-        scene, not in the original script — added to establish both
-        registers (liturgical + surveillance) in the first 15 seconds.
+        Cathedral bells, then organ drone, then a whispered premonition,
+        then the eyewitness names the file. The bell peal blends a CC-BY
+        field recording from Rome (Freesound #197458 by everythingsounds)
+        with a synthesized peal in 5:4 major-third proportions; the
+        synthesized organ drone enters underneath while the bells are
+        still ringing; THE CHORUS whispers <em>"Someone else…"</em> as a
+        premonition; THE EYEWITNESS speaks the title —
+        <em>"Alien Report. December 24, 2024. God Bless The United States
+        Of Aliens. An All-Seeing Eyewitness Report."</em> — over a
+        typewriter bed that trails into Scene I. New scene, not in the
+        original 2024 story; added to establish both registers
+        (liturgical and surveillance) in the first fifteen seconds.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/00-opening.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -97,10 +96,12 @@
       <p class="scene-meta">Playback 2 · Scene I</p>
       <h2>The Eyewitness Report</h2>
       <p class="note">
-        Voice: <em>THE EYEWITNESS</em>. Bureaucratic, clipped, filing an
+        Voice: <em>THE EYEWITNESS</em>. Bureaucratic, clipped — filing an
         incident report from outside the atmosphere. The typewriter bed
-        continues from Scene 0 — the same transmission. The PRELUDE that
-        opened this scene in the original script has moved to Scene 0.
+        continues from Scene 0; this is the same transmission. The
+        opening prelude that lived here in the 2024 story has moved to
+        Scene 0, leaving this scene as the surveillance-report intro
+        proper.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/01-eyewitness.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -113,8 +114,10 @@
       <p class="scene-meta">Playback 3 · Scene III</p>
       <h2>Church Leader's Speech</h2>
       <p class="note">
-        Voice: <em>THE CHURCH LEADER</em>. Warm authority, pastoral irony.
-        First time he speaks to the congregation.
+        Voice: <em>THE CHURCH LEADER</em>. Warm authority, pastoral
+        irony. The first time the leader speaks to the congregation — an
+        opening of the Christmas-Eve mass. Medium reverb places the
+        voice in a warm hall.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/03-church-leader-speech.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -127,12 +130,12 @@
       <p class="scene-meta">Playback 4 · Scene II</p>
       <h2>The Chorus (First Appearance)</h2>
       <p class="note">
-        Voice: <em>THE CHORUS</em>. The congregation responds to the leader's
-        address. Rendered by layering four Kokoro voices (three female + one
-        male) with narrow timing offsets — near-synchronicity. Numbered "II"
-        in the source script even though it plays third, because the chorus
-        was written as the second section; our master moves it to follow the
-        leader's first speech.
+        Voice: <em>THE CHORUS</em> — the congregation responding to the
+        leader's address. Rendered by layering four Kokoro voices (three
+        female, one male) at narrow timing offsets, then placed in a
+        heavy cathedral reverb. The Roman numeral "II" reflects the
+        2024 script's order; the master moves the chorus to follow the
+        leader's first speech, as in a real mass.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/02-chorus-first.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -145,8 +148,8 @@
       <p class="scene-meta">Playback 5 · Scene V</p>
       <h2>Church Leader's Speech (continued)</h2>
       <p class="note">
-        The preacher is now in rhythm. Pacing picks up, then deliberately
-        slows on "loud siren."
+        The preacher is now in rhythm. Pacing picks up across the
+        section, then deliberately slows on <em>"loud siren."</em>
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/05-church-leader-speech-continued.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -160,7 +163,8 @@
       <h2>The Chorus (Second Appearance)</h2>
       <p class="note">
         Slightly warmer than the first appearance — the congregation has
-        settled into worship.
+        settled into worship. Same four-voice ensemble, same heavy
+        reverb, gentler delivery.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/04-chorus-second.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -173,8 +177,11 @@
       <p class="scene-meta">Playback 7 · Scene VII</p>
       <h2>Church Leader's Speech (continued) + [SILENCE]</h2>
       <p class="note">
-        The longest unbroken passage. Ends with four full seconds of silence.
-        The visitor must sit inside it.
+        The longest unbroken passage in the piece. Ends with four full
+        seconds of silence, scored explicitly. The visitor must sit
+        inside that silence; the organ drone running underneath the
+        master remains audible through it, as it does throughout the
+        whole work.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/07-church-leader-silence.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -187,8 +194,8 @@
       <p class="scene-meta">Playback 8 · Scene VI</p>
       <h2>The Chorus (Third Appearance)</h2>
       <p class="note">
-        Fuller now. The congregation responds to the absolution with the
-        refrain.
+        Fuller now. The congregation responds to the leader's absolution
+        with the refrain. Same ensemble, same reverb, more inhabited.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/06-chorus-third.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -201,10 +208,12 @@
       <p class="scene-meta">Playback 9 · Scene VIII</p>
       <h2>Church Leader's Speech (concluded) + [AMEN]</h2>
       <p class="note">
-        Quiet, almost to oneself. Ends on the only one-word moment of the
-        piece — AMEN, voiced by the <strong>full ensemble</strong> (priest +
-        four chorus voices + praying alien, six lanes summed). The entire
-        congregation validates what was said.
+        Quiet, almost to oneself — the leader's final two questions
+        sit in private register. The scene closes on the only one-word
+        collective utterance of the piece: <em>AMEN</em>, voiced by the
+        <strong>full ensemble</strong> (priest + four chorus voices +
+        praying alien, six lanes summed) at heavy reverb. The word
+        lands clearly first, then dissolves into the cathedral wash.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/08-church-leader-amen.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -217,18 +226,22 @@
       <p class="scene-meta">Playback 10 · Scene IX</p>
       <h2>The Praying Alien — Distracting Chain-of-Thoughts</h2>
       <p class="note">
-        Voice: <em>THE PRAYING ALIEN</em> (<code>af_nicole</code> —
-        Kokoro's intimate-headphone voice). Interior monologue, three
-        signals each with its own thin ambient bed: brain-electric
-        synaptic pops with a nervous 1.2 kHz hum (Train of Thoughts),
-        an accelerating cardiac lub-dub with a body-motion chuff
-        underneath (Heart Pulse), and a sub-audio gut rumble at ~42 Hz
-        (Gut Feeling). The section headers ("File: Distracting
-        Chain-of-Thoughts," "Signal one. Train of Thoughts," etc.) are
-        voiced by <em>THE EYEWITNESS</em> as scribed report metadata —
-        these describe alien-tech mind-reading and would not plausibly
-        be the alien's own interior monologue, so the eyewitness files
-        them.
+        Voice: <em>THE PRAYING ALIEN</em> (Kokoro's <code>af_nicole</code>,
+        the engine's intimate-headphone voice). Interior monologue,
+        three signals each with a thin ambient bed underneath:
+        brain-electric synaptic pops with a nervous mid-band hum
+        (<em>Train of Thoughts</em>); an accelerating cardiac lub-dub
+        with a body-motion chuff phase-locked underneath
+        (<em>Drumbeating Heart Pulse</em>); a sub-audio gut rumble at
+        ~42 Hz with two slow LFOs (<em>Drumbeating Gut Feeling</em>).
+        The signal headers — <em>"File: Distracting Chain-of-Thoughts,"</em>
+        <em>"Signal one. Train of Thoughts,"</em> and so on — are voiced
+        by <em>THE EYEWITNESS</em> as scribed report metadata:
+        alien-tech mind-reading would not plausibly be the alien's own
+        interior monologue, so the eyewitness files them.
+        <em>"Drumbeating"</em> honours an early influence from Burundian
+        drumming; an SSML pronunciation alias guides Kokoro to render
+        the compound as two clear words.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/09-praying-alien.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -241,8 +254,9 @@
       <p class="scene-meta">Playback 11 · Scene X</p>
       <h2>The Chorus (Fourth and Final Appearance)</h2>
       <p class="note">
-        The alien has rejoined the congregation. The fullest, most inhabited
-        version of the refrain.
+        The alien has rejoined the congregation. The fullest, most
+        inhabited version of the refrain — same ensemble, more
+        grounded after Scene IX's interior.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/10-chorus-fourth.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -255,12 +269,13 @@
       <p class="scene-meta">Playback 12 · Scene XI</p>
       <h2>Church Leader's Prayer</h2>
       <p class="note">
-        Prayer, not sermon. Intimate. The preacher speaks toward something
-        above or beyond. The single word "HUGS" is voiced by the
-        <strong>full ensemble</strong>, like AMEN — the moment of collective
-        warmth where priest, chorus, and praying alien share a single
-        utterance. The line that follows ("Glory to peacekeeping hugs…")
-        returns to the church leader alone.
+        Prayer, not sermon. Intimate. The preacher speaks toward
+        something above or beyond. The single word <em>HUGS</em> is
+        voiced by the <strong>full ensemble</strong> at heavy reverb,
+        like AMEN — the moment of collective warmth where priest,
+        chorus, and praying alien share a single utterance. The line
+        that follows — <em>"Glory to peacekeeping hugs…"</em> — returns
+        to the church leader alone.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/11-church-leader-prayer.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -273,7 +288,9 @@
       <p class="scene-meta">Playback 13 · Scene XII</p>
       <h2>The Chorus (Final Echo)</h2>
       <p class="note">
-        Slowest of all four appearances. Each phrase a bell tolling.
+        Slowest of all four chorus appearances. Each phrase falls like
+        a bell tolling. The refrain is at its most spacious; the heavy
+        reverb tail bleeds further into each pause.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/12-chorus-final-echo.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -286,7 +303,9 @@
       <p class="scene-meta">Playback 14 · Scene XIII</p>
       <h2>The Blessing</h2>
       <p class="note">
-        Almost a whisper. Merry Christmas. Happy New Year. Organ drone returns.
+        Almost a whisper. <em>Merry Christmas. Happy New Year.</em> The
+        synthesized organ drone returns under the leader's voice,
+        recalling the opening invocation.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/13-blessing.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -299,12 +318,12 @@
       <p class="scene-meta">Playback 15 · Scene XIV</p>
       <h2>Coda — The Eyewitness Certification</h2>
       <p class="note">
-        The filing of incident reports resumes. The surveillance loop opened
-        by Scene I closes here. The typewriter bed returns and trails off
-        into the final 5-second silence. The closing paragraph — the
-        author's ancestral memory of the landlocked African kingdom — is
-        included from the original story text. Ships by default; pass
-        <code>--no-coda</code> to opt out.
+        The filing of incident reports resumes. The surveillance loop
+        opened by Scene I closes here. The typewriter bed returns and
+        trails off as the scene ends. The closing paragraph of the
+        original 2024 story — the author's ancestral memory of the
+        landlocked, non-US-colonised African kingdom — is read here and
+        recovers the work's diasporic ground.
       </p>
       <audio controls preload="metadata">
         <source src="assets/audio/14-coda.opus.ogg" type="audio/ogg; codecs=opus" />
@@ -329,7 +348,9 @@
         Exhibition, La Biennale di Venezia (<em>In Minor Keys</em>, Koyo
         Kouoh). Commissioned by Sarita Vujković; curated by Isidora
         Živković. Palazzo Malipiero, San Marco 3198 — May 9 to November
-        22, 2026. Built during the
+        22, 2026. Made at
+        <a href="https://www.hectolitre.space/">Hectolitre</a>, Brussels.
+        Built during the
         <a href="https://cerebralvalley.ai/e/built-with-4-7-hackathon">Built
         with Opus 4.7</a> hackathon (Cerebral Valley × Anthropic, April
         2026).
