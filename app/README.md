@@ -69,10 +69,11 @@ npm install
 # Render ONE scene end-to-end (director + audio):
 npm run render:all -- scenes/01-eyewitness.md
 
-# Render ALL thirteen scenes (plus the coda) and concatenate into the master WAV:
+# Render ALL fifteen scenes (Opening Invocation + Scenes I–XIV) and concatenate
+# them into the master WAV:
 npm run render:all-scenes
 # scenes play in the canonical order defined by DEFAULT_PLAYLIST in
-#   src/render-all-scenes.ts — leader speaks, then chorus responds.
+#   src/playlist.ts — leader speaks, then chorus responds.
 # flags:
 #   --no-coda              → drop Scene XIV from the master
 #   --no-master            → skip concatenation
@@ -104,7 +105,7 @@ npm run serve
 # open http://localhost:5173
 ```
 
-First run downloads the Kokoro-82M ONNX model (~80 MB) into the HuggingFace transformers cache; subsequent runs are instant. A full 13-scene render on a modern laptop takes roughly 6–10 minutes (TTS-bound; the director calls are cached after scene 1).
+First run downloads the Kokoro-82M ONNX model (~80 MB) into the HuggingFace transformers cache; subsequent runs are instant. A full 15-scene render on a modern CPU takes roughly 25–30 minutes (TTS-bound; the director calls are cached after scene 1). The resulting master is approximately eighteen minutes long.
 
 **Rendering without an API key (fixtures).** Hand-crafted direction fixtures live under `scenes/fixtures/` — one per representative scene. You can render them to audio without calling Claude:
 
@@ -119,9 +120,9 @@ These validate the Kokoro adapter + SSML parser + WAV writer end-to-end at zero 
 
 - **Model:** `claude-opus-4-7` — no sampling parameters (removed on 4.7).
 - **Thinking:** `{ type: "adaptive" }` — Opus 4.7's adaptive thinking is off by default; the director enables it because the task is intelligence-sensitive (poetic reading, voice casting, timing feel).
-- **Effort:** `high` — minimum for intelligence-sensitive work on 4.7, reasonable cost/quality balance for a 13-scene batch.
+- **Effort:** `high` — minimum for intelligence-sensitive work on 4.7, reasonable cost/quality balance for a 15-scene batch.
 - **Structured outputs:** `output_config.format` with a Zod schema (`DirectorOutputSchema`) — the model returns validated JSON, not prose-to-be-parsed.
-- **Prompt caching:** `cache_control: { type: "ephemeral" }` on the system block — character briefs and sound-design framework stay stable across all 13 scenes, so the first scene writes the cache and the remaining twelve read it.
+- **Prompt caching:** `cache_control: { type: "ephemeral" }` on the system block — character briefs and sound-design framework stay stable across all 15 scenes, so the first scene writes the cache and the remaining fourteen read it.
 
 ## Kokoro configuration (see `src/voices/kokoro.ts`)
 
@@ -144,23 +145,91 @@ The eyewitness is filing an incident report; the report is being typed as it is 
 
 The coda (Scene XIV) uses the same voice and therefore inherits the same underlay — the surveillance loop closes audibly with the typewriter finishing its transmission.
 
-## Ambient cues — synthesized organ drone
+## Ambient cues — synthesized organ drone, real Vatican bells
 
-The script calls for a stone-room church ambience in the PRELUDE, AMEN decay tail, and closing fade. For licence safety (no sampled assets) and reproducibility, the adapter **synthesizes** these cues as additive sine partials (fundamental A2 / octave / perfect fifth / octave-of-fifth) with a slow amplitude LFO and gentle fade in / out. It's not a real pipe organ — it reads as ambient presence. See `src/voices/ambient.ts`.
+The score asks for a stone-room church ambience around the opening, the AMEN decay tail, and the closing fade. The adapter **synthesizes** these cues as additive sine partials (fundamental A2 / octave / perfect fifth / octave-of-fifth) with a slow amplitude LFO and gentle fade in / out. The Roman / Vatican-style bell peal at the opening invocation blends a CC-BY field recording (Freesound #197458 by everythingsounds, trimmed and loudness-normalized at prep time) on top of the deterministic synthesized peal, so the cathedral timbre is real but the rhythmic skeleton stays reproducible. See `src/voices/ambient.ts`.
 
-Real reverb on speech, and the "thin drone underneath throughout" that the sound-design framework calls for, are post-mix concerns deferred to a later PR.
+A master-length **undercurrent drone** at A1 (55 Hz) with two slow LFOs runs underneath the entire concatenated piece at low gain — the "thin drone underneath throughout" the sound-design framework calls for. Mixed in by `scripts/rebuild-master.ts` after concat, with 12-second fades at each edge so it ghosts in and out rather than switching. See `synthesizeUndercurrentDrone` in `ambient.ts`.
 
-## Milestones
+## Speech reverb
 
-- ~~PR #1 — Scaffold + director pipeline for one scene end-to-end. No audio yet.~~ ✅
-- ~~PR #2 — Kokoro-82M voice adapter + Scene I rendered to WAV + local-serve preview.~~ ✅
-- ~~PR #3~~ — All 13 scenes extracted; chorus ensemble layering; synthesized ambient cues; `render:all-scenes` batch CLI. ✅
-- ~~PR #4 (chore)~~ — gitignore hardening against API-key leaks. ✅
-- ~~Hotfix~~ — `zod/v4` import for the Anthropic SDK's JSON-schema converter. ✅
-- **PR #5 (this PR)** — Audio revisions from the artist's first listening pass: male voice in chorus + narrow offsets, Praying Alien → `af_nicole`, typewriter underlay for EYEWITNESS, emphasis honored with per-segment speed, master playlist reordered so leader precedes chorus, coda default-on, AMEN directed to chorus.
-- **PR #6** — Visitor-facing web player: QR landing, "put on headphones" consent, non-looping playback, end state linking back to the USALIEN token. GitHub Pages deploy.
-- **PR #7 (stretch)** — Live director mode (per-visitor regeneration) behind a tiny serverless function.
-- **PR #8** — Sonic beds for Scene IX signals (brain / heart / gut); speech reverb; "drone underneath throughout" post-mix; Arweave pin; submission packaging.
+`src/voices/reverb.ts` is a Schroeder-Moorer algorithmic reverb (four parallel IIR comb filters with lowpass-damped feedback for air absorption, two series allpass filters for diffusion). Pure TypeScript, deterministic. Four presets map to the director's per-segment `reverb` enum:
+
+| Preset | RT60 | Tail | Wet | Use |
+|--------|------|------|-----|-----|
+| `none`   | —     | 0 ms    | 0 %  | PRAYING ALIEN interior (`dry_close: true` overrides any preset) |
+| `light`  | ~0.6 s | 900 ms  | 22 % | EYEWITNESS filing stamps; intimate, close |
+| `medium` | ~1.3 s | 1800 ms | 32 % | CHURCH LEADER's pulpit address |
+| `heavy`  | ~2.4 s | 2800 ms | 45 % | CHORUS refrain; stone cathedral; Scene 0 chorus premonition |
+
+Applied after every voice path (single, chorus ensemble, full ensemble) and after any underlay bed mixing, so a chorus refrain picks up the heavy tail uniformly across all four voices and the typewriter bed sits in the same room as EYEWITNESS.
+
+## Scene IX signal beds
+
+Scene IX — *The Praying Alien: Distracting Chain-of-Thoughts* — is the longest sustained non-human voice in the piece (3:32). The score names three distinct mental signals punctuating it; `src/voices/signal-beds.ts` provides one synthesizer per signal. All three are "presence, not foreground" in the same register as the EYEWITNESS typewriter underlay (gain 0.35), and each fades 700 ms past the last spoken word so the bed dissolves into the following silence.
+
+| Signal | Synthesis | Reading |
+|--------|-----------|---------|
+| Train of Thoughts | Sparse Poisson-distributed synaptic pops (mean interval compresses 240 → 110 ms) over a 1.2 kHz nervous hum with smoothed amplitude flicker | Brain electricity, not locomotion. No BPM. |
+| Drumbeating Heart Pulse | Low cardiac lub-dub at 88 → 108 BPM (S1 lower/louder, S2 higher/softer, classical 180 ms gap, fundamentals 55–80 Hz) with a body-motion rail-chuff phase-locked underneath | Heart and body, both agitated. |
+| Drumbeating Gut Feeling | Non-rhythmic sub-audio drone at ~42 Hz with two overlaid LFOs (amplitude / detune) plus a thin peristaltic noise layer | Pre-rational. Felt more than heard. |
+
+A pre-scan in the Kokoro adapter tags each praying-alien segment with the signal that introduced it (matches the preceding eyewitness SSML for the signal name), so the right bed is mixed under the right monologue without director-side annotation.
+
+## Mobile audio delivery
+
+The visitor `<audio>` element offers three `<source>` elements per track — Opus (≈32 kbps mono), AAC (≈64 kbps mono), WAV (archival fallback). Browsers pick the first they support: Opus for Chrome/Firefox/iOS 17+, AAC for older iOS, WAV for offline museum use. `preload="auto"` starts the fetch on page load, and the Begin button is disabled until `canplaythrough` fires (with a `canplay` + 2.5 s safety net), so the first sound a visitor hears is Scene 0's first toll, not silence. The encoding pipeline is `npm run encode:audio`, backed by bundled `ffmpeg-static` so no system ffmpeg is required.
+
+## Build pipeline summary
+
+```
+scenes/*.md  ──▶  director (Opus 4.7)  ──▶  dist/directions/*.json
+                                                    │
+                                                    ▼
+                                       kokoro adapter (TTS + reverb +
+                                       beds + underlay)
+                                                    │
+                                                    ▼
+                                  public/assets/audio/<scene>.wav
+                                                    │
+                          rebuild-master.ts (concat + undercurrent drone)
+                                                    │
+                                                    ▼
+                                  public/assets/audio/god-bless-usa.wav
+                                                    │
+                                  encode-audio.ts (Opus + AAC)
+                                                    │
+                                                    ▼
+                                  served by GitHub Pages from app/public
+```
+
+## Shipped, in shipped order
+
+The hackathon week of April 21–26, 2026:
+
+1. Scaffold + director pipeline for one scene end-to-end.
+2. Kokoro-82M voice adapter + Scene I rendered to WAV + local-serve preview.
+3. All 14 numbered scenes extracted; chorus ensemble layering; synthesized ambient cues; batch CLI.
+4. `.gitignore` hardening against API-key leaks.
+5. `zod/v4` import fix for the Anthropic SDK's JSON-schema converter.
+6. Audio revisions from artist listening passes: male voice in chorus + narrow offsets, Praying Alien → `af_nicole`, typewriter underlay for EYEWITNESS, emphasis honored with per-segment speed, master playlist reordered so leader precedes chorus, coda default-on, AMEN + HUGS directed to full ensemble.
+7. Opening Invocation (Scene 0) added: bell peal + organ drone + chorus premonition + eyewitness file header.
+8. Visitor-facing web player + GitHub Pages deploy + printable QR.
+9. Pavilion context written into SUBMISSION.md (Mladen Bundalo, *Domus Diasporica*, Opus 4.7 co-director credit, three frames of the alien).
+10. Print files for the framed bulletin and photo spec sheets.
+11. Mobile audio delivery: Opus / AAC / WAV fallbacks, `preload="auto"`, buffer-gated Begin, plus a real CC-BY Vatican bell recording blended into Scene 0.
+12. Jury submission page (`/submission.html`) and SEO polish (Schema.org JSON-LD, robots.txt, sitemap.xml).
+13. Scene IX interior ambient beds (brain-electric / heart-pulse / gut-rumble).
+14. Schroeder reverb per speech segment + master-length undercurrent drone.
+15. `/story` page redeployed from the root literary source via the Pages workflow.
+16. Text-consistency pass: scene counts, durations, scene IX preview description, sitemap; Scene 8 audio re-rendered with `<sub>`-aliased "Oh Gees" so audio matches the printed bulletin's "OGs."
+
+Deferred for after the Biennale opens, not the deadline:
+- Live director mode (per-visitor regeneration behind a serverless function).
+- Mix-ducking the undercurrent drone under PRAYING ALIEN's interior (currently continuous throughout).
+- Accessibility pass (transcript page, ARIA live region, reduced-motion, skip link).
+- Captions track on the introduction video.
+- Arweave pin of the final WAV master.
 
 ## Voice licensing
 
