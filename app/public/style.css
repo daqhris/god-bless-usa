@@ -112,6 +112,23 @@ button.begin:disabled:hover { background: transparent; }
   letter-spacing: 0.02em;
 }
 
+/* Biennale status / countdown — privacy-clean, client-side only.
+   Set in countdown.js once at page load. The static text inside the
+   element is the fallback if the script fails to load. */
+.biennale-status {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: var(--accent);
+  max-width: 36ch;
+  letter-spacing: 0.04em;
+  font-style: italic;
+  opacity: 0.9;
+}
+body.submission .biennale-status {
+  margin: -1rem 0 2.4rem;
+  max-width: none;
+}
+
 /* Playing */
 
 #stage-playing {
