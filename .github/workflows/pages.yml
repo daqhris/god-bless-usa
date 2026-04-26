@@ -10,6 +10,7 @@ on:
     branches: [main]
     paths:
       - "app/public/**"
+      - "story.html"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -38,6 +39,22 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
+      # Stage the pre-existing root-level story.html into the deploy artifact
+      # so /god-bless-usa/story resolves to the original written-text version
+      # of the work — kept in sync with the audio piece served at /. The
+      # source file at the repo root is left bit-perfect (per SUBMISSION.md's
+      # rule that root files are pre-existing source material). Only the
+      # canonical / OG / Twitter URLs are rewritten on the deployed copy so
+      # they point at /story rather than at the audio root.
+      - name: Stage /story page from root story.html
+        run: |
+          mkdir -p app/public/story
+          sed \
+            -e 's|<link rel="canonical" href="https://daqhris.com/god-bless-usa">|<link rel="canonical" href="https://daqhris.com/god-bless-usa/story">|' \
+            -e 's|<meta property="og:url" content="https://daqhris.com/god-bless-usa">|<meta property="og:url" content="https://daqhris.com/god-bless-usa/story">|' \
+            -e 's|<meta property="twitter:url" content="https://daqhris.com/god-bless-usa">|<meta property="twitter:url" content="https://daqhris.com/god-bless-usa/story">|' \
+            story.html > app/public/story/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

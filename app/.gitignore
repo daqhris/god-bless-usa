@@ -10,3 +10,7 @@ dist/
 # Rendered audio under public/assets/audio/ IS committed — it's the canonical
 # archival artifact served by GitHub Pages and by any offline player.
 # Temporary direction JSON written by render:scene/render:all to dist/ is not.
+
+# /story is staged into the deploy artifact at CI time from root story.html
+# (see .github/workflows/pages.yml). Don't commit a stale local copy.
+public/story/
