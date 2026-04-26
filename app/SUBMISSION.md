@@ -17,10 +17,10 @@ These files document the conceptual and literary work underlying the performance
 Everything inside `/app` is new work built during the hackathon:
 
 - `/app/src/director/` — the Opus 4.7 performance-director pipeline (structured output, prompt caching, Zod schema, SSML emission).
-- `/app/src/voices/` — the Kokoro-82M voice adapter with chorus ensemble, full-ensemble rendering for AMEN and HUGS, synthesized bell peal + organ drone, and typewriter underlay.
-- `/app/src/render*.ts` — CLIs for single-scene, full-batch, and audio-only rendering.
+- `/app/src/voices/` — the Kokoro-82M voice adapter (chorus ensemble, full-ensemble rendering for AMEN and HUGS), Schroeder speech reverb, the synthesized organ drone and Roman / Vatican-style bell peal blended with a CC-BY field recording, the typewriter underlay for EYEWITNESS, and three interior signal beds for Scene IX (brain-electric / heart-pulse / gut-rumble).
+- `/app/src/render*.ts` and `/app/scripts/*.ts` — CLIs for single-scene, full-batch, audio-only re-render, master rebuild (with the undercurrent drone mixed in), and Opus / AAC encoding.
 - `/app/scenes/` — the 15 scene markdown files (Opening Invocation + 14 numbered scenes) used as director input.
-- `/app/public/` — the visitor-facing web player (vanilla HTML / CSS / JS), the per-scene preview page, the 15 rendered WAVs + ~12-minute concatenated master, the QR code pointing at the live URL, OG card and favicon.
+- `/app/public/` — the visitor-facing web player (vanilla HTML / CSS / JS) with mobile-first audio delivery (Opus / AAC / WAV fallbacks, buffer-gated Begin), the per-scene preview page, the jury introduction page, the 15 rendered WAVs and ~18-minute concatenated master, the QR code pointing at the live URL, OG card and favicon. The `/story` page (the original written-text version) is restaged from the root `story.html` at deploy time.
 - `.github/workflows/pages.yml` — the Pages deployment workflow.
 - `/app/README.md`, `/app/SUBMISSION.md` — documentation of the new work.
 

@@ -8,7 +8,7 @@
 *[Voice: THE CHURCH LEADER]*
 *[Quiet now — almost to oneself. The question was already asked. This is its echo.]*
 
-"Why wouldn't the oldest among non-whitened aliens show up |
+"Why wouldn't the OGs among non-whitened aliens show up |
 since they were outspokenly summoned?"
 
 *[A half-beat. Then, lower, more private:]*

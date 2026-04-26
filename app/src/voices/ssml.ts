@@ -6,6 +6,11 @@ const SPEAK_RE = /<\/?speak[^>]*>/gi;
 // <prosody> is a director hint at the schema layer — Kokoro doesn't parse it.
 // Strip it before tokenization so it doesn't leak into the spoken text.
 const PROSODY_RE = /<\/?prosody[^>]*>/gi;
+// <sub alias="...">written</sub> — substitute the alias for the inner text
+// in the audio while leaving the JSON readable. Used to give Kokoro phonetic
+// guidance for initialisms or slang ("OGs" → spoken as "Oh Gees") without
+// losing the canonical written form.
+const SUB_RE = /<sub\s+alias="([^"]*)"\s*>([\s\S]*?)<\/sub>/gi;
 const TAG_RE =
   /<break\s+time="(\d+)(ms|s)"\s*\/>|<emphasis[^>]*>|<\/emphasis>/gi;
 
@@ -15,7 +20,13 @@ const TAG_RE =
 const EMPHASIS_SPEED_FACTOR = 0.88;
 
 export function tokenizeSsml(ssml: string): SsmlToken[] {
-  const body = ssml.replace(SPEAK_RE, "").replace(PROSODY_RE, "").trim();
+  const body = ssml
+    .replace(SPEAK_RE, "")
+    .replace(PROSODY_RE, "")
+    // <sub> resolves to its alias *before* the main tokenizer runs, so the
+    // substituted text inherits any surrounding emphasis or break behavior.
+    .replace(SUB_RE, (_m, alias) => alias)
+    .trim();
 
   const tokens: SsmlToken[] = [];
   let emphasis_depth = 0;
