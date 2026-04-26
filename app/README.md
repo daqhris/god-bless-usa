@@ -5,7 +5,7 @@ The digital artifact: an AI-voiced web performance of *"God Bless The United Sta
 - **Source material** at the repository root (story, script, PDFs) is **not rewritten** — this app renders it.
 - **Submission:** [Build with Opus 4.7](https://cerebralvalley.ai/e/built-with-4-7-hackathon) hackathon (Cerebral Valley × Anthropic, April 21–26, 2026).
 - **Exhibition:** A guest work in ***Domus Diasporica*** by **Mladen Bundalo** — Pavilion of Bosnia and Herzegovina at the 61st International Art Exhibition — La Biennale di Venezia. Commissioned by **Sarita Vujković**; curated by **Isidora Živković**. 61st Biennale theme: *In Minor Keys*, curated by **Koyo Kouoh**. Venue: Palazzo Malipiero, San Marco 3198, Venice. Dates: **May 9 – November 22, 2026**.
-- **Licence:** Open-source, MIT. Museum-archivable as a single self-contained folder.
+- **Licence:** Dual — code under [EUPL-1.2](../LICENSES/EUPL-1.2.txt); performance and text under [CC BY-NC-ND 4.0](../LICENSES/CC-BY-NC-ND-4.0.txt), governed by Belgian law. See [`/LICENSE`](../LICENSE) at the repo root for the full statement. Museum-archivable as a single self-contained folder.
 
 ## Architecture
 
@@ -240,6 +240,8 @@ All chosen TTS engines use permissive, commercial-use-safe licences. This matter
 | Kokoro-82M     | Apache-2.0 | Primary — all four voices                    |
 | CosyVoice 2    | Apache-2.0 | Fallback — emotional range, language variety |
 | Chatterbox     | MIT        | Fallback — emotion control, voice cloning    |
+
+These are *bundled assets* with their own permissive licences, preserved alongside the dual licence of this repository (engine: EUPL-1.2; performance and text: CC BY-NC-ND 4.0).
 
 ## Credits
 

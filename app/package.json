@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "AI-voiced performance app for God Bless The United States Of Aliens — 61st Venice Biennale 2026",
-  "license": "MIT",
+  "license": "EUPL-1.2",
   "author": "Chris-Armel Iradukunda (daqhris) <media@daqhris.com>",
   "engines": {
     "node": ">=20.11"
