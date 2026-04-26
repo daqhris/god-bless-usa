@@ -71,9 +71,16 @@ The piece's central conceit — "aliens" — operates across three registers sim
 
 The performance collapses the three frames into a single ambiguous narrator filing a single ambiguous report.
 
-## Licensing and commercial use
+## Licensing
 
-The artwork is **MIT-licensed** (see `LICENSE` at repo root). All TTS engines selected (Kokoro-82M, CosyVoice 2, Chatterbox) use permissive, commercial-use-safe licences (Apache-2.0 / MIT) — verified because Biennale exhibition constitutes commercial display.
+The repository carries a **dual licence**, separating the engine from the artwork (see [`/LICENSE`](../LICENSE) at repo root for the full statement and [`/LICENSES/`](../LICENSES/) for the verbatim texts):
+
+- **Code (EUPL-1.2)** — TypeScript pipeline, visitor player, deploy workflow, package manifests. EU-recognised, GPL-compatible permissive copyleft. May be reused, modified, redistributed.
+- **Creative content (CC BY-NC-ND 4.0)** — the literary work, the AI-voiced performance (rendered audio), the printed bulletin and photo specs. Share with attribution; commercial reuse and derivatives require a separate written grant from the author.
+
+Both run under **Belgian law** as governing jurisdiction. The author retains the moral right of attribution under Belgian copyright law.
+
+The TTS engines selected (Kokoro-82M, CosyVoice 2, Chatterbox) carry their own permissive licences (Apache-2.0 / MIT) and are bundled alongside the dual repository licence — verified because Biennale exhibition constitutes commercial display.
 
 The entire `/app` is **open-source from end to end** — director prompt, voice ensemble configuration, synthesized ambient, visitor player, deploy workflow. Museum-archivable as a single self-contained folder: pure HTML / CSS / JavaScript at runtime, pre-rendered WAV audio, no server dependencies. A `.zip` of `/app/public/` opened on any static server will run the piece offline for as long as browsers support the `<audio>` element.
 

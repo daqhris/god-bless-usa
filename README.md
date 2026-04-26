@@ -42,7 +42,7 @@ The app was built during the **[Build with Opus 4.7](https://cerebralvalley.ai/e
 
 The source material at this repository root (story, HTML, PDFs, performance script) predates the hackathon and is treated as libretto. The `/app` folder contains the new work.
 
-**Open-source, MIT.** Museum-archivable as a single self-contained folder — pure HTML / CSS / JavaScript + pre-rendered WAV audio, no server dependencies, no build step at runtime.
+**100% open-source under a dual licence.** Code (the engine) under [EUPL-1.2](./LICENSES/EUPL-1.2.txt); performance and text (the artwork) under [CC BY-NC-ND 4.0](./LICENSES/CC-BY-NC-ND-4.0.txt), governed by Belgian law. Full statement in [`/LICENSE`](./LICENSE). Museum-archivable as a single self-contained folder — pure HTML / CSS / JavaScript + pre-rendered WAV audio, no server dependencies, no build step at runtime.
 
 ---
 

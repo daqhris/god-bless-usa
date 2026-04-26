@@ -297,6 +297,45 @@ body.submission footer {
   font-size: 0.82rem;
   color: var(--muted);
 }
+body.submission .imprint h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.6rem 0 0.4rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+body.submission .imprint .licence-grid {
+  grid-template-columns: 1fr;
+  gap: 0.8rem 0;
+  margin: 0.6rem 0 1rem;
+}
+body.submission .imprint .licence-grid dt {
+  color: var(--fg);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+body.submission .imprint ul.attribution {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2em;
+  list-style: square;
+}
+body.submission .imprint ul.attribution li {
+  margin-bottom: 0.4rem;
+}
+
+/* "100% open-source" line on the visitor end-state — smaller than the
+   main credit so it reads as a footer note rather than competing copy. */
+#stage-ended .credit.licence {
+  margin-top: 1.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+}
+#stage-ended .credit.licence a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-rule);
+  text-underline-offset: 3px;
+}
 
 /* ---------- Preview page (the dev/jury per-scene listing) ---------- */
 
