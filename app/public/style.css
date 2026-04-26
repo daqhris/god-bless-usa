@@ -35,6 +35,9 @@ body {
   font-family: Georgia, "Fraunces", "Playfair Display", serif;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  /* Suppress the iOS Safari blue flash on tap. The Begin / End / link
+     interactions get their own focus-visible rings instead. */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ---------- Visitor player layout ---------- */
@@ -139,28 +142,40 @@ button.begin:disabled:hover { background: transparent; }
   margin-top: 3rem;
   font-size: 0.9rem;
   letter-spacing: 0.05em;
-  color: rgba(232, 228, 217, 0.55);
+  color: rgba(232, 228, 217, 0.7);
   text-transform: uppercase;
 }
 
+/* End button: persistently visible on every device, including touch
+   (where there is no hover). Resting contrast is high enough to read
+   over the dark playing-stage background; hover/focus deepens it. */
 #stage-playing .escape {
   position: fixed;
   top: 1rem;
   right: 1rem;
   font: inherit;
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  padding: 0.4rem 0.85rem;
-  border: 1px solid rgba(232, 228, 217, 0.25);
-  background: transparent;
-  color: rgba(232, 228, 217, 0.55);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(232, 228, 217, 0.6);
+  background: rgba(232, 228, 217, 0.04);
+  color: rgba(232, 228, 217, 0.85);
   border-radius: 2px;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.4s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
-#stage-playing:hover .escape,
-#stage-playing .escape:focus-visible { opacity: 1; }
+#stage-playing .escape:hover,
+#stage-playing .escape:focus-visible {
+  background: rgba(232, 228, 217, 0.12);
+  border-color: rgba(232, 228, 217, 0.85);
+  color: #fff;
+}
+#stage-playing .escape:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+#stage-playing .escape:active { transform: translateY(1px); }
 
 /* Ended */
 
@@ -206,12 +221,15 @@ button.begin:disabled:hover { background: transparent; }
 #stage-ended .credit {
   font-size: 0.78rem;
   color: var(--muted);
-  max-width: 38ch;
+  max-width: 42ch;
   margin: 0 auto;
   letter-spacing: 0.02em;
 }
+#stage-ended .credit + .credit {
+  margin-top: 0.9rem;
+}
 #stage-ended .qr {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   width: 110px;
   height: 110px;
   opacity: 0.65;
@@ -326,9 +344,10 @@ body.submission .imprint ul.attribution li {
 /* "100% open-source" line on the visitor end-state — smaller than the
    main credit so it reads as a footer note rather than competing copy. */
 #stage-ended .credit.licence {
-  margin-top: 1.2rem;
   font-size: 0.7rem;
   letter-spacing: 0.03em;
+  max-width: 44ch;
+  margin-top: 1.4rem;
 }
 #stage-ended .credit.licence a {
   color: inherit;
