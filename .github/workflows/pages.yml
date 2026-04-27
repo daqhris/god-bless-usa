@@ -1,9 +1,11 @@
 name: Deploy to GitHub Pages
 
 # Triggered on every push to main, plus manually via the Actions tab
-# (workflow_dispatch). The artifact is the static contents of app/public/ —
-# no build step required, since the visitor player is plain HTML / CSS / JS
-# and the audio is pre-rendered into the same folder.
+# (workflow_dispatch — useful fallback if a push-event trigger ever
+# misfires, which can happen on merge commits with newly-created files).
+# The artifact is the static contents of app/public/ — no build step
+# required, since the visitor player is plain HTML / CSS / JS and the
+# audio is pre-rendered into the same folder.
 
 on:
   push:
