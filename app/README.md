@@ -95,10 +95,20 @@ npm run render:audio -- dist/directions/00-opening.json
 # the director. Use after `render:audio` on individual scenes:
 npm run rebuild:master
 
+# Build the promotional audio trailer — two outputs from one source list:
+# trailer.wav (~60s "avant-goût," for Instagram Reels and press) and
+# trailer-bumper.wav (~30s tighter cut, for Stories and Reels covers).
+# Pure WAV slicing of the existing per-scene renders; no Kokoro re-render
+# needed. Audition the output, nudge the timestamp constants at the top
+# of scripts/build-trailer.ts if a beat doesn't land, re-run.
+npm run build:trailer
+
 # Compress every WAV under public/assets/audio/ to Opus (~32 kbps mono) and
 # AAC (~64 kbps mono) alongside the originals. The visitor player prefers
-# Opus, falls back to AAC on older iOS, and keeps WAV for archival:
+# Opus, falls back to AAC on older iOS, and keeps WAV for archival.
+# Pass a path to encode just one file:
 npm run encode:audio
+# or: npm run encode:audio -- public/assets/audio/trailer.wav
 
 # Preview in a browser (same folder GitHub Pages will serve):
 npm run serve

@@ -19,6 +19,7 @@
     "prepare:bell": "tsx scripts/prepare-bell-sample.ts",
     "rerender:all-audio": "tsx scripts/rerender-all-audio.ts",
     "rebuild:master": "tsx scripts/rebuild-master.ts",
+    "build:trailer": "tsx scripts/build-trailer.ts",
     "serve": "serve public -l 5173",
     "typecheck": "tsc --noEmit"
   },
