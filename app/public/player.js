@@ -6,6 +6,29 @@ const stages = ["landing", "playing", "ended"];
 const audio = document.getElementById("master-audio");
 const beginBtn = document.getElementById("begin");
 const escapeBtn = document.getElementById("escape");
+const announce = document.getElementById("stage-announce");
+
+// One-sentence stage announcement read by the polite live region in
+// index.html. Kept short — visually-impaired visitors get the same
+// "where am I in the ceremony?" cue a sighted visitor reads from the
+// stage chrome.
+const STAGE_ANNOUNCE = {
+  landing: "Ready. Press Begin to start the ceremony.",
+  playing: "The performance is playing. Press End to exit.",
+  ended: "The performance is complete.",
+};
+
+// Where keyboard focus should land after a stage transition. landing only
+// receives focus when the visitor steps back from playing — on the first
+// page load the natural starting point is wherever the document opens, so
+// landing is null. Playing focuses the End button so Escape works without
+// needing to Tab in. Ended focuses the heading so a screen reader reads
+// "The performance is complete" on arrival.
+const STAGE_FOCUS = {
+  landing: () => beginBtn,
+  playing: () => escapeBtn,
+  ended: () => document.getElementById("ended-heading"),
+};
 
 function show(stage) {
   for (const id of stages) {
@@ -15,6 +38,17 @@ function show(stage) {
   // Scroll to top so the visitor's eye lands on the new stage rather than
   // a leftover scroll position.
   window.scrollTo({ top: 0, behavior: "instant" });
+
+  if (announce) announce.textContent = STAGE_ANNOUNCE[stage] || "";
+
+  // Defer focus to the next frame: the previous stage's now-hidden button
+  // can lose focus first, and the new stage's element is laid out before
+  // we move focus onto it. preventScroll keeps the viewport at the top
+  // we just set above.
+  const target = STAGE_FOCUS[stage] && STAGE_FOCUS[stage]();
+  if (target && typeof target.focus === "function") {
+    requestAnimationFrame(() => target.focus({ preventScroll: true }));
+  }
 }
 
 // Reason we gate Begin: with preload="auto" the browser starts fetching the
@@ -28,6 +62,9 @@ function armBegin() {
   armed = true;
   beginBtn.disabled = false;
   beginBtn.textContent = "Begin";
+  // Mirror the visible "Loading…" → "Begin" cue for screen-reader users
+  // so they hear the same arming moment a sighted visitor sees.
+  if (announce) announce.textContent = STAGE_ANNOUNCE.landing;
 }
 
 audio.addEventListener("canplaythrough", armBegin, { once: true });
@@ -44,13 +81,13 @@ audio.addEventListener(
 );
 
 audio.addEventListener("error", () => {
+  const message =
+    "The ceremony's audio could not load. Check your connection and reload the page.";
   const prep = document.querySelector("#stage-landing .prep");
-  if (prep) {
-    prep.textContent =
-      "The ceremony's audio could not load. Check your connection and reload the page.";
-  }
+  if (prep) prep.textContent = message;
   beginBtn.textContent = "Reload to retry";
   beginBtn.disabled = true;
+  if (announce) announce.textContent = message;
 });
 
 async function begin() {
@@ -62,12 +99,14 @@ async function begin() {
     await audio.play();
   } catch (err) {
     console.error("playback failed:", err);
+    const message =
+      "Playback could not start. Check your connection and try again.";
     show("landing");
     const prep = document.querySelector("#stage-landing .prep");
-    if (prep) {
-      prep.textContent =
-        "Playback could not start. Check your connection and try again.";
-    }
+    if (prep) prep.textContent = message;
+    // Override the "Ready" announcement show("landing") just wrote — the
+    // visitor needs to hear the failure, not an invitation to re-Begin.
+    if (announce) announce.textContent = message;
   }
 }
 
