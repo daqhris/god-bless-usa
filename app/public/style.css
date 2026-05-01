@@ -40,6 +40,53 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Accessible-but-visually-hidden. Used for the live-region announcer
+   (#stage-announce) — present in the accessibility tree, invisible to
+   sighted visitors. The standard "clip-path inset" recipe; preserves
+   the element's box so screen readers still pick it up on update. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link — first focusable element on the page. Hidden until a
+   keyboard user Tabs into it, at which point it slides in at the top
+   so they can jump past any future header chrome straight to <main>. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0.6rem 0.9rem;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: 0 0 2px 0;
+  transform: translateY(-110%);
+  transition: transform 0.15s ease-out;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* When focus lands on a heading (after a stage transition),
+   suppress the dotted browser default — the focus is programmatic, not
+   user-driven, and the live-region announcement carries the cue. */
+h1[tabindex="-1"]:focus,
+h2[tabindex="-1"]:focus {
+  outline: none;
+}
+
 /* ---------- Visitor player layout ---------- */
 
 body.visitor {

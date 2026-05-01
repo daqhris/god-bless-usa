@@ -83,10 +83,24 @@
     </script>
   </head>
   <body class="visitor">
-    <main>
+    <a class="skip-link" href="#main">Skip to the ceremony</a>
+    <main id="main">
+      <!--
+        Single off-screen polite live region. player.js writes a one-sentence
+        announcement here on every stage transition so screen-reader users
+        hear "Loading… Press Begin to start" / "The performance is playing"
+        / "The performance is complete." in sync with the visible state.
+      -->
+      <div
+        id="stage-announce"
+        class="sr-only"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+
       <!-- Stage 1 — Landing -->
-      <section class="stage" id="stage-landing">
-        <h1>God Bless The United States Of Aliens</h1>
+      <section class="stage" id="stage-landing" aria-labelledby="landing-heading">
+        <h1 id="landing-heading">God Bless The United States Of Aliens</h1>
         <p class="subtitle">An all-seeing eyewitness report.</p>
         <p class="prep">
           <strong>Headphones recommended.</strong> The piece is approximately
@@ -106,15 +120,20 @@
       </section>
 
       <!-- Stage 2 — Playing -->
-      <section class="stage" id="stage-playing" hidden>
+      <section
+        class="stage"
+        id="stage-playing"
+        hidden
+        aria-label="The performance is playing"
+      >
         <button class="escape" id="escape" type="button" aria-label="End the performance">End</button>
         <div class="pulse" aria-hidden="true"></div>
         <p class="listening">Listening</p>
       </section>
 
       <!-- Stage 3 — Ended -->
-      <section class="stage" id="stage-ended" hidden>
-        <h2>The performance is complete.</h2>
+      <section class="stage" id="stage-ended" hidden aria-labelledby="ended-heading">
+        <h2 id="ended-heading" tabindex="-1">The performance is complete.</h2>
         <ul class="links">
           <li>
             <a
