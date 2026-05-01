@@ -129,6 +129,21 @@ body.submission .biennale-status {
   max-width: none;
 }
 
+/* Last-updated timestamp — set in footer-timestamp.js once at page load
+   from the GitHub commits API for this page's source path. The static
+   text inside the element is the fallback if the script fails. Same
+   muted register on all three pages; parent page sizing controls weight. */
+.last-updated {
+  margin-top: 1.2rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  opacity: 0.85;
+}
+#stage-ended .last-updated {
+  max-width: 44ch;
+}
+
 /* Playing */
 
 #stage-playing {
