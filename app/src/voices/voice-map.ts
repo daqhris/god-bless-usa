@@ -31,25 +31,33 @@ export const CHORUS_ENSEMBLE: Array<{ voice_id: string; offset_ms: number }> = [
  * FULL ENSEMBLE — every voice together. Used for the two collective utterances
  * in the piece: AMEN at the end of the leader's exhortation, HUGS at the
  * moment of warmth in the prayer. Six lanes:
- *   - The Church Leader (foreground, slightly louder)
+ *   - The Church Leader (foreground, anchor)
  *   - The four Chorus voices (background congregation)
  *   - The Praying Alien (joining audibly — they have rejoined the room)
  *
- * Per-lane gains chosen so the leader stays just-perceptible-as-leader, the
- * chorus carries the collective body, and the alien is present rather than
- * dominant. Sums above 1.0 in worst case but mix.ts clamps to [-1, 1].
+ * Per-lane gains chosen so the leader's consonants cut through the ensemble
+ * as a single legible "AMEN" / "HUGS"; the chorus carries the collective
+ * body underneath; the alien is present rather than dominant. The leader
+ * lane is significantly louder than each chorus lane so the listener has
+ * one voice to lock onto for word recognition (without it, six voices
+ * saying the same word at slight time offsets read as a held vowel and
+ * ensemble murmur). Offsets are kept tight (±4 ms) — wider offsets cause
+ * destructive phase interference on the consonant attack.
+ *
+ * The reverb path adds a 250 ms pre-delay (see kokoro.ts) so the dry
+ * voice lands first; the cathedral tail blooms after the word is legible.
  */
 export const FULL_ENSEMBLE: Array<{
   voice_id: string;
   offset_ms: number;
   gain: number;
 }> = [
-  { voice_id: "bm_george", offset_ms: 0, gain: 0.32 }, // Church Leader, anchor
-  { voice_id: "bf_emma", offset_ms: 6, gain: 0.18 },
-  { voice_id: "af_bella", offset_ms: -4, gain: 0.18 },
-  { voice_id: "af_sarah", offset_ms: 9, gain: 0.18 },
-  { voice_id: "am_michael", offset_ms: -7, gain: 0.18 },
-  { voice_id: "af_nicole", offset_ms: 12, gain: 0.22 }, // Praying Alien, just behind the leader
+  { voice_id: "bm_george", offset_ms: 0, gain: 0.55 }, // Church Leader, anchor — leads the word
+  { voice_id: "bf_emma", offset_ms: 2, gain: 0.16 },
+  { voice_id: "af_bella", offset_ms: -1, gain: 0.16 },
+  { voice_id: "af_sarah", offset_ms: 3, gain: 0.16 },
+  { voice_id: "am_michael", offset_ms: -2, gain: 0.16 },
+  { voice_id: "af_nicole", offset_ms: 4, gain: 0.22 }, // Praying Alien, just behind the leader
 ];
 
 export const KOKORO_MODEL_ID = "onnx-community/Kokoro-82M-v1.0-ONNX";

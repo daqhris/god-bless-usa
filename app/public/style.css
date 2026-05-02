@@ -470,9 +470,6 @@ body.preview section.trailer {
   margin-top: 0;
   background: transparent;
 }
-body.preview section.trailer .bumper-note {
-  margin-top: 1.4rem;
-}
 body.preview h2 {
   font-size: 1.15rem;
   font-weight: 600;

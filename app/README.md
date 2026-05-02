@@ -183,6 +183,8 @@ A master-length **undercurrent drone** at A1 (55 Hz) with two slow LFOs runs und
 
 Applied after every voice path (single, chorus ensemble, full ensemble) and after any underlay bed mixing, so a chorus refrain picks up the heavy tail uniformly across all four voices and the typewriter bed sits in the same room as EYEWITNESS.
 
+Full-ensemble segments (AMEN, HUGS) get a **250 ms reverb pre-delay** so the consonant attack of the collective utterance lands clearly before the cathedral tail blooms. Without it, the heavy reverb's wet contribution from sample zero washes the consonants and the listener hears a held vowel and ensemble murmur rather than a legible word. Speed is also floored at 0.92 for the full-ensemble path (the directions JSON values for AMEN and HUGS are currently 0.95) so the held vowel doesn't smudge the consonants under the wash.
+
 ## Scene IX signal beds
 
 Scene IX — *The Praying Alien: Distracting Chain-of-Thoughts* — is the longest sustained non-human voice in the piece (3:32). The score names three distinct mental signals punctuating it; `src/voices/signal-beds.ts` provides one synthesizer per signal. All three are "presence, not foreground" in the same register as the EYEWITNESS typewriter underlay (gain 0.35), and each fades 700 ms past the last spoken word so the bed dissolves into the following silence.

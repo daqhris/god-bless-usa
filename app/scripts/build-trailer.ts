@@ -8,12 +8,9 @@ import {
 } from "../src/voices/wav.js";
 
 /**
- * Build the promotional audio trailer — two outputs from one source list:
- *
- *   trailer.wav         ~60s primary teaser ("avant-goût") — Instagram
- *                       Reels, social embeds, press-kit "first taste."
- *   trailer-bumper.wav  ~30s tighter cut — Stories, Reels cover, quick
- *                       reveal where attention is shorter.
+ * Build the promotional audio trailer — a ~one-minute primary teaser
+ * ("avant-goût") for Instagram Reels, social embeds, and press kits.
+ * Six-beat narrative arc cut from the master.
  *
  * Approach: slice the existing per-scene WAVs (which already carry reverb,
  * underlay, signal beds — exactly what the visitor hears at the master) at
@@ -120,39 +117,6 @@ const PRIMARY: Beat[] = [
 
 const PRIMARY_OUTRO_SILENCE_MS = 2000;
 
-// ---- 30-second bumper — bell peal → chorus → AMEN ----
-const BUMPER: Beat[] = [
-  {
-    source: "scene",
-    name: "00-opening",
-    start_ms: 0,
-    end_ms: 7500,
-    fade_in_ms: 0,
-    fade_out_ms: 600,
-    note: "Cathedral entry, truncated — bell peal alone, fade out before the chorus enters.",
-  },
-  {
-    source: "scene",
-    name: "02-chorus-first",
-    start_ms: 9500,
-    end_ms: 22000,
-    fade_in_ms: 1000,
-    fade_out_ms: 800,
-    note: "Chorus refrain — same window as the primary teaser.",
-  },
-  {
-    source: "scene",
-    name: "08-church-leader-amen",
-    start_ms: 32500,
-    end_ms: 41500,
-    fade_in_ms: 250,
-    fade_out_ms: 1500,
-    note: "AMEN — same window as the primary teaser.",
-  },
-];
-
-const BUMPER_OUTRO_SILENCE_MS = 2000;
-
 function slice(pcm: Pcm, start_ms: number, end_ms: number): Pcm {
   const sr = pcm.sample_rate;
   const start = Math.max(0, Math.floor((start_ms * sr) / 1000));
@@ -222,17 +186,11 @@ async function buildOne(
 }
 
 async function main(): Promise<void> {
-  process.stderr.write("build-trailer: primary teaser\n");
+  process.stderr.write("build-trailer:\n");
   await buildOne(
     PRIMARY,
     PRIMARY_OUTRO_SILENCE_MS,
     join(SCENE_DIR, "trailer.wav"),
-  );
-  process.stderr.write("build-trailer: 30-second bumper\n");
-  await buildOne(
-    BUMPER,
-    BUMPER_OUTRO_SILENCE_MS,
-    join(SCENE_DIR, "trailer-bumper.wav"),
   );
 }
 
