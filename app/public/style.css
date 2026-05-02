@@ -87,6 +87,57 @@ h2[tabindex="-1"]:focus {
   outline: none;
 }
 
+/* Persistent site nav on /preview.html and /submission.html — three
+   text labels separated by visual gap (no list bullets, no chrome).
+   Current page rendered as a non-link span with .current so it carries
+   "you are here" weight without being clickable. The accent rule on
+   hover/focus matches the rest of the site's link discipline. */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.6rem;
+  margin: 0 0 2rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.site-nav a {
+  color: var(--fg);
+  text-decoration: none;
+}
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+.site-nav .current {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Single press-kit escape hatch on /index.html stage-landing. Sits
+   top-right, small enough to not compete with the title for attention.
+   Only present on stage-landing (player.js's hidden toggling on
+   #stage-playing and #stage-ended hides any descendants automatically),
+   so the listening / ended flow stays uncluttered. */
+.escape-link {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-decoration: none;
+}
+.escape-link:hover,
+.escape-link:focus-visible {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
 /* ---------- Visitor player layout ---------- */
 
 body.visitor {
