@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>God Bless USA — poster proofs</title>
+    <meta name="robots" content="noindex" />
+    <style>
+      :root {
+        --bg: #2b2826;
+        --fg: #e8e4d9;
+        --muted: #9a948a;
+        --rule: #4a4744;
+      }
+      html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+      body { font: 14px/1.5 Georgia, serif; padding: 2.5rem 1.5rem; }
+      h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 0.4rem; }
+      p.lede { color: var(--muted); margin: 0 0 2.4rem; max-width: 60ch; }
+      section { margin-bottom: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--rule); }
+      h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.4rem; }
+      .meta { color: var(--muted); font-size: 12px; margin: 0 0 1rem; }
+      .frame { display: inline-block; line-height: 0; box-shadow: 0 0 0 1px var(--rule); }
+      .frame img, .frame object { display: block; }
+      .og .frame { width: 600px; }
+      .og .frame img { width: 600px; height: 315px; }
+      .square .frame { width: 540px; }
+      .square .frame img { width: 540px; height: 540px; }
+      .a4 .frame { width: 320px; }
+      .a4 .frame img { width: 320px; height: auto; }
+      .links a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--muted); margin-right: 1.4rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Poster proofs — first draft for redline</h1>
+    <p class="lede">
+      Three layouts in one typographic system, derived from the visitor
+      player's palette (Georgia serif on cream paper, single deep-red
+      accent rule). Master designs are SVG; export to PNG/PDF for the
+      surfaces that need raster.
+    </p>
+
+    <section class="og">
+      <h2>OG / press card — 1200 × 630</h2>
+      <p class="meta">
+        For social cards (Twitter, OpenGraph), press emails, gallery
+        listings. No QR — illegible at thumbnail sizes.
+      </p>
+      <div class="frame">
+        <img src="og-press.svg" alt="OG card preview" />
+      </div>
+      <p class="links">
+        <a href="og-press.svg" target="_blank">open SVG</a>
+      </p>
+    </section>
+
+    <section class="square">
+      <h2>Square — 1080 × 1080</h2>
+      <p class="meta">
+        For Instagram feed, generic social. Title split across four lines
+        for the square format; same hierarchy, more vertical breathing.
+      </p>
+      <div class="frame">
+        <img src="square.svg" alt="Square preview" />
+      </div>
+      <p class="links">
+        <a href="square.svg" target="_blank">open SVG</a>
+      </p>
+    </section>
+
+    <section class="a4">
+      <h2>Press still — 210 × 297 mm (A4)</h2>
+      <p class="meta">
+        For print and PDF press kits. Includes the QR pointing at the
+        visitor URL so a passerby holding the page can scan and listen.
+        Footer carries full credit + licence.
+      </p>
+      <div class="frame">
+        <img src="press-still-a4.svg" alt="A4 press still preview" />
+      </div>
+      <p class="links">
+        <a href="press-still-a4.svg" target="_blank">open SVG</a>
+      </p>
+    </section>
+  </body>
+</html>

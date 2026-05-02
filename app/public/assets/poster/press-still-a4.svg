@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Press still — 210×297 mm (A4 portrait). For print and for press
+  contacts who prefer a hand-distributable PDF. Same typographic system
+  as og-press.svg and square.svg; this is the only variant that
+  includes the QR (legible at print size; useless on a social
+  thumbnail).
+
+  Units in mm so dimensions are physically correct at print time.
+  Font sizes in pt so they match traditional print scales (1pt =
+  0.3528 mm).
+
+  Export to PDF with `inkscape press-still-a4.svg --export-type=pdf` or
+  open in a browser and Print → Save as PDF (Letter size also works
+  by scaling).
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="210mm"
+  height="297mm"
+  viewBox="0 0 210 297"
+  font-family="Georgia, 'Times New Roman', serif"
+>
+  <rect width="210" height="297" fill="#f9f6ef" />
+
+  <!-- Title block. Single column, three lines, breathing room above
+       and below. Print typography: title heavier than the screen
+       variants because paper absorbs ink and small details lose
+       contrast. -->
+  <g fill="#1a1a1a">
+    <text x="18" y="62" font-size="20pt" font-weight="600" letter-spacing="-0.3">GOD BLESS</text>
+    <text x="18" y="84" font-size="20pt" font-weight="600" letter-spacing="-0.3">THE UNITED STATES</text>
+    <text x="18" y="106" font-size="20pt" font-weight="600" letter-spacing="-0.3">OF ALIENS</text>
+  </g>
+
+  <text x="18" y="118" font-size="9pt" font-style="italic" fill="#5a5a5a">
+    An All-Seeing Eyewitness Report
+  </text>
+
+  <line x1="18" y1="132" x2="50" y2="132" stroke="#8a2c2c" stroke-width="0.4" />
+
+  <g fill="#1a1a1a">
+    <text x="18" y="146" font-size="9pt">
+      A guest work in <tspan font-style="italic">Domus Diasporica</tspan>
+    </text>
+    <text x="18" y="156" font-size="9pt">
+      Pavilion of Bosnia and Herzegovina
+    </text>
+    <text x="18" y="166" font-size="9pt">
+      Exhibitor: Mladen Bundalo · Commissioner: Sarita Vujković · Curator: Isidora Živković
+    </text>
+    <text x="18" y="180" font-size="9pt">
+      Palazzo Malipiero · San Marco 3198 · 30124 Venice
+    </text>
+    <text x="18" y="190" font-size="9pt">
+      61st International Art Exhibition — La Biennale di Venezia
+    </text>
+    <text x="18" y="200" font-size="9pt">
+      <tspan font-style="italic">In Minor Keys</tspan> — curated by Koyo Kouoh
+    </text>
+    <text x="18" y="216" font-size="11pt" font-weight="600" fill="#8a2c2c">
+      May 9 – November 22, 2026
+    </text>
+  </g>
+
+  <!-- QR + URL block: print-friendly, scannable at A4. The QR points to
+       the same visitor URL that the audio player serves, so a passerby
+       reading this can scan and listen on their phone immediately. -->
+  <g transform="translate(120, 196)">
+    <image
+      href="../qr/god-bless-usa.svg"
+      width="34"
+      height="34"
+    />
+    <text x="40" y="14" font-size="9pt" fill="#1a1a1a">
+      Scan to listen
+    </text>
+    <text x="40" y="24" font-size="9pt" fill="#8a2c2c" font-weight="600">
+      daqhris.com/
+    </text>
+    <text x="40" y="32" font-size="9pt" fill="#8a2c2c" font-weight="600">
+      god-bless-usa/
+    </text>
+  </g>
+
+  <!-- Footer: full credit, licence, source. Smaller, calmer, the
+       imprint footing of a printed page. -->
+  <line x1="18" y1="252" x2="192" y2="252" stroke="#d8d2c4" stroke-width="0.2" />
+  <g fill="#5a5a5a" font-size="7pt">
+    <text x="18" y="262">
+      An AI-voiced ceremony of approximately eighteen minutes. Listen on headphones.
+    </text>
+    <text x="18" y="271">
+      Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus 4.7. Voices by Kokoro-82M (Apache-2.0).
+    </text>
+    <text x="18" y="280">
+      Made at Hectolitre, Brussels. Built during the Built with Opus 4.7 hackathon (Cerebral Valley × Anthropic, April 2026).
+    </text>
+    <text x="18" y="289">
+      Code: EUPL-1.2 · Performance &amp; text: CC BY-NC-ND 4.0 · github.com/daqhris/god-bless-usa
+    </text>
+  </g>
+</svg>
