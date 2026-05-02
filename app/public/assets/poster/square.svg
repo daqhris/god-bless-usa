@@ -25,7 +25,7 @@
     An All-Seeing Eyewitness Report
   </text>
 
-  <line x1="80" y1="700" x2="220" y2="700" stroke="#8a2c2c" stroke-width="2" />
+  <line x1="80" y1="700" x2="220" y2="700" stroke="#d4a869" stroke-width="2" />
 
   <g fill="#1a1a1a">
     <text x="80" y="754" font-size="22">
@@ -41,11 +41,11 @@
       <tspan font-style="italic">In Minor Keys</tspan> — Koyo Kouoh
     </text>
     <text x="80" y="908" font-size="26" font-weight="600">
-      <tspan fill="#8a2c2c">May 9 – November 22, 2026</tspan>
+      <tspan fill="#d4a869">May 9 – November 22, 2026</tspan>
     </text>
   </g>
 
-  <text x="80" y="970" font-size="28" font-weight="600" fill="#8a2c2c">
+  <text x="80" y="970" font-size="28" font-weight="600" fill="#d4a869">
     daqhris.com/god-bless-usa/
   </text>
   <text x="80" y="1000" font-size="16" fill="#5a5a5a">

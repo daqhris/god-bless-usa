@@ -10,7 +10,7 @@
   height="1080"
   font-family="Georgia, 'Times New Roman', serif"
 >
-  <rect width="1080" height="1080" fill="#181816" />
+  <rect width="1080" height="1080" fill="#0a0908" />
 
   <g fill="#e8e4d9">
     <text x="80" y="240" font-size="106" font-weight="600" letter-spacing="-1">GOD</text>
@@ -19,11 +19,11 @@
     <text x="80" y="582" font-size="106" font-weight="600" letter-spacing="-1">OF ALIENS</text>
   </g>
 
-  <text x="80" y="638" font-size="26" font-style="italic" fill="#9a948a">
+  <text x="80" y="638" font-size="26" font-style="italic" fill="#8a8478">
     An All-Seeing Eyewitness Report
   </text>
 
-  <line x1="80" y1="700" x2="220" y2="700" stroke="#d47575" stroke-width="2" />
+  <line x1="80" y1="700" x2="220" y2="700" stroke="#d4a869" stroke-width="2" />
 
   <g fill="#e8e4d9">
     <text x="80" y="754" font-size="22">
@@ -39,17 +39,17 @@
       <tspan font-style="italic">In Minor Keys</tspan> — Koyo Kouoh
     </text>
     <text x="80" y="908" font-size="26" font-weight="600">
-      <tspan fill="#d47575">May 9 – November 22, 2026</tspan>
+      <tspan fill="#d4a869">May 9 – November 22, 2026</tspan>
     </text>
   </g>
 
-  <text x="80" y="970" font-size="28" font-weight="600" fill="#d47575">
+  <text x="80" y="970" font-size="28" font-weight="600" fill="#d4a869">
     daqhris.com/god-bless-usa/
   </text>
-  <text x="80" y="1000" font-size="16" fill="#9a948a">
+  <text x="80" y="1000" font-size="16" fill="#8a8478">
     An AI-voiced ceremony, ~18 minutes, headphones recommended.
   </text>
-  <text x="80" y="1028" font-size="14" font-style="italic" fill="#9a948a">
+  <text x="80" y="1028" font-size="14" font-style="italic" fill="#8a8478">
     Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus 4.7
   </text>
 </svg>

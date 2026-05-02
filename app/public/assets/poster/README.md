@@ -1,9 +1,9 @@
 # Poster — typographic press still
 
-Six masters — three formats in two themes — derived from the visitor
-player's palette (Georgia serif, single deep-red accent rule on the
-light theme; lighter rose accent on the dark theme). The SVGs are the
-master designs; convert to PNG / PDF for surfaces that need raster.
+Six masters — three formats in two themes — derived from the **printed
+liturgical bulletin** at `print/bulletin.html` (Georgia serif, gold
+accent on cream paper or near-black ground). The SVGs are the master
+designs; convert to PNG / PDF for surfaces that need raster.
 
 ## Files
 
@@ -47,11 +47,20 @@ stills and is a faster path if Inkscape isn't installed.
 
 ## Palette
 
-Pulled from the visitor player's `style.css`:
+Pulled from `print/bulletin.html` so the poster reads consistent with
+the printed liturgical bulletin. The dark variant matches the bulletin
+exactly; the light variant is a paper-and-ink inversion of the same
+hues.
 
-| token | light | dark |
-|-------|-------|------|
-| background | `#f9f6ef` (cream) | `#181816` (warm near-black) |
+| token | light | dark (= bulletin) |
+|-------|-------|-------------------|
+| background | `#f9f6ef` (cream paper) | `#0a0908` (near-black) |
 | foreground | `#1a1a1a` | `#e8e4d9` (cream ink) |
-| muted | `#5a5a5a` | `#9a948a` |
-| accent | `#8a2c2c` (deep red) | `#d47575` (lighter rose) |
+| muted | `#5a5a5a` | `#8a8478` (warm grey) |
+| accent | `#d4a869` (gold) | `#d4a869` (gold — same) |
+
+The accent gold `#d4a869` is intentionally low-contrast on cream — it
+reads as a presence rather than a flag, the way gold leaf does on a
+liturgical page. If a particular surface needs the date emphasis to
+shout (e.g. a flyer printed for outdoor display), edit the date
+`<text>` element's `fill` to a darker amber such as `#a47020`.

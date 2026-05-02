@@ -7,7 +7,7 @@
     bg     #f9f6ef   cream paper
     fg     #1a1a1a   dark ink
     muted  #5a5a5a   secondary text
-    accent #8a2c2c   single rule, single date emphasis
+    accent #d4a869   single rule, single date emphasis
 
   Font: Georgia / serif. System-resident on every platform that
   renders OG cards; matches the visitor player's body type. If the
@@ -37,7 +37,7 @@
   </text>
 
   <!-- Single accent rule. The "in minor keys" register: one mark, no flourish. -->
-  <line x1="80" y1="468" x2="200" y2="468" stroke="#8a2c2c" stroke-width="2" />
+  <line x1="80" y1="468" x2="200" y2="468" stroke="#d4a869" stroke-width="2" />
 
   <!-- Pavilion + venue + dates. Dates sit on their own line so the
        opening anchor reads at a glance. -->
@@ -51,14 +51,14 @@
       <tspan font-style="italic">In Minor Keys</tspan>
     </text>
     <text x="80" y="572" font-size="20" font-weight="600">
-      <tspan fill="#8a2c2c">May 9 – November 22, 2026</tspan>
+      <tspan fill="#d4a869">May 9 – November 22, 2026</tspan>
     </text>
   </g>
 
   <!-- Right column: URL + co-direction credit. URL is the call-to-listen;
        it's the second-loudest thing on the card after the title. -->
   <g text-anchor="end">
-    <text x="1120" y="538" font-size="24" font-weight="600" fill="#8a2c2c">
+    <text x="1120" y="538" font-size="24" font-weight="600" fill="#d4a869">
       daqhris.com/god-bless-usa/
     </text>
     <text x="1120" y="572" font-size="14" fill="#5a5a5a">

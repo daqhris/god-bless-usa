@@ -6,9 +6,16 @@
   includes the QR (legible at print size; useless on a social
   thumbnail).
 
-  Units in mm so dimensions are physically correct at print time.
-  Font sizes in pt so they match traditional print scales (1pt is
-  0.3528 mm).
+  All units in mm — including font-size. Browsers render pt as an
+  absolute screen size (96 dpi) regardless of the SVG's viewBox scale,
+  so a font-size in pt explodes when the canvas is shrunk to fit a
+  browser window. Unitless numbers in the viewBox space behave as mm
+  here, so font-size="7" means 7 mm of glyph height — same physical
+  size at 1:1 print and proportional at any browser zoom.
+
+  Palette pulled from print/bulletin.html so the press still reads
+  consistent with the printed liturgical bulletin (gold accent on
+  cream paper; not the audio player's red).
 
   Export options are documented in README.md (Inkscape command, or
   browser Print to PDF). Note: XML comments cannot carry the literal
@@ -26,79 +33,77 @@
   <rect width="210" height="297" fill="#f9f6ef" />
 
   <!-- Title block. Single column, three lines, breathing room above
-       and below. Print typography: title heavier than the screen
-       variants because paper absorbs ink and small details lose
-       contrast. -->
+       and below. -->
   <g fill="#1a1a1a">
-    <text x="18" y="62" font-size="20pt" font-weight="600" letter-spacing="-0.3">GOD BLESS</text>
-    <text x="18" y="84" font-size="20pt" font-weight="600" letter-spacing="-0.3">THE UNITED STATES</text>
-    <text x="18" y="106" font-size="20pt" font-weight="600" letter-spacing="-0.3">OF ALIENS</text>
+    <text x="18" y="50" font-size="11" font-weight="600" letter-spacing="-0.3">GOD BLESS</text>
+    <text x="18" y="64" font-size="11" font-weight="600" letter-spacing="-0.3">THE UNITED STATES</text>
+    <text x="18" y="78" font-size="11" font-weight="600" letter-spacing="-0.3">OF ALIENS</text>
   </g>
 
-  <text x="18" y="118" font-size="9pt" font-style="italic" fill="#5a5a5a">
+  <text x="18" y="88" font-size="3.4" font-style="italic" fill="#5a5a5a">
     An All-Seeing Eyewitness Report
   </text>
 
-  <line x1="18" y1="132" x2="50" y2="132" stroke="#8a2c2c" stroke-width="0.4" />
+  <line x1="18" y1="100" x2="50" y2="100" stroke="#d4a869" stroke-width="0.4" />
 
-  <g fill="#1a1a1a">
-    <text x="18" y="146" font-size="9pt">
+  <g fill="#1a1a1a" font-size="3.2">
+    <text x="18" y="112">
       A guest work in <tspan font-style="italic">Domus Diasporica</tspan>
     </text>
-    <text x="18" y="156" font-size="9pt">
+    <text x="18" y="120">
       Pavilion of Bosnia and Herzegovina
     </text>
-    <text x="18" y="166" font-size="9pt">
-      Exhibitor: Mladen Bundalo · Commissioner: Sarita Vujković · Curator: Isidora Živković
+    <text x="18" y="128">
+      Exhibitor: Mladen Bundalo
     </text>
-    <text x="18" y="180" font-size="9pt">
+    <text x="18" y="136">
+      Commissioner: Sarita Vujković · Curator: Isidora Živković
+    </text>
+    <text x="18" y="150">
       Palazzo Malipiero · San Marco 3198 · 30124 Venice
     </text>
-    <text x="18" y="190" font-size="9pt">
+    <text x="18" y="158">
       61st International Art Exhibition — La Biennale di Venezia
     </text>
-    <text x="18" y="200" font-size="9pt">
+    <text x="18" y="166">
       <tspan font-style="italic">In Minor Keys</tspan> — curated by Koyo Kouoh
     </text>
-    <text x="18" y="216" font-size="11pt" font-weight="600" fill="#8a2c2c">
+    <text x="18" y="180" font-size="4.2" font-weight="600" fill="#d4a869">
       May 9 – November 22, 2026
     </text>
   </g>
 
-  <!-- QR + URL block: print-friendly, scannable at A4. The QR points to
-       the same visitor URL that the audio player serves, so a passerby
-       reading this can scan and listen on their phone immediately. -->
-  <g transform="translate(120, 196)">
+  <!-- QR + URL block. Sits below the metadata so there's no horizontal
+       collision with the prose. The QR points to the visitor URL so a
+       passerby holding the page can scan and listen on their phone. -->
+  <g transform="translate(18, 200)">
     <image
       href="../qr/god-bless-usa.svg"
-      width="34"
-      height="34"
+      width="40"
+      height="40"
     />
-    <text x="40" y="14" font-size="9pt" fill="#1a1a1a">
-      Scan to listen
-    </text>
-    <text x="40" y="24" font-size="9pt" fill="#8a2c2c" font-weight="600">
-      daqhris.com/
-    </text>
-    <text x="40" y="32" font-size="9pt" fill="#8a2c2c" font-weight="600">
-      god-bless-usa/
-    </text>
+    <g fill="#1a1a1a" font-size="3.2">
+      <text x="48" y="14">Scan to listen</text>
+      <text x="48" y="22" font-weight="600" fill="#d4a869">
+        daqhris.com/god-bless-usa/
+      </text>
+      <text x="48" y="32" fill="#5a5a5a" font-style="italic">
+        ~18-minute AI-voiced ceremony, headphones recommended.
+      </text>
+    </g>
   </g>
 
   <!-- Footer: full credit, licence, source. Smaller, calmer, the
        imprint footing of a printed page. -->
-  <line x1="18" y1="252" x2="192" y2="252" stroke="#d8d2c4" stroke-width="0.2" />
-  <g fill="#5a5a5a" font-size="7pt">
-    <text x="18" y="262">
-      An AI-voiced ceremony of approximately eighteen minutes. Listen on headphones.
-    </text>
-    <text x="18" y="271">
+  <line x1="18" y1="262" x2="192" y2="262" stroke="#d8d2c4" stroke-width="0.2" />
+  <g fill="#5a5a5a" font-size="2.6">
+    <text x="18" y="270">
       Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus 4.7. Voices by Kokoro-82M (Apache-2.0).
     </text>
-    <text x="18" y="280">
+    <text x="18" y="276">
       Made at Hectolitre, Brussels. Built during the Built with Opus 4.7 hackathon (Cerebral Valley × Anthropic, April 2026).
     </text>
-    <text x="18" y="289">
+    <text x="18" y="282">
       Code: EUPL-1.2 · Performance &amp; text: CC BY-NC-ND 4.0 · github.com/daqhris/god-bless-usa
     </text>
   </g>
