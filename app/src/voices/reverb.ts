@@ -118,15 +118,29 @@ class AllpassFilter {
   }
 }
 
-export function applyReverb(pcm: Pcm, kind: ReverbKind): Pcm {
+/**
+ * Apply algorithmic reverb. The optional `pre_delay_ms` shifts the wet
+ * (reverberant) signal in time so the dry source plays alone for the
+ * first N ms before the room sound begins to bloom. Standard mixing
+ * trick for moments where the consonant attack of a sustained word
+ * (e.g. "AMEN" by the full ensemble) would otherwise be washed by the
+ * heavy reverb's wet contribution. Default 0 = no pre-delay = previous
+ * behavior preserved for every existing caller.
+ */
+export function applyReverb(
+  pcm: Pcm,
+  kind: ReverbKind,
+  pre_delay_ms = 0,
+): Pcm {
   if (kind === "none") return pcm;
   const cfg = CONFIGS[kind];
   const sr = pcm.sample_rate;
 
   const toSamples = (ms: number) => Math.floor((ms / 1000) * sr);
   const tail_n = toSamples(cfg.tail_ms);
-  const out_n = pcm.samples.length + tail_n;
-  const out = new Float32Array(out_n);
+  const pre_delay_n = Math.max(0, toSamples(pre_delay_ms));
+  const wet_n = pcm.samples.length + tail_n;
+  const out_n = wet_n + pre_delay_n;
 
   const combs = cfg.comb_ms.map(
     (ms) => new CombFilter(toSamples(ms), cfg.comb_feedback, cfg.lp_coefficient),
@@ -136,7 +150,11 @@ export function applyReverb(pcm: Pcm, kind: ReverbKind): Pcm {
   );
   const comb_scale = 1 / combs.length;
 
-  for (let i = 0; i < out_n; i++) {
+  // First pass: compute the wet (reverberated) signal from the dry input.
+  // This is the same Schroeder-Moorer process; we just buffer the result
+  // so the second pass can read it with a time shift.
+  const wet_arr = new Float32Array(wet_n);
+  for (let i = 0; i < wet_n; i++) {
     const dry = i < pcm.samples.length ? pcm.samples[i]! : 0;
     let wet = 0;
     for (const c of combs) {
@@ -145,6 +163,17 @@ export function applyReverb(pcm: Pcm, kind: ReverbKind): Pcm {
     for (const ap of allpasses) {
       wet = ap.process(wet);
     }
+    wet_arr[i] = wet;
+  }
+
+  // Second pass: mix dry + (delayed) wet. Wet reads from index
+  // i - pre_delay_n, so the first pre_delay_n samples are dry-only and
+  // the listener gets the consonant attack before the room blooms.
+  const out = new Float32Array(out_n);
+  for (let i = 0; i < out_n; i++) {
+    const dry = i < pcm.samples.length ? pcm.samples[i]! : 0;
+    const wet_idx = i - pre_delay_n;
+    const wet = wet_idx >= 0 && wet_idx < wet_n ? wet_arr[wet_idx]! : 0;
     let v = dry * (1 - cfg.wet) + wet * cfg.wet;
     if (v > 1) v = 1;
     else if (v < -1) v = -1;

@@ -207,7 +207,18 @@ export const kokoroAdapter: VoiceAdapter = {
       }
 
       let pcm: Pcm;
-      const base_speed = clampSpeed(seg.speed ?? 1);
+      // Full-ensemble segments are floored at speed 0.92 even if the
+      // directions JSON asks for slower. Below ~0.92 the held vowel of
+      // a one-word collective utterance like "AMEN" / "HUGS" smudges
+      // the consonants under the heavy reverb wash and the listener
+      // hears ensemble murmur rather than a legible word. The floor is
+      // belt-and-suspenders for the JSON value (currently 0.95) and
+      // protects against future render:all runs that might re-emit a
+      // slower speed from the director.
+      const base_speed =
+        seg.type === "speech" && seg.voice === "full_ensemble"
+          ? clampSpeed(Math.max(0.92, seg.speed ?? 1))
+          : clampSpeed(seg.speed ?? 1);
       if (seg.voice === "chorus") {
         // Layer the ensemble: render the same SSML through each voice and sum
         // with small timing offsets to produce choral texture.
@@ -294,11 +305,19 @@ export const kokoroAdapter: VoiceAdapter = {
       // tail the director asks for. `dry_close: true` collapses to "none"
       // even if a reverb preset is named — the acoustic has contracted to
       // close-mic and any room sound would contradict that.
+      //
+      // Full-ensemble segments (AMEN, HUGS) get a 250 ms reverb pre-delay
+      // so the consonant attack of the collective utterance lands clearly
+      // before the cathedral tail blooms. Without it, the heavy reverb's
+      // wet contribution from sample zero washes the consonants and the
+      // listener hears a held vowel and ensemble murmur rather than a
+      // legible word.
       if (seg.type === "speech") {
         const reverb_kind = seg.post_processing.dry_close
           ? "none"
           : seg.post_processing.reverb;
-        pcm = applyReverb(pcm, reverb_kind);
+        const pre_delay_ms = seg.voice === "full_ensemble" ? 250 : 0;
+        pcm = applyReverb(pcm, reverb_kind, pre_delay_ms);
       }
 
       pcm_segments.push(pcm);

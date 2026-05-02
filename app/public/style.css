@@ -464,6 +464,12 @@ body.preview section.master {
   margin-top: 3rem;
   background: var(--accent-soft);
 }
+body.preview section.trailer {
+  border: 1px dashed var(--accent-rule);
+  padding: 1.5rem;
+  margin-top: 0;
+  background: transparent;
+}
 body.preview h2 {
   font-size: 1.15rem;
   font-weight: 600;

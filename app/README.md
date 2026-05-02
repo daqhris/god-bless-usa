@@ -95,10 +95,29 @@ npm run render:audio -- dist/directions/00-opening.json
 # the director. Use after `render:audio` on individual scenes:
 npm run rebuild:master
 
+# Render the trailer-only Kokoro fragments. One fragment so far: the
+# praying-alien "Skies, like flashlights..." line, which lives mid-segment
+# in Scene IX's long Train-of-Thoughts SSML and can't be sliced cleanly
+# from 09-praying-alien.wav (continuous signal beds mask silence detection).
+# Re-rendered standalone with no bed for the trailer. Only re-run when the
+# fragment SSML changes:
+npm run render:trailer-fragments
+
+# Build the promotional audio trailer — two outputs from one source list:
+# trailer.wav (~60s "avant-goût," for Instagram Reels and press) and
+# trailer-bumper.wav (~30s tighter cut, for Stories and Reels covers).
+# Slices the existing per-scene WAVs at empirically-detected boundaries
+# (see scripts/scan-silences.ts) and folds in any Kokoro fragments from
+# the previous step. Audition the output, nudge the timestamp constants at
+# the top of scripts/build-trailer.ts if a beat doesn't land, re-run.
+npm run build:trailer
+
 # Compress every WAV under public/assets/audio/ to Opus (~32 kbps mono) and
 # AAC (~64 kbps mono) alongside the originals. The visitor player prefers
-# Opus, falls back to AAC on older iOS, and keeps WAV for archival:
+# Opus, falls back to AAC on older iOS, and keeps WAV for archival.
+# Pass a path to encode just one file:
 npm run encode:audio
+# or: npm run encode:audio -- public/assets/audio/trailer.wav
 
 # Preview in a browser (same folder GitHub Pages will serve):
 npm run serve
@@ -163,6 +182,8 @@ A master-length **undercurrent drone** at A1 (55 Hz) with two slow LFOs runs und
 | `heavy`  | ~2.4 s | 2800 ms | 45 % | CHORUS refrain; stone cathedral; Scene 0 chorus premonition |
 
 Applied after every voice path (single, chorus ensemble, full ensemble) and after any underlay bed mixing, so a chorus refrain picks up the heavy tail uniformly across all four voices and the typewriter bed sits in the same room as EYEWITNESS.
+
+Full-ensemble segments (AMEN, HUGS) get a **250 ms reverb pre-delay** so the consonant attack of the collective utterance lands clearly before the cathedral tail blooms. Without it, the heavy reverb's wet contribution from sample zero washes the consonants and the listener hears a held vowel and ensemble murmur rather than a legible word. Speed is also floored at 0.92 for the full-ensemble path (the directions JSON values for AMEN and HUGS are currently 0.95) so the held vowel doesn't smudge the consonants under the wash.
 
 ## Scene IX signal beds
 
