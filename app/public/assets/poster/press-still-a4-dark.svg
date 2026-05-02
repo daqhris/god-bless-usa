@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Press still — 210×297 mm (A4 portrait). For print and for press
-  contacts who prefer a hand-distributable PDF. Same typographic system
-  as og-press.svg and square.svg; this is the only variant that
-  includes the QR (legible at print size; useless on a social
-  thumbnail).
+  Press still — A4 portrait, dark variant. Same layout as
+  press-still-a4.svg, palette swapped to the dark scheme from style.css.
 
-  Units in mm so dimensions are physically correct at print time.
-  Font sizes in pt so they match traditional print scales (1pt is
-  0.3528 mm).
-
-  Export options are documented in README.md (Inkscape command, or
-  browser Print to PDF). Note: XML comments cannot carry the literal
-  Inkscape flag spelling, so the README is the place to read the
-  command.
+  Print note: dark backgrounds use a lot of toner / ink. The light A4
+  variant is the better default for hand-distributed press kits; this
+  dark variant fits screens, projector slides, and digital press
+  attachments where the dark register reads better.
 -->
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -23,25 +16,21 @@
   viewBox="0 0 210 297"
   font-family="Georgia, 'Times New Roman', serif"
 >
-  <rect width="210" height="297" fill="#f9f6ef" />
+  <rect width="210" height="297" fill="#181816" />
 
-  <!-- Title block. Single column, three lines, breathing room above
-       and below. Print typography: title heavier than the screen
-       variants because paper absorbs ink and small details lose
-       contrast. -->
-  <g fill="#1a1a1a">
+  <g fill="#e8e4d9">
     <text x="18" y="62" font-size="20pt" font-weight="600" letter-spacing="-0.3">GOD BLESS</text>
     <text x="18" y="84" font-size="20pt" font-weight="600" letter-spacing="-0.3">THE UNITED STATES</text>
     <text x="18" y="106" font-size="20pt" font-weight="600" letter-spacing="-0.3">OF ALIENS</text>
   </g>
 
-  <text x="18" y="118" font-size="9pt" font-style="italic" fill="#5a5a5a">
+  <text x="18" y="118" font-size="9pt" font-style="italic" fill="#9a948a">
     An All-Seeing Eyewitness Report
   </text>
 
-  <line x1="18" y1="132" x2="50" y2="132" stroke="#8a2c2c" stroke-width="0.4" />
+  <line x1="18" y1="132" x2="50" y2="132" stroke="#d47575" stroke-width="0.4" />
 
-  <g fill="#1a1a1a">
+  <g fill="#e8e4d9">
     <text x="18" y="146" font-size="9pt">
       A guest work in <tspan font-style="italic">Domus Diasporica</tspan>
     </text>
@@ -60,35 +49,34 @@
     <text x="18" y="200" font-size="9pt">
       <tspan font-style="italic">In Minor Keys</tspan> — curated by Koyo Kouoh
     </text>
-    <text x="18" y="216" font-size="11pt" font-weight="600" fill="#8a2c2c">
+    <text x="18" y="216" font-size="11pt" font-weight="600" fill="#d47575">
       May 9 – November 22, 2026
     </text>
   </g>
 
-  <!-- QR + URL block: print-friendly, scannable at A4. The QR points to
-       the same visitor URL that the audio player serves, so a passerby
-       reading this can scan and listen on their phone immediately. -->
+  <!-- QR + URL block. The QR svg is rendered as black-on-transparent;
+       on a dark background it would vanish, so wrap it in a small
+       cream tile to keep it scannable. -->
   <g transform="translate(120, 196)">
+    <rect x="-2" y="-2" width="38" height="38" fill="#f9f6ef" />
     <image
       href="../qr/god-bless-usa.svg"
       width="34"
       height="34"
     />
-    <text x="40" y="14" font-size="9pt" fill="#1a1a1a">
+    <text x="40" y="14" font-size="9pt" fill="#e8e4d9">
       Scan to listen
     </text>
-    <text x="40" y="24" font-size="9pt" fill="#8a2c2c" font-weight="600">
+    <text x="40" y="24" font-size="9pt" fill="#d47575" font-weight="600">
       daqhris.com/
     </text>
-    <text x="40" y="32" font-size="9pt" fill="#8a2c2c" font-weight="600">
+    <text x="40" y="32" font-size="9pt" fill="#d47575" font-weight="600">
       god-bless-usa/
     </text>
   </g>
 
-  <!-- Footer: full credit, licence, source. Smaller, calmer, the
-       imprint footing of a printed page. -->
-  <line x1="18" y1="252" x2="192" y2="252" stroke="#d8d2c4" stroke-width="0.2" />
-  <g fill="#5a5a5a" font-size="7pt">
+  <line x1="18" y1="252" x2="192" y2="252" stroke="#4a4744" stroke-width="0.2" />
+  <g fill="#9a948a" font-size="7pt">
     <text x="18" y="262">
       An AI-voiced ceremony of approximately eighteen minutes. Listen on headphones.
     </text>
