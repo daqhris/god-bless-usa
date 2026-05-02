@@ -95,12 +95,21 @@ npm run render:audio -- dist/directions/00-opening.json
 # the director. Use after `render:audio` on individual scenes:
 npm run rebuild:master
 
+# Render the trailer-only Kokoro fragments. One fragment so far: the
+# praying-alien "Skies, like flashlights..." line, which lives mid-segment
+# in Scene IX's long Train-of-Thoughts SSML and can't be sliced cleanly
+# from 09-praying-alien.wav (continuous signal beds mask silence detection).
+# Re-rendered standalone with no bed for the trailer. Only re-run when the
+# fragment SSML changes:
+npm run render:trailer-fragments
+
 # Build the promotional audio trailer — two outputs from one source list:
 # trailer.wav (~60s "avant-goût," for Instagram Reels and press) and
 # trailer-bumper.wav (~30s tighter cut, for Stories and Reels covers).
-# Pure WAV slicing of the existing per-scene renders; no Kokoro re-render
-# needed. Audition the output, nudge the timestamp constants at the top
-# of scripts/build-trailer.ts if a beat doesn't land, re-run.
+# Slices the existing per-scene WAVs at empirically-detected boundaries
+# (see scripts/scan-silences.ts) and folds in any Kokoro fragments from
+# the previous step. Audition the output, nudge the timestamp constants at
+# the top of scripts/build-trailer.ts if a beat doesn't land, re-run.
 npm run build:trailer
 
 # Compress every WAV under public/assets/audio/ to Opus (~32 kbps mono) and

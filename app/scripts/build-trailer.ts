@@ -17,116 +17,135 @@ import {
  *
  * Approach: slice the existing per-scene WAVs (which already carry reverb,
  * underlay, signal beds — exactly what the visitor hears at the master) at
- * approximate timestamps, apply small fades to soften edges, hard-cut on
- * acoustic shifts (heavy-reverb chorus → dry praying alien), close on a
- * couple of seconds of true silence so the loop boundary on Meta /
- * Instagram lands clean.
+ * timestamps derived empirically from silence detection on the rendered
+ * audio (see scripts/scan-silences.ts). For one beat where slicing fails
+ * cleanly (Scene IX has continuous signal beds that mask silence
+ * detection inside its long Train-of-Thoughts SSML block), the fragment
+ * is re-rendered standalone via render-trailer-fragments.ts and read
+ * from dist/trailer-fragments/.
  *
- * Timestamps are tunable. Audition the output, nudge a constant by 100-300
- * ms, re-run. No re-render needed; this script reads PCM, slices, fades,
- * concatenates, writes. Runs in seconds.
+ * Hard cuts on acoustic shifts (heavy-reverb chorus → dry praying alien),
+ * small fades inside fragments to avoid clicks, ~2s of true silence at
+ * the end so the loop boundary on Meta / Instagram lands inside silence
+ * rather than mid-decay.
+ *
+ * Workflow:
+ *   1. npm run render:trailer-fragments   (only when fragment SSML changes)
+ *   2. npm run build:trailer               (every iteration)
+ *   3. npm run encode:audio -- public/assets/audio/trailer.wav
+ *   4. npm run encode:audio -- public/assets/audio/trailer-bumper.wav
+ *
+ * To nudge a beat: edit its start_ms / end_ms below, run build:trailer,
+ * audition. Constants are named so the diff reads as a score.
  */
 
 const SCENE_DIR = resolve("public/assets/audio");
+const FRAGMENT_DIR = resolve("dist/trailer-fragments");
 const SR = 24000;
 
-// Default 200ms fades on the leading/trailing edge of each fragment to
-// avoid sample-boundary clicks. Per-beat overrides below.
 const DEFAULT_FADE_IN_MS = 200;
 const DEFAULT_FADE_OUT_MS = 200;
 
 interface Beat {
-  scene: string;
+  /**
+   * Where the audio comes from. "scene" reads from public/assets/audio/.
+   * "fragment" reads from dist/trailer-fragments/ (Kokoro re-renders).
+   */
+  source: "scene" | "fragment";
+  name: string;
   start_ms: number;
   end_ms: number;
   fade_in_ms?: number;
   fade_out_ms?: number;
-  /** One-line note, kept here so the cut-list reads as a score. */
   note: string;
 }
 
 // ---- Primary teaser — six-beat narrative arc ----
-//
-// Traverses the four voices and the three frames of the alien (cosmic /
-// legal / technological), in the same order the master traverses them but
-// at ~18:1 compression. Hard cuts on acoustic shifts; small fades on edges.
 const PRIMARY: Beat[] = [
   {
-    scene: "00-opening",
+    source: "scene",
+    name: "00-opening",
     start_ms: 0,
-    end_ms: 11000,
+    end_ms: 9500,
     fade_in_ms: 0,
     fade_out_ms: 600,
-    note: "Cathedral entry — bell peal + chorus premonition. Cold start, no fade-in; the first sound is the first toll.",
+    note: "Cathedral entry — bell peal + chorus premonition entering. Cold start.",
   },
   {
-    scene: "00-opening",
-    start_ms: 13000,
-    end_ms: 24500,
-    fade_out_ms: 400,
-    note: 'The work names itself — "Alien Report. December 24, 2024. God Bless The United States Of Aliens." with typewriter underlay.',
+    source: "scene",
+    name: "00-opening",
+    start_ms: 18500,
+    end_ms: 33000,
+    fade_in_ms: 250,
+    fade_out_ms: 500,
+    note: 'The work names itself — "Alien Report. December 24, 2024. God Bless The United States Of Aliens." Spans segments 3-7 (after the chorus reverb and silence segment 2; before the "An All-Seeing" subtitle).',
   },
   {
-    scene: "02-chorus-first",
-    start_ms: 15500,
-    end_ms: 23500,
+    source: "scene",
+    name: "02-chorus-first",
+    start_ms: 9500,
+    end_ms: 22000,
+    fade_in_ms: 1000,
     fade_out_ms: 800,
-    note: 'Chorus refrain — "...will be chosen | to hard-wire loving thoughts | into our brains." Heavy cathedral reverb, four-voice ensemble.',
+    note: 'Chorus refrain — last clauses of segment 0 ("...to hard-wire loving thoughts | into our") + segment 1 ("brains.") + tail. The 1000ms fade-in masks the mid-utterance start so the listener arrives inside the line, not at "brains" alone.',
   },
   {
-    scene: "09-praying-alien",
-    start_ms: 21000,
-    end_ms: 28500,
-    fade_out_ms: 400,
-    note: 'Praying alien interior — "Skies, like flashlights flickering on screens, are lit up by unknown and unidentified beings!" Dry close, no reverb. The acoustic break with the chorus is the gold.',
+    source: "fragment",
+    name: "beat-4-skies",
+    start_ms: 200,
+    end_ms: 10800,
+    fade_in_ms: 250,
+    fade_out_ms: 500,
+    note: 'Praying alien interior — re-rendered standalone for the trailer. "Skies, like flashlights flickering on screens, are lit up by unknown and unidentified beings!" Dry close, no reverb, no signal bed. The acoustic break with the heavy-reverb chorus is the gold.',
   },
   {
-    scene: "11-church-leader-prayer",
-    start_ms: 196000,
-    end_ms: 204000,
+    source: "scene",
+    name: "11-church-leader-prayer",
+    start_ms: 204500,
+    end_ms: 212500,
+    fade_in_ms: 250,
     fade_out_ms: 400,
     note: 'Sermon question — "Are there other kinds of sweetened gifts | that are not yet deliverable through screens?" The preacher turns the question outward.',
   },
   {
-    scene: "08-church-leader-amen",
-    start_ms: 34000,
-    end_ms: 43500,
+    source: "scene",
+    name: "08-church-leader-amen",
+    start_ms: 32500,
+    end_ms: 41500,
+    fade_in_ms: 250,
     fade_out_ms: 1500,
     note: "AMEN — full ensemble, six lanes summed, heavy reverb. Held, then dissolves. The teaser ends on its decay tail.",
   },
 ];
 
-// Outro silence. Helps when Meta / Instagram loop the audio: the loop
-// boundary lands inside silence rather than mid-decay, and the listener
-// gets a held breath before the next replay begins.
-const PRIMARY_OUTRO_SILENCE_MS = 2500;
+const PRIMARY_OUTRO_SILENCE_MS = 2000;
 
-// ---- 30-second bumper — same source, three beats ----
-//
-// The most compressed version of the arc: bell peal (cosmic) → chorus
-// refrain (liturgical/communal) → AMEN (collective landing). Three
-// textures, three voice colors, the entire emotional arc inside an
-// attention budget that fits a Story or a Reels cover.
+// ---- 30-second bumper — bell peal → chorus → AMEN ----
 const BUMPER: Beat[] = [
   {
-    scene: "00-opening",
+    source: "scene",
+    name: "00-opening",
     start_ms: 0,
-    end_ms: 7000,
+    end_ms: 7500,
     fade_in_ms: 0,
     fade_out_ms: 600,
-    note: "Cathedral entry, truncated — just the bell peal and the first whispered fragment of chorus.",
+    note: "Cathedral entry, truncated — bell peal alone, fade out before the chorus enters.",
   },
   {
-    scene: "02-chorus-first",
-    start_ms: 15500,
-    end_ms: 23500,
+    source: "scene",
+    name: "02-chorus-first",
+    start_ms: 9500,
+    end_ms: 22000,
+    fade_in_ms: 1000,
     fade_out_ms: 800,
     note: "Chorus refrain — same window as the primary teaser.",
   },
   {
-    scene: "08-church-leader-amen",
-    start_ms: 34000,
-    end_ms: 43500,
+    source: "scene",
+    name: "08-church-leader-amen",
+    start_ms: 32500,
+    end_ms: 41500,
+    fade_in_ms: 250,
     fade_out_ms: 1500,
     note: "AMEN — same window as the primary teaser.",
   },
@@ -147,9 +166,6 @@ function slice(pcm: Pcm, start_ms: number, end_ms: number): Pcm {
 }
 
 function applyFades(pcm: Pcm, fade_in_ms: number, fade_out_ms: number): Pcm {
-  // Linear in/out is enough for these short, low-amplitude edges; the
-  // fragments come pre-mixed with reverb tails so the perceptual envelope
-  // is already curved.
   const samples = new Float32Array(pcm.samples);
   const sr = pcm.sample_rate;
   const fi = Math.min(samples.length, Math.floor((fade_in_ms * sr) / 1000));
@@ -163,6 +179,12 @@ function applyFades(pcm: Pcm, fade_in_ms: number, fade_out_ms: number): Pcm {
   return { samples, sample_rate: sr };
 }
 
+function pathFor(beat: Beat): string {
+  return beat.source === "fragment"
+    ? join(FRAGMENT_DIR, `${beat.name}.wav`)
+    : join(SCENE_DIR, `${beat.name}.wav`);
+}
+
 async function buildOne(
   beats: readonly Beat[],
   outro_silence_ms: number,
@@ -172,24 +194,20 @@ async function buildOne(
   const parts: Pcm[] = [];
 
   for (const [idx, beat] of beats.entries()) {
-    if (!cache.has(beat.scene)) {
-      cache.set(
-        beat.scene,
-        await readWav(join(SCENE_DIR, `${beat.scene}.wav`)),
-      );
+    const path = pathFor(beat);
+    if (!cache.has(path)) {
+      cache.set(path, await readWav(path));
     }
-    const fragment = slice(cache.get(beat.scene)!, beat.start_ms, beat.end_ms);
+    const fragment = slice(cache.get(path)!, beat.start_ms, beat.end_ms);
     const faded = applyFades(
       fragment,
       beat.fade_in_ms ?? DEFAULT_FADE_IN_MS,
       beat.fade_out_ms ?? DEFAULT_FADE_OUT_MS,
     );
     parts.push(faded);
-    const dur_s = (
-      (beat.end_ms - beat.start_ms) / 1000
-    ).toFixed(1);
+    const dur_s = ((beat.end_ms - beat.start_ms) / 1000).toFixed(1);
     process.stderr.write(
-      `  beat ${idx + 1}  ${beat.scene.padEnd(28)} ${beat.start_ms
+      `  beat ${idx + 1}  ${beat.source.padEnd(8)} ${beat.name.padEnd(28)} ${beat.start_ms
         .toString()
         .padStart(7)}–${beat.end_ms.toString().padStart(7)} ms  (${dur_s}s)\n`,
     );
