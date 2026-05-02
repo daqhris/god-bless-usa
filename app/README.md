@@ -4,7 +4,7 @@ The digital artifact: an AI-voiced web performance of *"God Bless The United Sta
 
 - **Source material** at the repository root (story, script, PDFs) is **not rewritten** — this app renders it.
 - **Submission:** [Build with Opus 4.7](https://cerebralvalley.ai/e/built-with-4-7-hackathon) hackathon (Cerebral Valley × Anthropic, April 21–26, 2026).
-- **Exhibition:** A guest work in ***Domus Diasporica*** by **Mladen Bundalo** — Pavilion of Bosnia and Herzegovina at the 61st International Art Exhibition — La Biennale di Venezia. Commissioned by **Sarita Vujković**; curated by **Isidora Živković**. 61st Biennale theme: *In Minor Keys*, curated by **Koyo Kouoh**. Venue: Palazzo Malipiero, San Marco 3198, Venice. Dates: **May 9 – November 22, 2026**.
+- **Exhibition:** A guest work in ***Domus Diasporica*** by **Mladen Bundalo** — Pavilion of Bosnia and Herzegovina at the 61st International Art Exhibition — La Biennale di Venezia. Commissioned by **Sarita Vujković**; curated by **Isidora Živković**. 61st Biennale theme: *In Minor Keys*, curated by **Koyo Kouoh**. Venue: Palazzo Malipiero, San Marco 3198, Venice. Pavilion vernissage: **Friday, May 8, 2026 at 19:00**. Public run: **May 9 – November 22, 2026**.
 - **Licence:** Dual — code under [EUPL-1.2](../LICENSES/EUPL-1.2.txt); performance and text under [CC BY-NC-ND 4.0](../LICENSES/CC-BY-NC-ND-4.0.txt), governed by Belgian law. See [`/LICENSE`](../LICENSE) at the repo root for the full statement. Museum-archivable as a single self-contained folder.
 
 ## Architecture

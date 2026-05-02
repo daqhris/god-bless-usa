@@ -31,7 +31,8 @@ A guest work in ***Domus Diasporica***, the **Pavilion of Bosnia and Herzegovina
 - Production: Museum of Contemporary Art of the Republic of Srpska + Association Vizart.
 - 61st Biennale theme: ***In Minor Keys***, curated by **Koyo Kouoh**.
 - Venue: **Palazzo Malipiero, San Marco 3198, Venice**.
-- Dates: **May 9 – November 22, 2026**.
+- Pavilion vernissage: **Friday, May 8, 2026 at 19:00**.
+- Public dates: **May 9 – November 22, 2026**.
 
 ### Hackathon
 

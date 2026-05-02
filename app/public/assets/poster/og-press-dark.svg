@@ -41,8 +41,11 @@
       Palazzo Malipiero · 61st International Art Exhibition,
       <tspan font-style="italic">In Minor Keys</tspan>
     </text>
-    <text x="80" y="572" font-size="20" font-weight="600">
-      <tspan fill="#d4a869">May 9 – November 22, 2026</tspan>
+    <text x="80" y="568" font-size="20" font-weight="600">
+      <tspan fill="#d4a869">Vernissage Friday May 8, 19:00</tspan>
+    </text>
+    <text x="80" y="592" font-size="16">
+      On view May 9 – November 22, 2026
     </text>
   </g>
 
