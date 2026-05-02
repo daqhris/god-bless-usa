@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Press still — 210×297 mm (A4 portrait). For print and for press
+  contacts who prefer a hand-distributable PDF. Same typographic system
+  as og-press.svg and square.svg; this is the only variant that
+  includes the QR (legible at print size; useless on a social
+  thumbnail).
+
+  All units in mm — including font-size. Browsers render pt as an
+  absolute screen size (96 dpi) regardless of the SVG's viewBox scale,
+  so a font-size in pt explodes when the canvas is shrunk to fit a
+  browser window. Unitless numbers in the viewBox space behave as mm
+  here, so font-size="7" means 7 mm of glyph height — same physical
+  size at 1:1 print and proportional at any browser zoom.
+
+  Palette pulled from print/bulletin.html so the press still reads
+  consistent with the printed liturgical bulletin (gold accent on
+  cream paper; not the audio player's red).
+
+  Export options are documented in README.md (Inkscape command, or
+  browser Print to PDF). Note: XML comments cannot carry the literal
+  Inkscape flag spelling, so the README is the place to read the
+  command.
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="210mm"
+  height="297mm"
+  viewBox="0 0 210 297"
+  font-family="Georgia, 'Times New Roman', serif"
+>
+  <rect width="210" height="297" fill="#f9f6ef" />
+
+  <!-- Title block. Single column, three lines, breathing room above
+       and below. -->
+  <g fill="#1a1a1a">
+    <text x="18" y="50" font-size="11" font-weight="600" letter-spacing="-0.3">GOD BLESS</text>
+    <text x="18" y="64" font-size="11" font-weight="600" letter-spacing="-0.3">THE UNITED STATES</text>
+    <text x="18" y="78" font-size="11" font-weight="600" letter-spacing="-0.3">OF ALIENS</text>
+  </g>
+
+  <text x="18" y="88" font-size="3.4" font-style="italic" fill="#5a5a5a">
+    An All-Seeing Eyewitness Report
+  </text>
+
+  <line x1="18" y1="100" x2="50" y2="100" stroke="#d4a869" stroke-width="0.4" />
+
+  <g fill="#1a1a1a" font-size="3.2">
+    <text x="18" y="112">
+      A guest work in <tspan font-style="italic">Domus Diasporica</tspan>
+    </text>
+    <text x="18" y="120">
+      Pavilion of Bosnia and Herzegovina
+    </text>
+    <text x="18" y="128">
+      Exhibitor: Mladen Bundalo
+    </text>
+    <text x="18" y="136">
+      Commissioner: Sarita Vujković · Curator: Isidora Živković
+    </text>
+    <text x="18" y="150">
+      Palazzo Malipiero · San Marco 3198 · 30124 Venice
+    </text>
+    <text x="18" y="158">
+      61st International Art Exhibition — La Biennale di Venezia
+    </text>
+    <text x="18" y="166">
+      <tspan font-style="italic">In Minor Keys</tspan> — curated by Koyo Kouoh
+    </text>
+    <text x="18" y="180" font-size="4.2" font-weight="600" fill="#d4a869">
+      May 9 – November 22, 2026
+    </text>
+  </g>
+
+  <!-- QR + URL block. Sits below the metadata so there's no horizontal
+       collision with the prose. The QR points to the visitor URL so a
+       passerby holding the page can scan and listen on their phone.
+
+       The QR is inlined as a nested <svg> rather than referenced via
+       <image href="../qr/god-bless-usa.svg">. Browsers loading the
+       outer SVG via <img src=…> (which is how the proof page and most
+       embeds load it) treat it as "secure animation mode" and block
+       external resource references — the <image> would silently fail
+       and only the reserved square would render. Inlining keeps the
+       QR self-contained at the price of duplicating ~1 KB of path
+       data; if the QR ever changes regenerate it via
+       `npm run generate:qr` and replace the path data block below. -->
+  <g transform="translate(18, 200)">
+    <svg x="0" y="0" width="40" height="40" viewBox="0 0 33 33" shape-rendering="crispEdges">
+      <path fill="#f9f6ef" d="M0 0h33v33H0z"/>
+      <path stroke="#0a0908" d="M2 2.5h7m6 0h3m2 0h3m1 0h7M2 3.5h1m5 0h1m2 0h3m1 0h4m3 0h1m1 0h1m5 0h1M2 4.5h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1M2 5.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h2m1 0h3m2 0h1m1 0h3m1 0h1M2 6.5h1m1 0h3m1 0h1m1 0h2m5 0h6m1 0h1m1 0h3m1 0h1M2 7.5h1m5 0h1m1 0h2m1 0h1m8 0h1m1 0h1m5 0h1M2 8.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M10 9.5h4m2 0h1m1 0h1m2 0h2M2 10.5h1m1 0h5m2 0h1m2 0h1m4 0h1m4 0h5M4 11.5h1m1 0h1m2 0h1m3 0h1m1 0h3m2 0h3m1 0h3m3 0h1M2 12.5h4m2 0h1m2 0h1m1 0h8m1 0h2m2 0h1M2 13.5h1m1 0h1m8 0h3m2 0h1m1 0h5m2 0h1m1 0h1M4 14.5h2m2 0h7m1 0h1m2 0h1m1 0h1m5 0h2M2 15.5h1m1 0h1m1 0h1m4 0h1m7 0h3m1 0h4m3 0h1M3 16.5h3m1 0h2m1 0h1m1 0h2m3 0h2m3 0h7M4 17.5h4m1 0h2m1 0h2m2 0h2m2 0h1m1 0h1m3 0h1m2 0h1M4 18.5h5m3 0h3m2 0h1m1 0h1m1 0h1m3 0h1m1 0h2M2 19.5h1m2 0h1m3 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1M2 20.5h1m1 0h3m1 0h1m1 0h1m1 0h7m3 0h2m1 0h2m1 0h1M2 21.5h1m2 0h3m2 0h3m2 0h1m5 0h2m1 0h1m1 0h1m2 0h1M2 22.5h1m2 0h1m2 0h7m1 0h4m1 0h6m1 0h3M10 23.5h1m2 0h1m4 0h1m3 0h1m3 0h5M2 24.5h7m2 0h1m5 0h6m1 0h1m1 0h3M2 25.5h1m5 0h1m1 0h1m3 0h1m1 0h3m2 0h2m3 0h1m2 0h2M2 26.5h1m1 0h3m1 0h1m1 0h4m3 0h3m2 0h5m1 0h2M2 27.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m2 0h3m3 0h4M2 28.5h1m1 0h3m1 0h1m1 0h1m4 0h6m2 0h7M2 29.5h1m5 0h1m2 0h1m5 0h2m3 0h1m1 0h1m1 0h2m1 0h1M2 30.5h7m1 0h2m1 0h2m1 0h1m2 0h3m1 0h4m1 0h1"/>
+    </svg>
+    <g fill="#1a1a1a" font-size="3.2">
+      <text x="48" y="14">Scan to listen</text>
+      <text x="48" y="22" font-weight="600" fill="#d4a869">
+        daqhris.com/god-bless-usa/
+      </text>
+      <text x="48" y="32" fill="#5a5a5a" font-style="italic">
+        ~18-minute AI-voiced ceremony, headphones recommended.
+      </text>
+    </g>
+  </g>
+
+  <!-- Footer: full credit, licence, source. Smaller, calmer, the
+       imprint footing of a printed page. -->
+  <line x1="18" y1="262" x2="192" y2="262" stroke="#d8d2c4" stroke-width="0.2" />
+  <g fill="#5a5a5a" font-size="2.6">
+    <text x="18" y="270">
+      Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus 4.7. Voices by Kokoro-82M (Apache-2.0).
+    </text>
+    <text x="18" y="276">
+      Made at Hectolitre, Brussels. Built during the Built with Opus 4.7 hackathon (Cerebral Valley × Anthropic, April 2026).
+    </text>
+    <text x="18" y="282">
+      Code: EUPL-1.2 · Performance &amp; text: CC BY-NC-ND 4.0 · github.com/daqhris/god-bless-usa
+    </text>
+  </g>
+</svg>

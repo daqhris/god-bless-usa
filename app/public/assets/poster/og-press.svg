@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  OG / press still — 1200×630 (1.91:1).
+  Draft 1 for daqhris's redline. Typography-led, minimal photography.
+
+  Palette pulled from style.css :root (light scheme):
+    bg     #f9f6ef   cream paper
+    fg     #1a1a1a   dark ink
+    muted  #5a5a5a   secondary text
+    accent #d4a869   single rule, single date emphasis
+
+  Font: Georgia / serif. System-resident on every platform that
+  renders OG cards; matches the visitor player's body type. If the
+  poster is exported to PNG (e.g. for social cards that don't render
+  SVG), convert text to paths first via Inkscape so the typeface
+  doesn't fall back.
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 630"
+  width="1200"
+  height="630"
+  font-family="Georgia, 'Times New Roman', serif"
+>
+  <rect width="1200" height="630" fill="#f9f6ef" />
+
+  <!-- Title block: three lines, large serif, anchors the composition. -->
+  <g fill="#1a1a1a">
+    <text x="80" y="178" font-size="92" font-weight="600" letter-spacing="-1">GOD BLESS</text>
+    <text x="80" y="276" font-size="92" font-weight="600" letter-spacing="-1">THE UNITED STATES</text>
+    <text x="80" y="374" font-size="92" font-weight="600" letter-spacing="-1">OF ALIENS</text>
+  </g>
+
+  <!-- Subtitle in italic — the work's full subtitle, half-volume. -->
+  <text x="80" y="424" font-size="22" font-style="italic" fill="#5a5a5a">
+    An All-Seeing Eyewitness Report
+  </text>
+
+  <!-- Single accent rule. The "in minor keys" register: one mark, no flourish. -->
+  <line x1="80" y1="468" x2="200" y2="468" stroke="#d4a869" stroke-width="2" />
+
+  <!-- Pavilion + venue + dates. Dates sit on their own line so the
+       opening anchor reads at a glance. -->
+  <g fill="#1a1a1a">
+    <text x="80" y="510" font-size="18">
+      A guest work in <tspan font-style="italic">Domus Diasporica</tspan>
+      · Pavilion of Bosnia and Herzegovina
+    </text>
+    <text x="80" y="538" font-size="18">
+      Palazzo Malipiero · 61st International Art Exhibition,
+      <tspan font-style="italic">In Minor Keys</tspan>
+    </text>
+    <text x="80" y="572" font-size="20" font-weight="600">
+      <tspan fill="#d4a869">May 9 – November 22, 2026</tspan>
+    </text>
+  </g>
+
+  <!-- Right column: URL + co-direction credit. URL is the call-to-listen;
+       it's the second-loudest thing on the card after the title. -->
+  <g text-anchor="end">
+    <text x="1120" y="538" font-size="24" font-weight="600" fill="#d4a869">
+      daqhris.com/god-bless-usa/
+    </text>
+    <text x="1120" y="572" font-size="14" fill="#5a5a5a">
+      An AI-voiced ceremony, ~18 minutes, headphones.
+    </text>
+    <text x="1120" y="598" font-size="13" font-style="italic" fill="#5a5a5a">
+      Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus 4.7
+    </text>
+  </g>
+</svg>

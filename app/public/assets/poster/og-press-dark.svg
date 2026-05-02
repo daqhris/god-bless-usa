@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  OG / press still — dark variant. Same layout as og-press.svg, palette
+  swapped to the visitor player's :root[prefers-color-scheme: dark]
+  values from style.css:
+
+    bg     #0a0908   warm near-black
+    fg     #e8e4d9   cream ink
+    muted  #8a8478   secondary text
+    accent #d4a869   single rule, single date emphasis (lighter red
+                     because the deep red of the light variant
+                     vanishes against #0a0908)
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 630"
+  width="1200"
+  height="630"
+  font-family="Georgia, 'Times New Roman', serif"
+>
+  <rect width="1200" height="630" fill="#0a0908" />
+
+  <g fill="#e8e4d9">
+    <text x="80" y="178" font-size="92" font-weight="600" letter-spacing="-1">GOD BLESS</text>
+    <text x="80" y="276" font-size="92" font-weight="600" letter-spacing="-1">THE UNITED STATES</text>
+    <text x="80" y="374" font-size="92" font-weight="600" letter-spacing="-1">OF ALIENS</text>
+  </g>
+
+  <text x="80" y="424" font-size="22" font-style="italic" fill="#8a8478">
+    An All-Seeing Eyewitness Report
+  </text>
+
+  <line x1="80" y1="468" x2="200" y2="468" stroke="#d4a869" stroke-width="2" />
+
+  <g fill="#e8e4d9">
+    <text x="80" y="510" font-size="18">
+      A guest work in <tspan font-style="italic">Domus Diasporica</tspan>
+      · Pavilion of Bosnia and Herzegovina
+    </text>
+    <text x="80" y="538" font-size="18">
+      Palazzo Malipiero · 61st International Art Exhibition,
+      <tspan font-style="italic">In Minor Keys</tspan>
+    </text>
+    <text x="80" y="572" font-size="20" font-weight="600">
+      <tspan fill="#d4a869">May 9 – November 22, 2026</tspan>
+    </text>
+  </g>
+
+  <g text-anchor="end">
+    <text x="1120" y="538" font-size="24" font-weight="600" fill="#d4a869">
+      daqhris.com/god-bless-usa/
+    </text>
+    <text x="1120" y="572" font-size="14" fill="#8a8478">
+      An AI-voiced ceremony, ~18 minutes, headphones.
+    </text>
+    <text x="1120" y="598" font-size="13" font-style="italic" fill="#8a8478">
+      Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus 4.7
+    </text>
+  </g>
+</svg>
