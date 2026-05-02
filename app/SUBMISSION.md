@@ -44,7 +44,8 @@ The AI-voiced performance is exhibited as a **guest work in *Domus Diasporica***
 - **Production:** Museum of Contemporary Art of the Republic of Srpska + Association Vizart.
 - **Architecture:** KOTO.
 - **Venue:** Palazzo Malipiero, San Marco 3198, Venice.
-- **Dates:** May 9 – November 22, 2026.
+- **Pavilion vernissage:** Friday, May 8, 2026 at 19:00 (Domus Diasporica's official opening event at Palazzo Malipiero).
+- **Public dates:** May 9 – November 22, 2026.
 - **Biennale framing:** The 61st International Art Exhibition is curated by **Koyo Kouoh** under the theme ***In Minor Keys*** — art as "peaceful and poetic resistance" during times of turbulence, creating space for regenerative reflection and hope.
 
 The themes of this AI-voiced performance — a diasporic alien narrator filing a surveillance report on a protesting Christmas-Eve mass — resonate with *Domus Diasporica*'s focus on multi-rooted belonging and with *In Minor Keys*' quiet-resistance register.

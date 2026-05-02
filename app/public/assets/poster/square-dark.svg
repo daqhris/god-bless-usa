@@ -38,8 +38,11 @@
     <text x="80" y="856" font-size="22">
       <tspan font-style="italic">In Minor Keys</tspan> — Koyo Kouoh
     </text>
-    <text x="80" y="908" font-size="26" font-weight="600">
-      <tspan fill="#d4a869">May 9 – November 22, 2026</tspan>
+    <text x="80" y="900" font-size="26" font-weight="600">
+      <tspan fill="#d4a869">Vernissage Friday May 8, 19:00</tspan>
+    </text>
+    <text x="80" y="928" font-size="20">
+      On view May 9 – November 22, 2026
     </text>
   </g>
 
