@@ -628,7 +628,15 @@ body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
    to a single column (tablet → bulletin → loupe → photo). */
 .wall {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* minmax(0, 1fr) — not bare 1fr — so the columns ignore the
+     intrinsic width of replaced children (the bulletin and photo
+     <img>s, with their pixel-dimensions as default min-content)
+     and split the available track space evenly. Without this,
+     the larger image (the 1067-px-wide bulletin crop) drags its
+     column wider than the 700-px photo's column, so the wood
+     frames end up unequal widths even though both .frame elements
+     have the same max-width. */
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   grid-template-areas:
     "tablet tablet tablet"
     "bulletin loupe photo";
@@ -659,6 +667,7 @@ body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
 .frame {
   width: 100%;
   max-width: 22rem;
+  min-width: 0; /* belt-and-braces: don't let inner content widen the frame */
   padding: 0.55rem;
   background: linear-gradient(180deg, #d9b07c 0%, #c39a6a 50%, #b88857 100%);
   border-radius: 4px;
