@@ -45,7 +45,7 @@ async function updateLastUpdated() {
     if (!Array.isArray(data) || data.length === 0) return;
     const date = data[0].commit && data[0].commit.committer && data[0].commit.committer.date;
     if (!date) return;
-    el.textContent = "Timestamp of last modification: " + formatLongDate(date);
+    el.textContent = "Date of last modification: " + formatLongDate(date);
   } catch {
     // Network error or CSP block — keep the fallback text in the element.
   }
