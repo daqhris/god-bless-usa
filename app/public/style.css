@@ -697,29 +697,30 @@ body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
 .mat--light { background: #bfbcb4; color: #2a1f12; }
 /* Bulletin is printed edge-to-edge on dark photo paper; its wooden
    frame holds the print directly with no inner mat. The image was
-   cropped to the visible-content area (400 × 245 mm of the 450 × 300
-   design, per app/print/README.md), so the displayed aspect is wider
-   than the other two frames (the wood thickness stays identical). */
-.mat--flush { background: transparent; padding: 0; aspect-ratio: 400 / 245; }
+   cropped to a 3:2 rectangle (980 × 653) so all three mats share
+   the same aspect ratio — the bulletin frame now has identical
+   outer proportions to the tablet and photo frames. */
+.mat--flush { background: transparent; padding: 0; }
 .mat--flush img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
 /* Photo frame: dark fabric only on the left and right (pillarbox),
    not top or bottom. The photo paper is square, sits on a cream-white
-   inner border, and reaches the wooden frame top-and-bottom directly. */
+   inner border, and reaches the wooden frame top-and-bottom directly.
+   Position-absolute on the img so its height: 100% resolves against
+   the mat's positioned context — flex + aspect-ratio-derived parent
+   height was leaving thin top/bottom strips on first paint. */
 .mat--photo {
   background: #0a0908;
   padding: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
+  position: relative;
 }
 .mat--photo img {
-  /* Width derived geometrically from the mat's 3:2 aspect: a 1:1 photo
-     paper that fills the mat's height occupies 1/1.5 = 66.667% of the
-     mat's width. Setting width as a percentage avoids the height: 100%
-     vs aspect-ratio-derived-parent-height resolution quirk that was
-     leaving thin dark strips above and below the photo paper at rest. */
-  width: 66.667%;
-  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
   max-width: none;
   display: block;
   background: #f5f1e8;
@@ -884,8 +885,13 @@ body.pavilion .last-updated {
   width: auto;
 }
 .lightbox-content .mat--photo img {
-  width: 66.667%;
-  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
   max-width: none;
   max-height: none;
   padding: 1.4rem;
