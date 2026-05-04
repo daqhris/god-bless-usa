@@ -58,13 +58,13 @@
           >
             <svg
               class="phyllotaxis"
-              viewBox="0 0 400 400"
+              viewBox="0 0 600 400"
               role="img"
-              aria-label="Stand-in for the AI Self-Portrait — laser-cut khaki textile, square with rounded corners, embroidered with a red phyllotaxis circle"
+              aria-label="Stand-in for the AI Self-Portrait — laser-cut khaki textile, square with rounded corners, centred on a rectangular grey panel and embroidered with a red phyllotaxis circle"
             >
               <rect
                 class="laser-cut-fabric"
-                x="40"
+                x="140"
                 y="40"
                 width="320"
                 height="320"
@@ -74,7 +74,7 @@
               />
               <circle
                 class="embroidery-circle"
-                cx="200"
+                cx="300"
                 cy="200"
                 r="118"
                 fill="none"
@@ -224,7 +224,9 @@
     <script>
       // Phyllotaxis stand-in for the embroidered AI self-portrait.
       // Vogel's golden-angle spiral; ~180 dots in red thread, scaled to fit
-      // inside the embroidered circle (r ≈ 100 within the 400×400 viewBox).
+      // inside the embroidered circle. Centre is (300, 200) — the SVG
+      // viewBox is now 600×400 to match the mat's 3:2 aspect, so the
+      // khaki square sits centred on the grey rectangle without letterbox.
       (function () {
         var g = document.getElementById("phyllotaxis-points");
         if (!g) return;
@@ -235,7 +237,7 @@
         for (var i = 0; i < N; i++) {
           var r = C * Math.sqrt(i);
           var a = i * PHI;
-          var x = 200 + r * Math.cos(a);
+          var x = 300 + r * Math.cos(a);
           var y = 200 + r * Math.sin(a);
           var dot = document.createElementNS(ns, "circle");
           dot.setAttribute("cx", x.toFixed(2));
