@@ -60,22 +60,28 @@
               class="phyllotaxis"
               viewBox="0 0 400 400"
               role="img"
-              aria-label="Phyllotaxis pattern, stand-in for the embroidered Gemini 2.5 Pro self-portrait, surrounded by a laser-cut textile frame"
+              aria-label="Stand-in for the AI Self-Portrait — laser-cut khaki textile, square with rounded corners, embroidered with a red phyllotaxis circle"
             >
               <rect
-                class="laser-cut-frame"
-                x="22"
-                y="22"
-                width="356"
-                height="356"
-                rx="6"
-                ry="6"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-opacity="0.32"
+                class="laser-cut-fabric"
+                x="40"
+                y="40"
+                width="320"
+                height="320"
+                rx="44"
+                ry="44"
+                fill="#a89274"
               />
-              <g id="phyllotaxis-points"></g>
+              <circle
+                class="embroidery-circle"
+                cx="200"
+                cy="200"
+                r="118"
+                fill="none"
+                stroke="#8c3d2a"
+                stroke-width="2.4"
+              />
+              <g id="phyllotaxis-points" fill="#8c3d2a"></g>
             </svg>
           </button>
         </div>
@@ -99,7 +105,7 @@
 
         <div class="frame frame--photo">
           <button
-            class="mat mat--dark"
+            class="mat mat--photo"
             type="button"
             aria-label="Open the photograph awalkaday 91-2022 full-size"
           >
@@ -217,12 +223,13 @@
     <script src="footer-timestamp.js" defer></script>
     <script>
       // Phyllotaxis stand-in for the embroidered AI self-portrait.
-      // Vogel's golden-angle spiral; ~180 dots scaled into the 400×400 viewBox.
+      // Vogel's golden-angle spiral; ~180 dots in red thread, scaled to fit
+      // inside the embroidered circle (r ≈ 100 within the 400×400 viewBox).
       (function () {
         var g = document.getElementById("phyllotaxis-points");
         if (!g) return;
         var N = 180;
-        var C = 11.5;
+        var C = 7.5;
         var PHI = Math.PI * (3 - Math.sqrt(5));
         var ns = "http://www.w3.org/2000/svg";
         for (var i = 0; i < N; i++) {
@@ -233,8 +240,7 @@
           var dot = document.createElementNS(ns, "circle");
           dot.setAttribute("cx", x.toFixed(2));
           dot.setAttribute("cy", y.toFixed(2));
-          dot.setAttribute("r", (1.6 + i * 0.005).toFixed(2));
-          dot.setAttribute("fill", "currentColor");
+          dot.setAttribute("r", (1.4 + i * 0.004).toFixed(2));
           g.appendChild(dot);
         }
       })();
