@@ -695,13 +695,34 @@ body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
 /* Tablet mat: bright warm grey, the rectangular A3 backdrop on which
    the khaki laser-cut square sits centred. */
 .mat--light { background: #bfbcb4; color: #2a1f12; }
-/* Bulletin is printed edge-to-edge on dark photo paper; its wooden
-   frame holds the print directly with no inner mat. The image was
-   cropped to a 3:2 rectangle (980 × 653) so all three mats share
-   the same aspect ratio — the bulletin frame now has identical
-   outer proportions to the tablet and photo frames. */
-.mat--flush { background: transparent; padding: 0; }
-.mat--flush img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+/* Bulletin button: stands alone without the base .mat class, so its
+   sizing is driven purely by the inner img's intrinsic 3:2 aspect
+   (1067 × 711). Without aspect-ratio: 3/2 inherited from .mat, the
+   wood frame around the bulletin no longer carries any extra height
+   that the image cannot fill — the frame's wood thickness reads
+   identical to the tablet and photo at rest. */
+.mat--flush {
+  display: block;
+  width: 100%;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  cursor: zoom-in;
+  font: inherit;
+  transition: transform 0.18s ease-out;
+}
+.mat--flush:hover { transform: scale(1.01); }
+.mat--flush:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.mat--flush img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
 /* Photo frame: dark fabric only on the left and right (pillarbox),
    not top or bottom. The photo paper is square, sits on a cream-white
    inner border, and reaches the wooden frame top-and-bottom directly.
@@ -863,7 +884,8 @@ body.pavilion .last-updated {
   align-items: center;
   justify-content: center;
 }
-.lightbox-content .mat {
+.lightbox-content .mat,
+.lightbox-content .mat--flush {
   aspect-ratio: auto;
   width: auto;
   max-width: 92vw;
@@ -871,7 +893,14 @@ body.pavilion .last-updated {
   cursor: default;
 }
 .lightbox-content .mat:not(.mat--flush):not(.mat--photo) { padding: 2rem; }
-.lightbox-content .mat:hover { transform: none; }
+.lightbox-content .mat:hover,
+.lightbox-content .mat--flush:hover { transform: none; }
+.lightbox-content .mat--flush img {
+  max-width: 92vw;
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+}
 .lightbox-content img {
   display: block;
   max-width: 88vw;
