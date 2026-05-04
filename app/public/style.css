@@ -583,3 +583,245 @@ body.preview footer {
   color: var(--muted);
 }
 body.preview footer a { color: inherit; }
+
+/* Pavilion catalogue --------------------------------------------------- */
+
+body.pavilion main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1.6rem 1.2rem 4rem;
+}
+body.pavilion h1 {
+  text-align: center;
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  margin: 0.4rem 0 0.8rem;
+  letter-spacing: 0.01em;
+}
+body.pavilion .subtitle {
+  max-width: 38rem;
+  margin: 0 auto 2.6rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
+
+/* Wall: tablet on row 1 spanning the whole width; bulletin + loupe + photo
+   on row 2. Reading order matches the physical disposition. Mobile collapses
+   to a single column (tablet → bulletin → loupe → photo). */
+.wall {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas:
+    "tablet tablet tablet"
+    "bulletin loupe photo";
+  gap: 1.2rem;
+  align-items: center;
+  justify-items: center;
+  margin: 0 auto 3rem;
+  max-width: 50rem;
+}
+.frame--tablet { grid-area: tablet; }
+.frame--bulletin { grid-area: bulletin; }
+.frame--photo { grid-area: photo; }
+.loupe { grid-area: loupe; }
+
+@media (max-width: 600px) {
+  .wall {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tablet"
+      "bulletin"
+      "loupe"
+      "photo";
+    max-width: 22rem;
+  }
+}
+
+/* The wooden frame: warm bamboo gradient + inner mat. */
+.frame {
+  width: 100%;
+  max-width: 22rem;
+  padding: 0.55rem;
+  background: linear-gradient(180deg, #d9b07c 0%, #c39a6a 50%, #b88857 100%);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+.frame .mat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  padding: 1.2rem;
+  border: 0;
+  border-radius: 2px;
+  cursor: zoom-in;
+  font: inherit;
+  transition: transform 0.18s ease-out;
+}
+.frame .mat:hover { transform: scale(1.01); }
+.frame .mat:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.mat--dark { background: #0a0908; color: #d8d2c4; }
+.mat--light { background: #efe7d6; color: #2a1f12; }
+
+.mat img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.mat .phyllotaxis { width: 75%; height: 75%; display: block; }
+
+.loupe { width: 1.6rem; color: var(--fg); opacity: 0.7; }
+.loupe svg { width: 100%; height: auto; display: block; }
+
+/* Per-frame captions, stacked under the wall. */
+.captions {
+  display: grid;
+  gap: 1.6rem;
+  max-width: 36rem;
+  margin: 0 auto 3rem;
+}
+.caption h2 {
+  font-size: 1.05rem;
+  margin: 0 0 0.3rem;
+  letter-spacing: 0.01em;
+}
+.caption .medium {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.caption p { margin: 0 0 0.6rem; font-size: 0.95rem; }
+.caption .label-verbatim {
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  border-left: 2px solid var(--accent-rule);
+  padding: 0.3rem 0 0.3rem 0.7rem;
+  margin: 0.4rem 0 0.8rem;
+}
+.caption .links { font-size: 0.82rem; margin-top: 0.4rem; }
+.caption .links a { color: var(--accent); text-decoration: none; }
+.caption .links a:hover,
+.caption .links a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Alien-class pill — small inline tag next to each title. */
+.alien-tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+/* Theoretical framework — three short paragraphs + a coda. */
+.framework {
+  max-width: 36rem;
+  margin: 0 auto 3rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.6rem;
+}
+.framework h2 {
+  font-size: 1.05rem;
+  margin: 0 0 0.8rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.framework p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 0.9rem;
+}
+.framework .coda {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Opening speech — bottom of page. */
+.opening-speech {
+  max-width: 36rem;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+.opening-speech h2 { font-size: 1.05rem; margin: 0 0 0.4rem; }
+.opening-speech .speech-note {
+  margin: 0 auto 0.8rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 32rem;
+}
+.opening-speech audio { width: 100%; max-width: 28rem; }
+
+body.pavilion .biennale-status,
+body.pavilion .last-updated {
+  text-align: center;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Lightbox: full-viewport overlay; the lightbox content is a runtime
+   clone of the clicked .mat, so styling rules cascade naturally. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 9, 8, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 1.2rem;
+}
+.lightbox[hidden] { display: none; }
+.lightbox-content {
+  max-width: 92vw;
+  max-height: 86vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-content .mat {
+  width: min(86vh, 92vw);
+  aspect-ratio: 1 / 1;
+  padding: 2rem;
+  cursor: default;
+}
+.lightbox-content .mat:hover { transform: none; }
+.lightbox-content img { max-width: 100%; max-height: 100%; }
+.lightbox-content .phyllotaxis { width: 100%; height: 100%; }
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: transparent;
+  border: 0;
+  color: #e8e4d9;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.4rem 0.7rem;
+}
+.lightbox-close:hover,
+.lightbox-close:focus-visible {
+  color: #fff;
+  outline: 2px solid var(--accent);
+}
