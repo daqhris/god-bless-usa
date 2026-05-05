@@ -600,12 +600,16 @@ body.pavilion {
   --rule: #d8d2c4;
   background: var(--bg);
   color: var(--fg);
+  /* Page padding lives on the body (matching preview.html/submission.html)
+     so the .site-nav sibling above <main> gets the same top breathing room
+     as on the other pages. Without this, the nav sits flush at the top. */
+  padding: 3rem 1.5rem 0;
 }
 
 body.pavilion main {
   max-width: 64rem;
   margin: 0 auto;
-  padding: 1.6rem 1.2rem 4rem;
+  padding: 0 0 4rem;
 }
 body.pavilion h1 {
   text-align: center;
