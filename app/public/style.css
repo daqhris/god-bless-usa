@@ -870,6 +870,11 @@ body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
   max-width: 32rem;
 }
 .opening-speech audio { width: 100%; max-width: 28rem; }
+.opening-speech .speech-transcript {
+  margin: 0.8rem auto 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
 
 body.pavilion .biennale-status,
 body.pavilion .last-updated {
