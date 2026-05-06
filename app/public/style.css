@@ -856,6 +856,46 @@ body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
   color: var(--muted);
 }
 
+/* Artist portrait — a small square film still that sits as a visual
+   prelude to the vernissage speech. The button strips its own chrome
+   so the image carries the look; clicking opens the wider 16:9 still
+   in the existing lightbox. */
+.artist-portrait {
+  max-width: 14rem;
+  margin: 0 auto 2.4rem;
+  text-align: center;
+}
+.artist-portrait button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: zoom-in;
+  border-radius: 4px;
+}
+.artist-portrait img {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.18s ease-out;
+}
+.artist-portrait button:hover img { transform: scale(1.01); }
+.artist-portrait button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.artist-portrait figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+.artist-portrait figcaption em { font-style: normal; }
+
 /* Opening speech — bottom of page. */
 .opening-speech {
   max-width: 36rem;
