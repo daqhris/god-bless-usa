@@ -179,12 +179,31 @@
         </p>
       </section>
 
+      <figure class="artist-portrait">
+        <button
+          type="button"
+          aria-label="Open the wider studio still full-size"
+          data-wide-alt="Chris-Armel Iradukunda at his kitchen workspace — wider view, with bamboo cabinetry, oven, and stovetop"
+        >
+          <img
+            src="assets/pavilion/artist-portrait.jpg"
+            alt="Chris-Armel Iradukunda at his kitchen table, working at a laptop with sketchbooks and pencils, a paper rendering of a face on his right"
+          />
+        </button>
+        <figcaption>
+          Chris-Armel Iradukunda. Film still from <em>The Original Karina
+          Beumer</em> (dir. Karina Beumer, 2025). Belgian premiere: Brussels
+          Art Film Festival, BOZAR.
+        </figcaption>
+      </figure>
+
       <section class="opening-speech" aria-labelledby="opening-speech-heading">
         <h2 id="opening-speech-heading">Vernissage speech</h2>
         <p class="speech-note">
           The guest's speech played alongside the host&rsquo;s opening speech of the pavilion.
         </p>
         <audio controls preload="metadata">
+          <source src="assets/audio/opening-speech.opus.ogg" type="audio/ogg" />
           <source src="assets/audio/opening-speech.m4a" type="audio/mp4" />
           <a href="assets/audio/opening-speech.m4a">Download the recording</a>.
         </audio>
@@ -264,6 +283,17 @@
             open(mat.cloneNode(true));
           });
         });
+        // Artist portrait: small square thumbnail expands to the wider 16:9
+        // film still in the same lightbox.
+        var portraitBtn = document.querySelector(".artist-portrait button");
+        if (portraitBtn) {
+          portraitBtn.addEventListener("click", function () {
+            var img = document.createElement("img");
+            img.src = "assets/pavilion/artist-portrait-wide.jpg";
+            img.alt = portraitBtn.getAttribute("data-wide-alt") || "";
+            open(img);
+          });
+        }
         closeBtn.addEventListener("click", close);
         lb.addEventListener("click", function (e) {
           if (e.target === lb) close();
