@@ -16,6 +16,7 @@
     "render:all-scenes": "tsx src/render-all-scenes.ts",
     "generate:qr": "tsx scripts/generate-qr.ts",
     "encode:audio": "tsx scripts/encode-audio.ts",
+    "make:icons": "tsx scripts/make-icons.ts",
     "prepare:bell": "tsx scripts/prepare-bell-sample.ts",
     "rerender:all-audio": "tsx scripts/rerender-all-audio.ts",
     "rebuild:master": "tsx scripts/rebuild-master.ts",

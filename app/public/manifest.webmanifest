@@ -1,0 +1,32 @@
+{
+  "name": "God Bless The United States Of Aliens",
+  "short_name": "Aliens",
+  "description": "An AI-voiced eyewitness report. An eighteen-minute non-looping ceremony for a single visitor in headphones. 61st Venice Biennale, 2026.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0908",
+  "theme_color": "#8a2c2c",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["art", "music"]
+}
