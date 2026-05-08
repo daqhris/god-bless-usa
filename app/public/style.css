@@ -358,6 +358,17 @@ body.submission .biennale-status {
 #stage-ended .credit + .credit {
   margin-top: 0.9rem;
 }
+#stage-ended .credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-rule);
+  text-underline-offset: 3px;
+}
+#stage-ended .credit a:hover,
+#stage-ended .credit a:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
 #stage-ended .qr {
   margin-top: 2rem;
   width: 110px;
@@ -745,7 +756,11 @@ body.pavilion .subtitle strong { color: var(--fg); font-weight: 600; }
    the mat's positioned context — flex + aspect-ratio-derived parent
    height was leaving thin top/bottom strips on first paint. */
 .mat--photo {
-  background: #0a0908;
+  /* Lifted from near-black to a neutral dark grey to match the actual
+     framed mat as installed at Palazzo Malipiero (per the vernissage
+     install photos). Keeps strong contrast against the B&W print's
+     mid-tones while harmonising with the bamboo wood frame. */
+  background: #2a2a2a;
   padding: 0;
   position: relative;
 }
