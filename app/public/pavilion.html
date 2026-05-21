@@ -213,7 +213,6 @@
       </a>
     </blockquote>
   </div>
-  <script async src="https://www.instagram.com/embed.js"></script>
 </section>
 
       <section class="framework">
@@ -365,5 +364,24 @@
         });
       })();
     </script>
+      <script>
+    (function () {
+      function runProcess() {
+        if (window.instgrm && window.instgrm.Embeds) {
+          window.instgrm.Embeds.process();
+        }
+      }
+      if (window.instgrm) {
+        // embed.js already on the page (e.g. loaded by another script)
+        runProcess();
+      } else {
+        var s = document.createElement("script");
+        s.src = "https://www.instagram.com/embed.js";
+        s.async = true;
+        s.onload = runProcess;
+        document.body.appendChild(s);
+      }
+    })();
+  </script>
   </body>
 </html>
