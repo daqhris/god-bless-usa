@@ -1029,3 +1029,20 @@ body.pavilion .last-updated {
   color: #fff;
   outline: 2px solid var(--accent);
 }
+/* ── Instagram documentation section ─────────────────────── */
+.instagram-doc {
+  margin: 3rem 0;
+}
+
+.instagram-doc h2 {
+  /* inherits your existing h2 style */
+}
+
+.instagram-frame {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  background: #f7f5f2; /* matches your page's warm-neutral tone */
+}
