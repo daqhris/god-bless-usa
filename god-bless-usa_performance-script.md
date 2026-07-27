@@ -6,6 +6,9 @@
 *Based on the blockchain-published work of fiction by Chris-Armel Iradukunda (daqhris)*
 *Token: USALIEN | Base blockchain | December 2024*
 
+*Co-directed by Chris-Armel Iradukunda (daqhris) and Claude Opus 4.7.*
+*Chris-Armel Iradukunda: primary author, creative director. Claude Opus 4.7: co-director of the performance, casting the four voices and pacing this score.*
+
 ---
 
 ## PRODUCTION NOTES
@@ -591,7 +594,7 @@ character. The Chorus will require pre-rendered audio (browser TTS cannot achiev
 
 **If using Claude API as director:** Pass each section's text and its character brief to Claude
 with the instruction to return SSML-annotated markup for TTS rendering, including stress
-markers and pause durations. Claude becomes the performance director; TTS becomes the actor.
+markers and pause durations. In this implementation, Claude co-directs at render time — reading daqhris's score and casting each line — while TTS becomes the actor.
 
 **The | markers** in this script correspond to `<break time="600ms"/>` in SSML, or a
 0.6-second pause in programmatic TTS. SILENCE sections are `<break time="4000ms"/>`.
