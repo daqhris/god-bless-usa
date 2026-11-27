@@ -12,6 +12,12 @@ answers outrank the proposals in the other documents.
   `app/dist/node_modules` (npm dependencies).
 - **Performance script:** the April script served for direction; later changes
   affected especially the opening and the order of scenes.
+- **"Catholic" and "protesting church":** the tension is intentional (see
+  [context](./context.md)).
+- **Presentation:** the works were shown in the *Solidarity Burundi Pavilion*, a
+  space nested within the Pavilion of Bosnia and Herzegovina.
+- **Venice page:** it reflects only the wall arrangement; the real wall background
+  was not set in the colours of the Burundian flag.
 
 ## Inconsistencies found in the sources
 
@@ -24,8 +30,9 @@ answers outrank the proposals in the other documents.
 | 5 | Duration | 13 to 16 min (score), about 15 min (root README) | 17 min 55 s (master file) |
 | 6 | Voice engines | CosyVoice 2 and Chatterbox described as bundled (`app/README.md`, `app/SUBMISSION.md`) | only Kokoro is implemented in the code |
 | 7 | Photograph date | title says 91-2022; page says blockchain 2023 | year of capture not stated on the page |
-| 8 | Token address | `0xaec1…337e` given as the contract (README) | a second address, `0x2193…0a72`, linked for the source code |
+| 8 | Token address | `0xaec1…337e` given as the contract (README) | a second address, `0x2193…0a72`, linked for the source code; its role was not checked |
 | 9 | Opening bells | recording blended with a synthesized peal (`preview.html`) | the code uses the recording in place of the synthesized peal when the file is present |
+| 10 | Edition size | "1/1000" (`pavilion.html`, `story.html`) | "#1/100" in the name on the Arweave record |
 
 - Do the directions in `app/dist/directions/` still exist?
 - What was physically installed (items 1 to 4)?
@@ -52,8 +59,8 @@ answers outrank the proposals in the other documents.
    description. Do you agree?
 7. Which personal circumstances, mentioned in the speech and web pages, may appear
    in a long-lived institutional record, and which should stay out or be restricted?
-8. Preferred title for your presentation, and its relation to *Domus Diasporica*,
-   in the host's and museum's words.
+8. Do the host and the museum word the *Solidarity Burundi Pavilion* and its
+   relation to *Domus Diasporica* as you do?
 
 ## "First" claims
 

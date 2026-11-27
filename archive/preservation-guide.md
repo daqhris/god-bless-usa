@@ -63,7 +63,9 @@ in a new opening, the playback order and an extended coda. The
 [as-performed script](./performance-script-as-performed.md) brings them together.
 
 **Gap.** The direction files were written to `app/dist/directions/`, which git
-ignores. They are not in the repository or its history. The three files in
+ignores. They are not in the repository or its history. The folder
+`app/src/director/` is tracked, but it holds the director's code and brief, not
+its output. The three files in
 `app/scenes/fixtures/` are hand-written examples, not the record of the exhibited
 direction. If the originals survive on the author's computer, they are the most
 important thing to add to the archive: they are the co-director's actual
@@ -77,7 +79,7 @@ contribution.
 | GitHub and GitHub Pages | Live site, source links | Policy or account change | Software Heritage, deposit package, own copy |
 | Links to `blob/main` | Pavilion page references | Target moves with later edits | Cite tags, commits or SWHIDs |
 | Instagram embed | Installation views | Post removed, platform change | Keep the original image files |
-| Arweave, Base, Ethereum | Original story and photograph | External networks and gateways | Keep file copies and transaction references |
+| Arweave, Base, Ethereum | Original story and photograph; the dated proof of publication ([context](./context.md)) | External networks and gateways | Keep file copies and transaction references |
 | Browser audio support | Playback | Formats or autoplay rules change | WAV master; test yearly |
 | Claude Opus 4.7 API | New direction only, not playback | The provider lists it as active, retirement [not sooner than 16 April 2027](https://platform.claude.com/docs/en/about-claude/model-deprecations) | Keep prompt, schema and direction files |
 | Kokoro-82M weights | New render only | Downloaded at render time; no revision is pinned in the code | Add the local model cache to the deposit |
@@ -124,7 +126,10 @@ shows a notice that the 2026 exhibition has closed; the author decides whether i
 stays.
 
 Wall arrangement, as documented by the author: textile at the top, bulletin at the
-left, photograph at the right. Confirm sizes and framing first (see the
+left, photograph at the right. The
+[Venice page](https://daqhris.com/venice-biennale) draws this arrangement only.
+Its colours are not a record of the wall, whose real background was not set in the
+colours of the Burundian flag. Confirm sizes and framing first (see the
 [open questions](./questions-for-the-artist.md)). Record every new presentation:
 date, place, setup, version, changes, photos.
 

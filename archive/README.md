@@ -14,6 +14,7 @@ collection.
 |---|---|
 | This file | What is the work, which versions matter, how to play it |
 | [`performance-script-as-performed.md`](./performance-script-as-performed.md) ([PDF](./performance-script-as-performed.pdf)) | The script as heard in the audio master, with times (draft) |
+| [`context.md`](./context.md) | When the text was published, the author's reading, later events (draft) |
 | [`preservation-guide.md`](./preservation-guide.md) | What must be kept, what can break, how to show it again |
 | [`TODO.md`](./TODO.md) | Who does what, and in which order |
 | [`questions-for-the-artist.md`](./questions-for-the-artist.md) | Decisions and inconsistencies to settle |
@@ -33,7 +34,8 @@ collection.
 | Voices | Synthetic only in the performance: Kokoro-82M text-to-speech, four characters and a full ensemble. A recorded bell sample (CC BY 4.0) is mixed into the opening |
 | Language | English |
 | Dates | Story written and published December 2024; app built April 2026; shown 9 May to 22 November 2026 |
-| Presentation | Guest work (*Solidarity Burundi Pavilion*, guest room) in *Domus Diasporica* by Mladen Bundalo, Pavilion of Bosnia and Herzegovina, 61st International Art Exhibition, Palazzo Malipiero, Venice |
+| Presentation | In the *Solidarity Burundi Pavilion*, a space nested within the Pavilion of Bosnia and Herzegovina as its guest room, in *Domus Diasporica* by Mladen Bundalo, 61st International Art Exhibition, Palazzo Malipiero, Venice. The author grounds the space in the idea of Domus Diasporica, solidarity and hospitality |
+| Companion page | [daqhris.com/venice-biennale](https://daqhris.com/venice-biennale): drawing of the wall arrangement and a printable postcard. [Source](https://github.com/daqhris/daqhris.github.io/blob/82899e442306a913261835017e4423119e42291d/venice-biennale.html) (repository licence EUPL-1.2). The drawing's colours are not those of the real wall |
 | Pavilion | Commissioner: Sarita Vujković (Director, Museum of Contemporary Art of the Republic of Srpska). Curator: Isidora Živković. Production: the Museum and Association Vizart |
 | Shown with | A textile (AI self-portrait, made with Gemini 2.5 Pro) and the photograph *awalkaday 91-2022* |
 | Rights | Code: EUPL-1.2. Text, score, audio, print files: CC BY-NC-ND 4.0. See [`/LICENSE`](../LICENSE) |

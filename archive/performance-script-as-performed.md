@@ -33,7 +33,7 @@ The words were not checked by listening or by speech transcription. The directio
 | Opening | Prelude: five seconds of church ambience | Scene 0: bells, organ drone, a whispered "Someone else...", the report's title |
 | Order | Follows the Roman numerals | The Church Leader speaks first and the Chorus answers: III before II, V before IV, VII before VI |
 | Voices | Four | Four, and a full ensemble for AMEN and HUGS |
-| Scene VIII | "the oldest among non-whitened aliens" | "the OGs among non-whitened aliens" |
+| Scene VIII | "the oldest among non-whitened aliens" | "the OGs among non-whitened aliens", as in the story's [Arweave record](./context.md#what-dates-the-text) |
 | Scene IX | "Chain of Thoughts", three signal headings | "Distracting Chain-of-Thoughts"; the Eyewitness speaks the headings |
 | Coda | Optional | Always played, with a new closing paragraph taken from the original story |
 | Duration | About 13 to 16 minutes | 17 minutes 55 seconds |
