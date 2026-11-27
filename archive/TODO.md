@@ -13,6 +13,8 @@ Drafted 27 November 2026, five days after closing. Owners are proposals:
 - [ ] **A** Do not delete `app/dist/`; copy it to a second place. It holds
       `ab/` (audio files) and `node_modules/` (reported 27 November).
 - [ ] **A** Look for `app/dist/directions/` and `app/dist/trailer-fragments/`.
+      The director's output is one JSON file per scene, such as
+      `09-praying-alien.json`; `app/src/director/` is the code, not the output.
 - [ ] **A** Collect originals that git lacks or holds only compressed:
       speech recording, introduction video source, installation photos and videos,
       full-size photograph, bulletin and specification PDFs as printed, textile
@@ -38,7 +40,18 @@ Drafted 27 November 2026, five days after closing. Owners are proposals:
       git push origin closing-2026-11-22
 
 - [ ] **A** Answer the [open questions](./questions-for-the-artist.md).
+- [ ] **A** Secure the proof of publication described in
+      [`context.md`](./context.md): save the Arweave record, the transaction page
+      and the token metadata to one folder, and add it with
+      `--add publication-proof=<that folder>`.
+- [ ] **A** Print the [Venice page](https://daqhris.com/venice-biennale) postcard to
+      PDF, save the page source beside it, and add both with
+      `--add venice-page=<that folder>`.
+- [ ] **H, A** Record the real colour and surface of the wall.
 - [ ] **A** Send the cover note to the host artist, curator and museum.
+- [ ] **A** Listen through once with the
+      [as-performed script](./performance-script-as-performed.md), correct it and
+      approve it. After editing the Markdown, export the PDF again.
 - [ ] **A** Pack the local npm dependencies into one file. As a folder, the
       deposit script would leave out nested `node_modules` and links:
 
