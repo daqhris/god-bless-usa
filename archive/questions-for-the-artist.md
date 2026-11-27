@@ -3,6 +3,16 @@
 For Chris-Armel Iradukunda. Write the answers under each item and date them. The
 answers outrank the proposals in the other documents.
 
+## Answered on 27 November 2026
+
+- **Visitor statistics:** no web traffic statistics were recorded, by design.
+- **"First" claim:** the author agrees that another artist of Burundian origin had
+  taken part in the Biennale in a more formal way (see below).
+- **Local files:** the author still has `app/dist/ab` (audio files) and
+  `app/dist/node_modules` (npm dependencies).
+- **Performance script:** the April script served for direction; later changes
+  affected especially the opening and the order of scenes.
+
 ## Inconsistencies found in the sources
 
 | # | Subject | Source A | Source B |
@@ -15,7 +25,9 @@ answers outrank the proposals in the other documents.
 | 6 | Voice engines | CosyVoice 2 and Chatterbox described as bundled (`app/README.md`, `app/SUBMISSION.md`) | only Kokoro is implemented in the code |
 | 7 | Photograph date | title says 91-2022; page says blockchain 2023 | year of capture not stated on the page |
 | 8 | Token address | `0xaec1…337e` given as the contract (README) | a second address, `0x2193…0a72`, linked for the source code |
+| 9 | Opening bells | recording blended with a synthesized peal (`preview.html`) | the code uses the recording in place of the synthesized peal when the file is present |
 
+- Do the directions in `app/dist/directions/` still exist?
 - What was physically installed (items 1 to 4)?
 - Which wording goes in the museum record?
 

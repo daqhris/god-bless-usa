@@ -10,8 +10,9 @@ Drafted 27 November 2026, five days after closing. Owners are proposals:
       a scale reference.
 - [ ] **H, M** Record where each physical object is, who is responsible, its
       condition, and where it goes next.
-- [ ] **A** Do not delete `app/dist/`. Look for `app/dist/directions/` and
-      `app/dist/trailer-fragments/`, and copy them to a second place.
+- [ ] **A** Do not delete `app/dist/`; copy it to a second place. It holds
+      `ab/` (audio files) and `node_modules/` (reported 27 November).
+- [ ] **A** Look for `app/dist/directions/` and `app/dist/trailer-fragments/`.
 - [ ] **A** Collect originals that git lacks or holds only compressed:
       speech recording, introduction video source, installation photos and videos,
       full-size photograph, bulletin and specification PDFs as printed, textile
@@ -37,9 +38,18 @@ Drafted 27 November 2026, five days after closing. Owners are proposals:
       git push origin closing-2026-11-22
 
 - [ ] **A** Answer the [open questions](./questions-for-the-artist.md).
-- [ ] **A** Build the deposit package, adding what was collected, then verify it:
+- [ ] **A** Send the cover note to the host artist, curator and museum.
+- [ ] **A** Pack the local npm dependencies into one file. As a folder, the
+      deposit script would leave out nested `node_modules` and links:
+
+      tar -czf ../node_modules.tar.gz -C app/dist node_modules
+
+- [ ] **A** Build the deposit package, adding what was collected, then verify it.
+      Remove any `--add` line whose folder does not exist:
 
       python3 archive/build_deposit.py build --out ../deposit-2026 \
+        --add audio-drafts=app/dist/ab \
+        --add dependencies=../node_modules.tar.gz \
         --add director-output=app/dist/directions \
         --add installation=/path/to/photos \
         --add originals=/path/to/originals
@@ -66,7 +76,8 @@ Drafted 27 November 2026, five days after closing. Owners are proposals:
       co-authored installation photos, quoted names and logos.
 - [ ] **A** Write a transcript or captions for the performance, speech and video.
 - [ ] **A** Add the voice model cache after a successful render
-      (`app/node_modules/@huggingface/transformers/.cache/` by default):
+      (`node_modules/@huggingface/transformers/.cache/` by default, under `app/`;
+      check `app/dist/node_modules` too):
       `--add voice-model=<that folder>`.
 - [ ] **A** Optional: publish a GitHub release and a
       [Zenodo](https://zenodo.org/) record to obtain a DOI. This creates a public,

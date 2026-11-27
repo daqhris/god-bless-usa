@@ -10,7 +10,7 @@ to amend. It is not legal advice.
 | The performance as heard | Audio master, scene files, web player | 1 |
 | The encounter | QR code, personal phone, headphones, one start button, ending | 1 |
 | The physical trio | Printed bulletin, textile, photograph, frames, loupe, wall, placement | 1 (held outside this repository) |
-| The making | Story, performance score, director prompt and schema, direction files, code, git history | 2 |
+| The making | Story, performance script, scene files, director prompt and schema, direction files, code, git history | 2 |
 | The context | Opening speech, introduction video, installation photos, credits, press | 2 |
 
 ## 2. Significant properties (proposed)
@@ -19,8 +19,9 @@ These describe what makes the work itself. The author decides the final list.
 
 **Keep**
 
-- The exact audio of the master, including its silences. The score asks for true
-  silence where marked; do not trim or "repair" it.
+- The exact audio of the master, including its pauses. A faint drone runs under
+  the master, through the marked silences too. Do not trim, denoise or "repair"
+  it.
 - Each listener starts their own session. No loop and no scrubbing: the player's
   code calls the piece "a ceremony, not a media file".
 - Private listening through headphones on a personal device.
@@ -47,7 +48,8 @@ never overwrite the 2026 master.
 ## 3. How the work was made
 
 ```
-story (Dec 2024) → performance score (.md)
+story (Dec 2024) → performance script (April 2026)
+  → 15 scene files (app/scenes/*.md): revised text and stage directions
   → director: Claude Opus 4.7, one call per scene → direction files (JSON)
   → voices: Kokoro-82M + synthesized sound beds → 15 scene WAVs
   → concatenation → god-bless-usa.wav → Opus and AAC copies
@@ -55,6 +57,9 @@ story (Dec 2024) → performance score (.md)
 ```
 
 The author also steered the result through repeated listening passes.
+
+The scene files are in the repository. They differ from the April script, mainly
+in a new opening, the playback order and an extended coda.
 
 **Gap.** The direction files were written to `app/dist/directions/`, which git
 ignores. They are not in the repository or its history. The three files in

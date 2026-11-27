@@ -6,7 +6,8 @@ collection.
 > **Status: draft, 27 November 2026.** Prepared after the closing of the 61st
 > Venice Biennale with the help of an AI assistant (Claude Sonnet 5.5, which did
 > not take part in making the work). Compiled from this repository and public web
-> pages. The author has not yet confirmed it. Open points are listed in
+> pages. The author has answered some points but has not yet approved the whole.
+> Answers and open points are in
 > [`questions-for-the-artist.md`](./questions-for-the-artist.md).
 
 | Document | What it answers |
@@ -23,6 +24,7 @@ collection.
 | Field | Value |
 |---|---|
 | Title | *God Bless The United States Of Aliens. An All-Seeing Eyewitness Report* |
+| Short description | "A nonhuman-voiced Catholic mass ceremony, an all-seeing eyewitness report, a prescient prophecy." (the author's wording, in use at [radio.hectolitre.be](https://radio.hectolitre.be/pages/works/god-bless-usa.html)) |
 | Author | Chris-Armel Iradukunda (daqhris), born 1992, Bujumbura; works in Brussels |
 | Co-direction | Chris-Armel Iradukunda and Claude Opus 4.7 (AI model by Anthropic). The author is the primary author and creative director |
 | Type | Web-based, AI-voiced sound performance, heard on the visitor's phone through headphones, reached by a QR code on a printed liturgical bulletin |
@@ -36,8 +38,8 @@ collection.
 | Rights | Code: EUPL-1.2. Text, score, audio, print files: CC BY-NC-ND 4.0. See [`/LICENSE`](../LICENSE) |
 | Contact | media@daqhris.com |
 
-**Attendance.** The site has no visitor analytics, so the number of listeners is
-unknown. The 714,015 visitors [reported for the whole Biennale](https://hyperallergic.com/momentous-61st-venice-biennale-ends-with-2nd-highest-visitor-turnout/)
+**Attendance.** By design, no web traffic statistics were recorded (author, 27
+November 2026), so the number of listeners is unknown. The 714,015 visitors [reported for the whole Biennale](https://hyperallergic.com/momentous-61st-venice-biennale-ends-with-2nd-highest-visitor-turnout/)
 must not be presented as the audience of this work.
 
 ## The two reference versions
