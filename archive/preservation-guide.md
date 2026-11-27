@@ -59,7 +59,8 @@ story (Dec 2024) → performance script (April 2026)
 The author also steered the result through repeated listening passes.
 
 The scene files are in the repository. They differ from the April script, mainly
-in a new opening, the playback order and an extended coda.
+in a new opening, the playback order and an extended coda. The
+[as-performed script](./performance-script-as-performed.md) brings them together.
 
 **Gap.** The direction files were written to `app/dist/directions/`, which git
 ignores. They are not in the repository or its history. The three files in

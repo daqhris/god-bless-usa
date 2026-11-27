@@ -39,6 +39,9 @@ Drafted 27 November 2026, five days after closing. Owners are proposals:
 
 - [ ] **A** Answer the [open questions](./questions-for-the-artist.md).
 - [ ] **A** Send the cover note to the host artist, curator and museum.
+- [ ] **A** Listen through once with the
+      [as-performed script](./performance-script-as-performed.md), correct it and
+      approve it. After editing the Markdown, export the PDF again.
 - [ ] **A** Pack the local npm dependencies into one file. As a folder, the
       deposit script would leave out nested `node_modules` and links:
 

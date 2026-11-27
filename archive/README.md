@@ -13,6 +13,7 @@ collection.
 | Document | What it answers |
 |---|---|
 | This file | What is the work, which versions matter, how to play it |
+| [`performance-script-as-performed.md`](./performance-script-as-performed.md) ([PDF](./performance-script-as-performed.pdf)) | The script as heard in the audio master, with times (draft) |
 | [`preservation-guide.md`](./preservation-guide.md) | What must be kept, what can break, how to show it again |
 | [`TODO.md`](./TODO.md) | Who does what, and in which order |
 | [`questions-for-the-artist.md`](./questions-for-the-artist.md) | Decisions and inconsistencies to settle |

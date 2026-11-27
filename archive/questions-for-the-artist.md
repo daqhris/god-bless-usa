@@ -33,6 +33,8 @@ answers outrank the proposals in the other documents.
 
 ## The work
 
+- Do you approve the [as-performed script](./performance-script-as-performed.md)?
+  Should the pavilion page, which links to the April PDF, link to it as well?
 1. Which is the reference version: opening, closing, or both?
 2. Is the work the sound alone, the sound with the bulletin, or the trio on its
    wall? Can each be shown separately?
