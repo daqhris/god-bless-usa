@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you cite or document this work, please use these details."
+title: "God Bless The United States Of Aliens: An All-Seeing Eyewitness Report"
+type: software
+abstract: >-
+  Web-based, AI-voiced sound performance of a short story by Chris-Armel
+  Iradukunda (daqhris), co-directed with Claude Opus 4.7 (AI model, Anthropic)
+  and voiced with Kokoro-82M. Shown as a guest work in Domus Diasporica, the
+  Pavilion of Bosnia and Herzegovina at the 61st International Art Exhibition,
+  La Biennale di Venezia, 9 May to 22 November 2026.
+authors:
+  - given-names: Chris-Armel
+    family-names: Iradukunda
+    alias: daqhris
+    email: media@daqhris.com
+version: vernissage-2026-05-08
+date-released: "2026-05-08"
+commit: 3d33f0d55d49ec98b6718cb63219e604e9f28953
+repository-code: "https://github.com/daqhris/god-bless-usa"
+url: "https://daqhris.com/god-bless-usa/"
+license-url: "https://github.com/daqhris/god-bless-usa/blob/main/LICENSE"
+keywords:
+  - net art
+  - sound performance
+  - AI co-direction
+  - text-to-speech
+  - Venice Biennale 2026

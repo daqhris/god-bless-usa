@@ -45,6 +45,10 @@ The source material at this repository root (story, HTML, PDFs, performance scri
 
 **100% open-source under a dual licence.** Code (the engine) under [EUPL-1.2](./LICENSES/EUPL-1.2.txt); performance and text (the artwork) under [CC BY-NC-ND 4.0](./LICENSES/CC-BY-NC-ND-4.0.txt), governed by Belgian law. Full statement in [`/LICENSE`](./LICENSE). Museum-archivable as a single self-contained folder — pure HTML / CSS / JavaScript + pre-rendered WAV audio, no server dependencies, no build step at runtime.
 
+### Archive
+
+The exhibition closed on November 22, 2026. Notes for museums and long-term preservation (catalogue record, guide, to-do list, checksums and a deposit-package script) are in [`/archive`](./archive/README.md).
+
 ---
 
 **Copyright © 2024-2026 [daqhris](https://daqhris.com)**
