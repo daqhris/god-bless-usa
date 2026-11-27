@@ -1,0 +1,26 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "type": "SoftwareSourceCode",
+  "name": "God Bless The United States Of Aliens",
+  "description": "Web-based, AI-voiced sound performance. Code under EUPL-1.2; story, score, audio and print files under CC BY-NC-ND 4.0. See the LICENSE file for which applies to what.",
+  "author": [
+    {
+      "type": "Person",
+      "givenName": "Chris-Armel",
+      "familyName": "Iradukunda",
+      "alternateName": "daqhris",
+      "email": "media@daqhris.com"
+    }
+  ],
+  "codeRepository": "https://github.com/daqhris/god-bless-usa",
+  "url": "https://daqhris.com/god-bless-usa/",
+  "version": "vernissage-2026-05-08",
+  "datePublished": "2026-05-08",
+  "license": [
+    "https://spdx.org/licenses/EUPL-1.2",
+    "https://spdx.org/licenses/CC-BY-NC-ND-4.0"
+  ],
+  "programmingLanguage": ["TypeScript", "JavaScript", "HTML", "CSS"],
+  "runtimePlatform": ["Web browser", "Node.js >= 20.11 (rendering only)"],
+  "keywords": ["net art", "sound performance", "AI co-direction", "text-to-speech", "Venice Biennale 2026"]
+}

@@ -46,7 +46,7 @@ The director is **engine-agnostic** by design: Opus 4.7 produces SSML and sound-
 
 **GitHub Pages as a host.** Pages serves static files only. Our pipeline is:
 
-- **Build-time (your laptop or CI)** — `npm run render:all` calls Claude Opus 4.7 as director, then Kokoro-82M as TTS. Both the direction JSON and the final `.wav` land under `public/`.
+- **Build-time (your laptop or CI)** — `npm run render:all` calls Claude Opus 4.7 as director, then Kokoro-82M as TTS. The final `.wav` lands under `public/`; the direction JSON lands in `dist/directions/`, which git ignores, so back it up separately (see [`/archive`](../archive/README.md)).
 - **Runtime (Pages)** — static HTML + pre-rendered WAV, zero server, zero per-visit API cost. Museum-archivable as a single folder.
 
 The only piece Pages can't host is the **live director mode** (the stretch half of our hybrid) — it would need to hold an `ANTHROPIC_API_KEY`. That lives behind a tiny serverless function (Cloudflare Workers or a Vercel edge function) in PR #5 and is kept separate from the Biennale URL.
